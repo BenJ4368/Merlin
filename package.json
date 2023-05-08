@@ -1,0 +1,16 @@
+{
+  "name": "merlin",
+  "version": "1.0.0",
+  "description": "Created by ./BenJ#5533",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "./BenJ#5533",
+  "license": "ISC",
+  "dependencies": {
+    "@joshmiquel/hirez": "^3.0.1",
+    "discord.js": "^14.11.0",
+    "fs": "^0.0.1-security"
+  }
+}
