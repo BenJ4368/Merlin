@@ -5,7 +5,6 @@ module.exports = {
 	name: Discord.Events.ClientReady,
 	once: true,
 	execute(bot) {
-
 		console.log(`${color.cyan}[Ready]		${color.blue}${bot.user.tag} ${color.green}online.${color.stop}`);
 
 		bot.user.setPresence({
