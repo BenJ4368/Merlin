@@ -10,7 +10,9 @@
   "license": "ISC",
   "dependencies": {
     "@joshmiquel/hirez": "^3.0.1",
+    "axios": "^1.4.0",
     "discord.js": "^14.11.0",
-    "fs": "^0.0.1-security"
+    "fs": "^0.0.1-security",
+    "jimp": "^0.22.8"
   }
 }
