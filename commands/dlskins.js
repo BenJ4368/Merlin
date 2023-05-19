@@ -19,6 +19,10 @@ module.exports = {
 			const promises = [];
 			const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
+			if (!fs.existsSync('./resources/gods')) {
+				fs.mkdirSync('./resources/gods');
+			}
+
 			for (const god of gods) {
 				const godName = god.Name;
 				const godFolderPath = `./resources/gods/${godName}`;
