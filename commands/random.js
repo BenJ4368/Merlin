@@ -32,6 +32,8 @@ module.exports = {
 			else
 				gods = await hirez.getGods();
 
+			// const aphrodite = gods.find(god => god.Name === 'Aphrodite');
+			// console.log(aphrodite);
 			const randomGod = gods[Math.floor(Math.random() * gods.length)];
 			const skins = await hirez.getGodSkins(randomGod.id);
 			const standardSkin = skins.find((skin) => /standard/i.test(skin.skin_name));
