@@ -47,7 +47,7 @@ module.exports = {
 				});
 		} catch (error) {
 			console.log(error);
-			interaction.reply('An error occured while trying to acces the Hi-Rez API.');
+			interaction.reply('An error occured. Please try again in a couple seconds, or contact ./BenJ#5533');
 		}
 	}
 }
