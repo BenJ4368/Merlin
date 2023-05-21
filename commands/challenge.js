@@ -2,34 +2,62 @@ const Discord = require('discord.js');
 const Jimp = require('jimp');
 const fs = require('fs');
 
-async function playDeityImage(interaction) {
-	// choisir un dossier aléatoire ./resources/gods/${randomDir} parmis tout les dossiers présents
-	const directories = fs.readdirSync("./resources/gods/", { withFileTypes: true })
+function sleep(seconds) {
+	return new Promise(resolve => setTimeout(resolve, 1000 * seconds));
+}
+
+async function playDeityImage(CommandInteraction) {
+
+	const directories = fs.readdirSync('./resources/gods/', { withFileTypes: true })
 		.filter(dirent => dirent.isDirectory())
 		.map(dirent => dirent.name);
-	const randomDir = directories[Math.floor(Math.random() * directories.length)];
-	const GodAnswer = randomDir; // console.log la réponse
-	console.log(GodAnswer);
 
-	// puis, choisir un fichier aléatoire ./resources/gods/${randomDir}/skins/${randomFile}
-	const files = fs.readdirSync(`./resources/gods/${randomDir}/skins/`, { withFileTypes: true })
+	// choisir un dossier aléatoire ./resources/gods/${randomDir} parmis tout les dossiers présents
+	const selectedDirectories = [];
+	while (selectedDirectories.length < 25) {
+		const randomIndex = Math.floor(Math.random() * directories.length);
+		const randomDirectory = directories[randomIndex];
+		if (!selectedDirectories.includes(randomDirectory)) {
+			selectedDirectories.push(randomDirectory);
+		}
+	}
+	const godAnswer = selectedDirectories[Math.floor(Math.random() * selectedDirectories.length)];
+	console.log(godAnswer);
+
+	// puis, choisir un fichier aléatoire ./resources/gods/${godAnswer}/skins/${randomFile}
+	const files = fs.readdirSync(`./resources/gods/${godAnswer}/skins/`, { withFileTypes: true })
 		.filter(dirent => dirent.isFile())
 		.map(dirent => dirent.name);
 	const randomFile = files[Math.floor(Math.random() * files.length)];
-	console.log(randomFile); // console.log le nom du fichier choisi
 
-
-	const image = await Jimp.read(`./resources/gods/${randomDir}/skins/${randomFile}`);
+	const image = await Jimp.read(`./resources/gods/${godAnswer}/skins/${randomFile}`);
 	const x = Math.floor(Math.random() * (image.getWidth() - 300));
 	const y = Math.floor(Math.random() * (image.getHeight() - 300));
 	const croppedImage = await image.clone().crop(x, y, 300, 300).getBufferAsync(Jimp.MIME_PNG);
 
+	const actionRows = [];
+	for (let i = 1; i <= 5; i++) {
+		const buttons = [];
+
+		for (let j = 1; j <= 5; j++) {
+			const godName = selectedDirectories[(i - 1) * 5 + j - 1]
+			const button = new Discord.ButtonBuilder()
+				.setCustomId(`${godName}`)
+				.setLabel(`${godName}`)
+				.setStyle(Discord.ButtonStyle.Secondary);
+			buttons.push(button);
+		}
+		const actionRow = new Discord.ActionRowBuilder()
+			.setComponents(buttons);
+		actionRows.push(actionRow);
+	}
+
 	const embed = new Discord.EmbedBuilder()
 		.setTitle("Who is this deity ?")
-		.setDescription("You have 40 seconds. Please answer using my /answer command.")
+		.setDescription("You have 40 seconds to answer using the buttons below.")
 		.setColor(Discord.Colors.DarkOrange)
 
-	const message = await interaction.reply({
+	const message = await CommandInteraction.reply({
 		embeds: [embed],
 		files: [{
 			attachment: croppedImage,
@@ -38,30 +66,94 @@ async function playDeityImage(interaction) {
 		fetchReply: true,
 	});
 
+	const buttonMessage = await CommandInteraction.channel.send({
+		content: "_ _",
+		components: actionRows
+	})
+
+	await message.react("\u23F3");
 	await message.react('4️⃣');
 	await message.react('0️⃣');
 	let timeLeft = 40;
 
-	const interval = setInterval(async () => {
+	const cooldown = setInterval(async () => {
 		timeLeft -= 5;
-		
+
 		if (timeLeft >= 10) {
-			await message.reactions.removeAll();
+
+			await message.reactions.cache
+				.filter(reaction => [
+					String.fromCharCode(0x30 + Math.floor((timeLeft + 5) % 10)) + '️⃣',
+					String.fromCharCode(0x30 + Math.floor((timeLeft + 5) / 10)) + '️⃣']
+					.includes(reaction.emoji.name))
+				.forEach(reaction => reaction.remove());
+			await sleep(0.5);
 			await message.react(String.fromCharCode(0x30 + Math.floor(timeLeft / 10)) + '️⃣');
 			await message.react(String.fromCharCode(0x30 + Math.floor(timeLeft % 10)) + '️⃣');
 			//console.log(String.fromCharCode(0x30 + Math.floor(timeLeft / 10)) + '️⃣', String.fromCharCode(0x30 + Math.floor(timeLeft % 10)) + '️⃣');
 		} else if (timeLeft > 0) {
-			await message.reactions.removeAll();
+			await message.reactions.cache
+				.filter(reaction => [
+					String.fromCharCode(0x30 + Math.floor((timeLeft + 5) % 10)) + '️⃣',
+					String.fromCharCode(0x30 + Math.floor((timeLeft + 5) / 10)) + '️⃣']
+					.includes(reaction.emoji.name))
+				.forEach(reaction => reaction.remove());
+			await sleep(0.5);
 			await message.react(String.fromCharCode(0x30 + Math.floor(timeLeft % 10)) + '️⃣');
 			//console.log(String.fromCharCode(0x30 + Math.floor(timeLeft % 10)) + '️⃣');
 		}
 
 		if (timeLeft <= 0) {
-			clearInterval(interval);
+			buttonMessage.delete()
 			await message.reactions.removeAll();
 			await message.react('❌');
+			clearInterval(cooldown);
 		}
 	}, 5000);
+
+	try {
+		const collector = new Discord.InteractionCollector(CommandInteraction.client, {
+			message: buttonMessage,
+			componentType: Discord.ComponentType.Button,
+			time: 40000
+		});
+
+		collector.on('collect', async userPressedButton => {
+			if (userPressedButton.customId == godAnswer) {
+				clearInterval(cooldown);
+				buttonMessage.delete()
+				await message.reactions.removeAll();
+				await sleep(0.5);
+				await message.react('✅');
+				embed
+					.setTitle(`${userPressedButton.member.displayName} is right !`)
+					.setDescription(`The answer was : ${godAnswer}`)
+					.setColor(Discord.Colors.Red)
+				await CommandInteraction.editReply({
+					embeds: [embed],
+				});
+			}
+			else {
+				const rowOfWrongButton = userPressedButton.message.components.find(actionRow =>
+					actionRow.components.some(component =>component.customId === userPressedButton.customId)
+				);
+				const wrongButtonIndex = rowOfWrongButton.components
+					.findIndex(component => component.customId === userPressedButton.customId);
+				rowOfWrongButton.components.splice(wrongButtonIndex, 1);
+				await userPressedButton.update({
+					components: userPressedButton.message.components
+				});
+			}
+		})
+	} catch (error) {
+		embed
+			.setTitle("You ran out of time.")
+			.setDescription(`The answer was : ${godAnswer}`)
+			.setColor(Discord.Colors.Red)
+		await CommandInteraction.editReply({
+			embeds: [embed],
+		});
+	}
 }
 
 module.exports = {
@@ -69,13 +161,12 @@ module.exports = {
 		.setName('challenge')
 		.setDescription('Merlin will challenge your Smite knowledge.'),
 
-	async execute(interaction)
-	{
+	async execute(CommandInteraction) {
 		try {
-			playDeityImage(interaction);
+			playDeityImage(CommandInteraction);
 		} catch (error) {
 			console.log(error);
-			interaction.reply('An error occured. Please try again in a couple seconds, or contact ./BenJ#5533');
+			CommandInteraction.reply('An error occured. Please try again in a couple seconds, or contact ./BenJ#5533');
 		}
 	}
 }
