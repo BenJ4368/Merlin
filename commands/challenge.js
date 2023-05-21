@@ -104,56 +104,53 @@ async function playDeityImage(CommandInteraction) {
 		}
 
 		if (timeLeft <= 0) {
+			clearInterval(cooldown);
 			buttonMessage.delete()
 			await message.reactions.removeAll();
 			await message.react('❌');
-			clearInterval(cooldown);
+			embed
+				.setTitle("You ran out of time.")
+				.setDescription(`The answer was : ${godAnswer}`)
+				.setColor(Discord.Colors.Red)
+			await CommandInteraction.editReply({
+				embeds: [embed],
+			});
 		}
 	}, 5000);
 
-	try {
-		const collector = new Discord.InteractionCollector(CommandInteraction.client, {
-			message: buttonMessage,
-			componentType: Discord.ComponentType.Button,
-			time: 40000
-		});
+	const collector = new Discord.InteractionCollector(CommandInteraction.client, {
+		message: buttonMessage,
+		componentType: Discord.ComponentType.Button,
+		time: 40000
+	});
 
-		collector.on('collect', async userPressedButton => {
-			if (userPressedButton.customId == godAnswer) {
-				clearInterval(cooldown);
-				buttonMessage.delete()
-				await message.reactions.removeAll();
-				await sleep(0.5);
-				await message.react('✅');
-				embed
-					.setTitle(`${userPressedButton.member.displayName} is right !`)
-					.setDescription(`The answer was : ${godAnswer}`)
-					.setColor(Discord.Colors.Red)
-				await CommandInteraction.editReply({
-					embeds: [embed],
-				});
-			}
-			else {
-				const rowOfWrongButton = userPressedButton.message.components.find(actionRow =>
-					actionRow.components.some(component =>component.customId === userPressedButton.customId)
-				);
-				const wrongButtonIndex = rowOfWrongButton.components
-					.findIndex(component => component.customId === userPressedButton.customId);
-				rowOfWrongButton.components.splice(wrongButtonIndex, 1);
-				await userPressedButton.update({
-					components: userPressedButton.message.components
-				});
-			}
-		})
-	} catch (error) {
-		embed
-			.setTitle("You ran out of time.")
-			.setDescription(`The answer was : ${godAnswer}`)
-			.setColor(Discord.Colors.Red)
-		await CommandInteraction.editReply({
-			embeds: [embed],
-		});
-	}
+	collector.on('collect', async userPressedButton => {
+		if (userPressedButton.customId == godAnswer) {
+			clearInterval(cooldown);
+			buttonMessage.delete()
+			await sleep(1);
+			await message.reactions.removeAll();
+			await message.react('✅');
+			embed
+				.setTitle(`${userPressedButton.member.displayName} is right !`)
+				.setDescription(`The answer was : ${godAnswer}`)
+				.setColor(Discord.Colors.Red)
+			await CommandInteraction.editReply({
+				embeds: [embed],
+			});
+		}
+		else {
+			const rowOfWrongButton = userPressedButton.message.components.find(actionRow =>
+				actionRow.components.some(component => component.customId === userPressedButton.customId)
+			);
+			const wrongButtonIndex = rowOfWrongButton.components
+				.findIndex(component => component.customId === userPressedButton.customId);
+			rowOfWrongButton.components.splice(wrongButtonIndex, 1);
+			await userPressedButton.update({
+				components: userPressedButton.message.components
+			});
+		}
+	})
 }
 
 module.exports = {

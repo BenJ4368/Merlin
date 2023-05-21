@@ -7,6 +7,7 @@ module.exports = {
 	execute(bot) {
 		console.log(`${color.cyan}[Ready]		${color.blue}${bot.user.tag} ${color.green}online.${color.stop}`);
 
+		//client.application.commands.set([])
 		bot.user.setPresence({
 			status: 'online',
 		})
