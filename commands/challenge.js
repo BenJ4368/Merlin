@@ -141,11 +141,15 @@ async function playDeityImage(CommandInteraction) {
 		}
 		else {
 			const rowOfWrongButton = userPressedButton.message.components.find(actionRow =>
-				actionRow.components.some(component => component.customId === userPressedButton.customId)
-			);
+				actionRow.components.some(component => component.customId === userPressedButton.customId));
 			const wrongButtonIndex = rowOfWrongButton.components
 				.findIndex(component => component.customId === userPressedButton.customId);
 			rowOfWrongButton.components.splice(wrongButtonIndex, 1);
+			if (rowOfWrongButton.components.length === 0) {
+				const messageComponents = userPressedButton.message.components;
+				const rowIndex = messageComponents.findIndex(actionRow => actionRow === rowOfWrongButton);
+				messageComponents.splice(rowIndex, 1);
+			}
 			await userPressedButton.update({
 				components: userPressedButton.message.components
 			});
