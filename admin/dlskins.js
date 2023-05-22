@@ -93,7 +93,7 @@ module.exports = {
 					}
 				}
 			}
-			interaction.reply("done");
+			await interaction.followUp("done");
 			await Promise.all(promises);
 		} catch (error) {
 			console.log(error);
