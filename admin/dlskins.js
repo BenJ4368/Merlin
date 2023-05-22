@@ -14,7 +14,7 @@ module.exports = {
 	serverId: '881683007688282122',
 	async execute(interaction) {
 		try {
-			interaction.reply("DLskin completed");
+			await interaction.deferReply();
 			const hirez = new Hirez.Smite(config.hirezDevId, config.hirezAuthKey);
 			const gods = await hirez.getGods();
 
@@ -77,10 +77,9 @@ module.exports = {
 					}
 				}
 			}
-			await Promise.all(promises);
 		} catch (error) {
 			console.log(error);
-			interaction.reply('An error occurred while trying to access the Hi-Rez API.');
+			await interaction.followUp("DLskin completed");
 		}
 	}
 };
