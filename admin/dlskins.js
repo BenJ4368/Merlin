@@ -17,8 +17,6 @@ module.exports = {
 			interaction.reply("DLskin completed");
 			const hirez = new Hirez.Smite(config.hirezDevId, config.hirezAuthKey);
 			const gods = await hirez.getGods();
-			const promises = [];
-			const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 			if (!fs.existsSync('./resources/gods')) {
 				fs.mkdirSync('./resources/gods');
@@ -46,22 +44,15 @@ module.exports = {
 						const savePath = `${skinsFolderPath}/${fileName}`;
 
 						if (!fs.existsSync(savePath)) {
-							promises.push(
-								new Promise((resolve, reject) => {
-									fetch(skinURL)
-										.then(async (response) => {
-											const dest = fs.createWriteStream(savePath);
-											response.body.pipe(dest);
-											await delay(250);
-											console.log(`${color.cyan}[dlskins] ${color.white}${fileName} ${color.green}was successfully downloaded.${color.stop}`);
-											resolve();
-										})
-										.catch((error) => {
-											console.error(`${color.cyan}[dlskins] ${color.white}${fileName} ${color.red}downloading error: ${color.yellow}${error.message}${color.stop}`);
-											reject(error);
-										});
+							fetch(skinURL)
+								.then(async (response) => {
+									const dest = fs.createWriteStream(savePath);
+									response.body.pipe(dest);
+									console.log(`${color.cyan}[dlskins] ${color.white}${fileName} ${color.green}was successfully downloaded.${color.stop}`);
 								})
-							);
+								.catch((error) => {
+									console.error(`${color.cyan}[dlskins] ${color.white}${fileName} ${color.red}downloading error: ${color.yellow}${error.message}${color.stop}`);
+								});
 						}
 						else {
 							try {
@@ -71,24 +62,16 @@ module.exports = {
 								} else {
 									console.log(`${color.cyan}[dlskins] ${color.white}${fileName} ${color.red}is not valid. ${color.yellow}Re-downloading...${color.stop}`);
 									fs.unlinkSync(savePath);
-									promises.push(
-										new Promise((resolve, reject) => {
-											fetch(skinURL)
-												.then(async (response) => {
-													const dest = fs.createWriteStream(savePath);
-													response.body.pipe(dest);
-													await delay(250);
-													console.log(`${color.cyan}[dlskins] ${color.white}${fileName} ${color.green}successfully ${color.yellow}re-downloaded.${color.stop}`);
-													resolve();
-												})
-												.catch((error) => { reject(error) });
-										})
-									);
 								}
 							} catch (error) {
-								console.log(`${color.cyan}[dlskins] ${color.white}${fileName} ${color.red}re-downloading error: ${color.yellow}${error.message}${color.stop}\n${skinURL}`);
 								fs.unlinkSync(savePath);
-								console.log(`/// ${savePath} supprimé///`);
+								console.log(`${color.cyan}[dlskins] ${color.white}${fileName} ${color.red}re-downloading error: ${color.yellow}${error.message}${color.stop}\n${skinURL}`);
+								fetch(skinURL)
+									.then(async (response) => {
+										const dest = fs.createWriteStream(savePath);
+										response.body.pipe(dest);
+										console.log(`${color.cyan}[dlskins] ${color.white}${fileName} ${color.green}successfully ${color.yellow}re-downloaded.${color.stop}`);
+								})
 							}
 						}
 					}
