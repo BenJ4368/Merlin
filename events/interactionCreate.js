@@ -9,11 +9,10 @@ module.exports = {
 			return;
 
 		const bot = interaction.client;
-		const command = bot.commands.get(interaction.commandName);
+		let command = bot.commands.get(interaction.commandName);
 
 		if (!command) {
-			console.error(`${color.cyan}[InteractionCreate]	${color.red}No command matching ${color.yellow}${interaction.commandName} ${color.red}was found.${color.stop}`);
-			return;
+			command = bot.adminCommands.get(interaction.commandName);
 		}
 
 		try {
