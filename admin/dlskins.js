@@ -11,7 +11,6 @@ module.exports = {
 	data: new Discord.SlashCommandBuilder()
 		.setName('dlskins')
 		.setDescription('dl skins'),
-	guilds: ['881683007688282122'],
 	async execute(interaction) {
 		try {
 			const hirez = new Hirez.Smite(config.hirezDevId, config.hirezAuthKey);
