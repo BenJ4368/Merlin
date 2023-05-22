@@ -14,6 +14,7 @@ module.exports = {
 	serverId: '881683007688282122',
 	async execute(interaction) {
 		try {
+			interaction.reply("DLskin completed");
 			const hirez = new Hirez.Smite(config.hirezDevId, config.hirezAuthKey);
 			const gods = await hirez.getGods();
 			const promises = [];
@@ -93,7 +94,6 @@ module.exports = {
 					}
 				}
 			}
-			await interaction.followUp("done");
 			await Promise.all(promises);
 		} catch (error) {
 			console.log(error);
