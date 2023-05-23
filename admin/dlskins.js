@@ -57,7 +57,7 @@ async function dlskins() {
 						} else {
 							console.log(`${color.cyan}[dlskins] ${color.white}${fileName} ${color.red}is not valid. ${color.yellow}Deleting...${color.stop}`);
 							fs.unlinkSync(savePath);
-							console.log(`${color.cyan}[dlskins] ${color.red}is not valid. ${color.yellow}Deleting...${color.stop}`);
+							console.log(`${color.cyan}[dlskins] ${color.red}${fileName} deleted.${color.stop}`);
 						}
 
 					}
