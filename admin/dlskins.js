@@ -57,9 +57,7 @@ async function dlskins() {
 						} else {
 							console.log(`${color.cyan}[dlskins] ${color.white}${fileName} ${color.red}is not valid. ${color.yellow}Re-downloading...${color.stop}`);
 							fs.unlinkSync(savePath);
-						}
-
-						fetch(skinURL)
+							fetch(skinURL)
 							.then(async (response) => {
 								const dest = fs.createWriteStream(savePath);
 								response.body.pipe(dest);
@@ -72,6 +70,8 @@ async function dlskins() {
 								console.log(`${color.cyan}[dlskins]`);
 								console.log(`${color.cyan}[dlskins]`);
 							});
+						}
+
 					}
 				}
 			}
