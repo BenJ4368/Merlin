@@ -69,4 +69,19 @@ fs.readdirSync("./events").filter(files =>
 	}
 	);
 
+/* Uncomment to delete ALL application commands*/
+rest.put(Discord.Routes.applicationCommands(config.clientId),
+	{ body: [] },
+);
+console.log(`${color.cyan}[Main]	${color.yellow}Successfully updated ${data.length} application commands.${color.stop}`);
+
+
+/* Uncomment to delete ALL admin commands commands*/
+rest.put(Discord.Routes.applicationGuildCommands(config.clientId, config.adminGuildId),
+	{ body: [] },
+);
+console.log(`${color.red}[Admin]	${color.yellow}Successfully updated ${data.length} admin commands.${color.stop}`);
+
+
+
 bot.login(config.token);
