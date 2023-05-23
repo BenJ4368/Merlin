@@ -15,6 +15,7 @@ async function dlskins() {
 		}
 
 		for (const god of gods) {
+			try {
 			const godName = god.Name;
 			const godFolderPath = `./resources/gods/${godName}`;
 			const skinsFolderPath = `${godFolderPath}/skins`;
@@ -68,6 +69,9 @@ async function dlskins() {
 					}
 				}
 			}
+		} catch (error) {
+			console.log(`${color.cyan}[dlskins] ${color.white}${god.Name} ${color.red}${error}${color.stop}`)
+		}
 		}
 		console.log(`${color.cyan}[dlskins] ${color.green}is over.${color.stop}`)
 	} catch (error) {
