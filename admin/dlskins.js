@@ -5,7 +5,7 @@ const fs = require('fs');
 const Jimp = require('jimp');
 const fetch = require('node-fetch');
 
-async () => {
+async function dlskins() {
 	try {
 		const hirez = new Hirez.Smite(config.hirezDevId, config.hirezAuthKey);
 		const gods = await hirez.getGods();
@@ -74,3 +74,4 @@ async () => {
 		console.log(error);
 	}
 }
+dlskins().then(() => console.log(`${color.cyan}[dlskins] ${color.green}is over.${color.stop}`));
