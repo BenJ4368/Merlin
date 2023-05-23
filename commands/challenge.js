@@ -1,4 +1,5 @@
 const Discord = require('discord.js');
+const color = require("../resources/color_codes")
 const Jimp = require('jimp');
 const fs = require('fs');
 
