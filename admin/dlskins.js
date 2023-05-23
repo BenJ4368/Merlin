@@ -11,11 +11,30 @@ async function dlskins() {
 		const hirez = new Hirez.Smite(config.hirezDevId, config.hirezAuthKey);
 		const gods = await hirez.getGods();
 
+		await new Promise((resolve) => {
+			const prompt = readline.createInterface({
+				input: process.stdin,
+				output: process.stdout,
+			});
+
+			prompt.question(`${color.cyan}[dlskins] ${color.lime}Starting position ? (1 - 126)${color.stop}`,
+				(promptAnswer) => {
+					prompt.close();
+					if (promptAnswer) {
+						gods.splice(0, promptAnswer)
+						resolve();
+					}
+					else
+						resolve();
+				});
+		});
+
 		if (!fs.existsSync('./resources/gods'))
 			fs.mkdirSync('./resources/gods');
 
 		for (const god of gods) {
-
+			const godNumber = 0;
+			godNumber++;
 			await new Promise((resolve) => {
 				const prompt = readline.createInterface({
 					input: process.stdin,
@@ -25,10 +44,11 @@ async function dlskins() {
 				prompt.question(`${color.cyan}[dlskins] ${color.lime}Start downloading ${god.Name}'s skins? (y/any)${color.stop}`,
 					(promptAnswer) => {
 						prompt.close();
-						if (promptAnswer.toLocaleLowerCase() === 'y')
+						if (promptAnswer.toLocaleLowerCase() === 'y') {
 							resolve();
+						}
 					});
-			})
+			});
 			try {
 				const godFolderPath = `./resources/gods/${god.Name}`;
 				const skinsFolderPath = `${godFolderPath}/skins`;
