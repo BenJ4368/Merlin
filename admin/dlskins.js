@@ -55,21 +55,9 @@ async function dlskins() {
 						if (image.getWidth() >= 250 && image.getHeight() >= 250) {
 							console.log(`${color.cyan}[dlskins] ${color.white}${fileName} ${color.green}is valid.${color.stop}`);
 						} else {
-							console.log(`${color.cyan}[dlskins] ${color.white}${fileName} ${color.red}is not valid. ${color.yellow}Re-downloading...${color.stop}`);
+							console.log(`${color.cyan}[dlskins] ${color.white}${fileName} ${color.red}is not valid. ${color.yellow}Deleting...${color.stop}`);
 							fs.unlinkSync(savePath);
-							fetch(skinURL)
-							.then(async (response) => {
-								const dest = fs.createWriteStream(savePath);
-								response.body.pipe(dest);
-								console.log(`${color.cyan}[dlskins] ${color.white}${fileName} ${color.green}successfully ${color.yellow}re-downloaded.${color.stop}`);
-							})
-							.catch((error) => {
-								console.log(`${color.cyan}[dlskins]`);
-								console.log(`${color.cyan}[dlskins]`);
-								console.log(`${color.cyan}[dlskins] ${color.white}${fileName} ${color.red}downloading error: ${color.yellow}${error.message}${color.stop}`);
-								console.log(`${color.cyan}[dlskins]`);
-								console.log(`${color.cyan}[dlskins]`);
-							});
+							console.log(`${color.cyan}[dlskins] ${color.red}is not valid. ${color.yellow}Deleting...${color.stop}`);
 						}
 
 					}
