@@ -21,7 +21,8 @@ async function dlskins() {
 				(promptAnswer) => {
 					prompt.close();
 					if (promptAnswer) {
-						gods.splice(0, promptAnswer)
+						const startingPosition = parseInt(promptAnswer, 10);
+						gods.splice(0, startingPosition);
 						resolve();
 					}
 					else
@@ -33,7 +34,7 @@ async function dlskins() {
 			fs.mkdirSync('./resources/gods');
 
 		for (const god of gods) {
-			const godNumber = 0;
+			let godNumber = 0;
 			godNumber++;
 			await new Promise((resolve) => {
 				const prompt = readline.createInterface({
