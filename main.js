@@ -6,6 +6,8 @@ const color = require("./resources/color_codes");
 const intents = new Discord.IntentsBitField(3276799);
 const bot = new Discord.Client({ intents });
 
+const rest = new Discord.REST({ version: '10' }).setToken(config.token);
+
 bot.commands = new Discord.Collection();
 bot.commandArray = [];
 const reglarCommandFiles = fs.readdirSync("./commands").filter(file => file.endsWith(".js") && !file.startsWith("_"))
@@ -17,8 +19,6 @@ if (reglarCommandFiles.length > 0) {
 		console.log(`${color.cyan}[Main]	${color.yellow}${file.slice(0, file.length - 3)} ${color.white} is operational.${color.cyan}`);
 	}
 	);
-
-	const rest = new Discord.REST({ version: '10' }).setToken(config.token);
 	(async () => {
 		try {
 			console.log(`${color.cyan}[Main]	${color.yellow}Trying to update application commands.${color.stop}`);
