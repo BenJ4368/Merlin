@@ -16,7 +16,7 @@ async function dlskins() {
 
 		for (const god of gods) {
 
-			await new Promise((resolve, reject) => {
+			await new Promise((resolve) => {
 				const prompt = readline.createInterface({
 					input: process.stdin,
 					output: process.stdout,
@@ -27,8 +27,6 @@ async function dlskins() {
 						prompt.close();
 						if (promptAnswer.toLocaleLowerCase() === 'y')
 							resolve();
-						else
-							reject()
 					});
 			})
 			try {
