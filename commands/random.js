@@ -1,6 +1,7 @@
 const Discord = require('discord.js');
 const config = require("../config");
 const Hirez = require('@joshmiquel/hirez');
+const color = require("../resources/color_codes")
 
 module.exports = {
 	data: new Discord.SlashCommandBuilder()
@@ -19,6 +20,7 @@ module.exports = {
 
 	async execute(interaction)
 	{
+		console.log(`${color.cyan}[command]	${color.magenta}/random ${color.white}was fired by ${color.blue}${interaction.user.tag}.${color.stop}`);
 		try {
 			const hirez = new Hirez.Smite(config.hirezDevId, config.hirezAuthKey);
 			const excludeRole = interaction.options.getString('exclusion');
