@@ -73,4 +73,4 @@ async function dlskins() {
 		console.log(error);
 	}
 }
-dlskins().then( console.log (`${color.cyan}[dlskins]	 ${color.green}is over.${color.stop}`));
+dlskins().then(() => console.log(`${color.cyan}[dlskins] ${color.green}is over.${color.stop}`));
