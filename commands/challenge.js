@@ -23,7 +23,6 @@ async function playDeityImage(CommandInteraction) {
 		}
 	}
 	const godAnswer = selectedDirectories[Math.floor(Math.random() * selectedDirectories.length)];
-	console.log(godAnswer);
 
 	// puis, choisir un fichier aléatoire ./resources/gods/${godAnswer}/skins/${randomFile}
 	const files = fs.readdirSync(`./resources/gods/${godAnswer}/skins/`, { withFileTypes: true })
