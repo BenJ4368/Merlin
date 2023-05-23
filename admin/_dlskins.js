@@ -42,7 +42,7 @@ async function dlskins() {
 					output: process.stdout,
 				});
 
-				prompt.question(`${color.cyan}[dlskins] ${color.lime}Start downloading ${god.Name}'s skins? (y/any)${color.stop}`,
+				prompt.question(`${color.cyan}[dlskins] ${color.lime}Start downloading ${god.Name}'s skins? (${godNumber})${color.stop}`,
 					(promptAnswer) => {
 						prompt.close();
 						if (promptAnswer.toLocaleLowerCase() === 'y') {
