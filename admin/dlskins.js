@@ -5,7 +5,7 @@ const fs = require('fs');
 const Jimp = require('jimp');
 const fetch = require('node-fetch');
 
-async function dlskins() {
+async () => {
 	try {
 		const hirez = new Hirez.Smite(config.hirezDevId, config.hirezAuthKey);
 		const gods = await hirez.getGods();
@@ -53,13 +53,13 @@ async function dlskins() {
 					else {
 						try {
 							const image = await Jimp.read(savePath);
-						if (image.getWidth() >= 250 && image.getHeight() >= 250) {
-							console.log(`${color.cyan}[dlskins] ${color.white}${fileName} ${color.green}is valid.${color.stop}`);
-						} else {
-							console.log(`${color.cyan}[dlskins] ${color.white}${fileName} ${color.red}is not valid. ${color.yellow}Deleting...${color.stop}`);
-							fs.unlinkSync(savePath);
-							console.log(`${color.cyan}[dlskins] ${color.red}${fileName} deleted.${color.stop}`);
-						}
+							if (image.getWidth() >= 250 && image.getHeight() >= 250) {
+								console.log(`${color.cyan}[dlskins] ${color.white}${fileName} ${color.green}is valid.${color.stop}`);
+							} else {
+								console.log(`${color.cyan}[dlskins] ${color.white}${fileName} ${color.red}is not valid. ${color.yellow}Deleting...${color.stop}`);
+								fs.unlinkSync(savePath);
+								console.log(`${color.cyan}[dlskins] ${color.red}${fileName} deleted.${color.stop}`);
+							}
 						} catch (error) {
 							console.log(`${color.cyan}[dlskins] ${color.white}${fileName} ${color.red}is not valid. ${color.yellow}Deleting...${color.stop}`);
 							fs.unlinkSync(savePath);
@@ -69,8 +69,8 @@ async function dlskins() {
 				}
 			}
 		}
+		console.log(`${color.cyan}[dlskins] ${color.green}is over.${color.stop}`)
 	} catch (error) {
 		console.log(error);
 	}
 }
-dlskins().then(() => console.log(`${color.cyan}[dlskins] ${color.green}is over.${color.stop}`));
