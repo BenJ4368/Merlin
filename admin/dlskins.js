@@ -51,35 +51,27 @@ async function dlskins() {
 							});
 					}
 					else {
-						try {
-							const image = await Jimp.read(savePath);
-							if (image.getWidth() >= 250 && image.getHeight() >= 250) {
-								console.log(`${color.cyan}[dlskins] ${color.white}${fileName} ${color.green}is valid.${color.stop}\n${skinURL}`);
-							} else {
-								console.log(`${color.cyan}[dlskins] ${color.white}${fileName} ${color.red}is not valid. ${color.yellow}Re-downloading...${color.stop}`);
-								fs.unlinkSync(savePath);
-							}
-						} catch (error) {
+						const image = await Jimp.read(savePath);
+						if (image.getWidth() >= 250 && image.getHeight() >= 250) {
+							console.log(`${color.cyan}[dlskins] ${color.white}${fileName} ${color.green}is valid.${color.stop}`);
+						} else {
+							console.log(`${color.cyan}[dlskins] ${color.white}${fileName} ${color.red}is not valid. ${color.yellow}Re-downloading...${color.stop}`);
 							fs.unlinkSync(savePath);
-							console.log(`${color.cyan}[dlskins]`);
-							console.log(`${color.cyan}[dlskins]`);
-							console.log(`${color.cyan}[dlskins] ${color.white}${fileName} ${color.red}re-downloading error: ${color.yellow}${error}${color.stop}\n${skinURL}`);
-							console.log(`${color.cyan}[dlskins]`);
-							console.log(`${color.cyan}[dlskins]`);
-							fetch(skinURL)
-								.then(async (response) => {
-									const dest = fs.createWriteStream(savePath);
-									response.body.pipe(dest);
-									console.log(`${color.cyan}[dlskins] ${color.white}${fileName} ${color.green}successfully ${color.yellow}re-downloaded.${color.stop}`);
-								})
-								.catch((error) => {
-									console.log(`${color.cyan}[dlskins]`);
-									console.log(`${color.cyan}[dlskins]`);
-									console.log(`${color.cyan}[dlskins] ${color.white}${fileName} ${color.red}downloading error: ${color.yellow}${error.message}${color.stop}`);
-									console.log(`${color.cyan}[dlskins]`);
-									console.log(`${color.cyan}[dlskins]`);
-								});
 						}
+
+						fetch(skinURL)
+							.then(async (response) => {
+								const dest = fs.createWriteStream(savePath);
+								response.body.pipe(dest);
+								console.log(`${color.cyan}[dlskins] ${color.white}${fileName} ${color.green}successfully ${color.yellow}re-downloaded.${color.stop}`);
+							})
+							.catch((error) => {
+								console.log(`${color.cyan}[dlskins]`);
+								console.log(`${color.cyan}[dlskins]`);
+								console.log(`${color.cyan}[dlskins] ${color.white}${fileName} ${color.red}downloading error: ${color.yellow}${error.message}${color.stop}`);
+								console.log(`${color.cyan}[dlskins]`);
+								console.log(`${color.cyan}[dlskins]`);
+							});
 					}
 				}
 			}
@@ -87,6 +79,5 @@ async function dlskins() {
 	} catch (error) {
 		console.log(error);
 	}
-
 }
-dlskins();
+await dlskins().then( console.log (`${color.cyan}[dlskins]	 ${color.green}is over.${color.stop}`));
