@@ -16,13 +16,13 @@ async function dlskins() {
 
 		for (const god of gods) {
 
-			await new Promise((resolve) => {
+			await new Promise((resolve, reject) => {
 				const prompt = readline.createInterface({
 					input: process.stdin,
 					output: process.stdout,
 				});
 
-				prompt.question(`${color.cyan}[dlskins] ${color.lime}Start downloading ${god.Name}'s skins? (y/n)${color.stop}`,
+				prompt.question(`${color.cyan}[dlskins] ${color.lime}Start downloading ${god.Name}'s skins? (y/any)${color.stop}`,
 					(promptAnswer) => {
 						prompt.close();
 						if (promptAnswer.toLocaleLowerCase() === 'y')
