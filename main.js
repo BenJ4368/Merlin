@@ -8,7 +8,7 @@ const bot = new Discord.Client({ intents });
 
 bot.commands = new Discord.Collection();
 bot.commandArray = [];
-const reglarCommandFiles = fs.readdirSync("./commands").filter(files => files.endsWith(".js"))
+const reglarCommandFiles = fs.readdirSync("./commands").filter(file => file.endsWith(".js") && !file.startsWith("_"))
 if (reglarCommandFiles.length > 0) {
 	reglarCommandFiles.forEach(file => {
 		const command = require(`./commands/${file}`);
@@ -36,7 +36,7 @@ if (reglarCommandFiles.length > 0) {
 
 bot.adminCommands = new Discord.Collection();
 bot.adminCommandArray = [];
-const adminCommandFiles = fs.readdirSync("./admin").filter(files => files.endsWith(".js"));
+const adminCommandFiles = fs.readdirSync("./admin").filter(file => file.endsWith(".js") && !file.startsWith("_"));
 if (adminCommandFiles.length > 0) {
 	adminCommandFiles.forEach(file => {
 		const command = require(`./admin/${file}`);
