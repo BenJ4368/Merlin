@@ -17,7 +17,7 @@ async function dlskins() {
 				output: process.stdout,
 			});
 
-			prompt.question(`${color.cyan}[dlskins] ${color.lime}Starting position ? (1 - 126)${color.stop}`,
+			prompt.question(`${color.cyan}[dlskins] ${color.lime}Starting position ? (0 - 125)${color.stop}`,
 				(promptAnswer) => {
 					prompt.close();
 					if (promptAnswer) {
@@ -33,8 +33,8 @@ async function dlskins() {
 		if (!fs.existsSync('./resources/gods'))
 			fs.mkdirSync('./resources/gods');
 
+		let godNumber = 0;
 		for (const god of gods) {
-			let godNumber = 0;
 			godNumber++;
 			await new Promise((resolve) => {
 				const prompt = readline.createInterface({
