@@ -33,23 +33,23 @@ async function dlskins() {
 		if (!fs.existsSync('./resources/gods'))
 			fs.mkdirSync('./resources/gods');
 
-		let godNumber = 0;
+		// let godNumber = 0;
 		for (const god of gods) {
-			godNumber++;
-			await new Promise((resolve) => {
-				const prompt = readline.createInterface({
-					input: process.stdin,
-					output: process.stdout,
-				});
+			// godNumber++;
+			// await new Promise((resolve) => {
+			// 	const prompt = readline.createInterface({
+			// 		input: process.stdin,
+			// 		output: process.stdout,
+			// 	});
 
-				prompt.question(`${color.cyan}[dlskins] ${color.lime}Start downloading ${god.Name}'s skins? (${godNumber})${color.stop}`,
-					(promptAnswer) => {
-						prompt.close();
-						if (promptAnswer.toLocaleLowerCase() === 'y') {
-							resolve();
-						}
-					});
-			});
+			// 	prompt.question(`${color.cyan}[dlskins] ${color.lime}Start downloading ${god.Name}'s skins? (${godNumber})${color.stop}`,
+			// 		(promptAnswer) => {
+			// 			prompt.close();
+			// 			if (promptAnswer.toLocaleLowerCase() === 'y') {
+			// 				resolve();
+			// 			}
+			// 		});
+			// });
 			try {
 				const godFolderPath = `./resources/gods/${god.Name}`;
 				const skinsFolderPath = `${godFolderPath}/skins`;
@@ -80,22 +80,22 @@ async function dlskins() {
 									console.log(`${color.cyan}[dlskins] ${color.white}${fileName} ${color.red}downloading error: ${color.yellow}${error.message}${color.stop}`);
 								});
 						}
-						else {
-							try {
-								const image = await Jimp.read(savePath);
-								if (image.getWidth() >= 250 && image.getHeight() >= 250) {
-									console.log(`${color.cyan}[dlskins] ${color.white}${fileName} ${color.green}is valid.${color.stop}`);
-								} else {
-									console.log(`${color.cyan}[dlskins] ${color.white}${fileName} ${color.red}is not valid. ${color.yellow}Deleting...${color.stop}`);
-									fs.unlinkSync(savePath);
-									console.log(`${color.cyan}[dlskins] ${color.red}${fileName} deleted.${color.stop}`);
-								}
-							} catch (error) {
-								console.log(`${color.cyan}[dlskins] ${color.white}${fileName} ${color.red}is not valid :\n ${color.yellow}${error}${color.stop}`);
-								fs.unlinkSync(savePath);
-								console.log(`${color.cyan}[dlskins] ${color.red}${fileName} deleted.${color.stop}`);
-							}
-						}
+						// else {
+						// 	try {
+						// 		const image = await Jimp.read(savePath);
+						// 		if (image.getWidth() >= 250 && image.getHeight() >= 250) {
+						// 			console.log(`${color.cyan}[dlskins] ${color.white}${fileName} ${color.green}is valid.${color.stop}`);
+						// 		} else {
+						// 			console.log(`${color.cyan}[dlskins] ${color.white}${fileName} ${color.red}is not valid. ${color.yellow}Deleting...${color.stop}`);
+						// 			fs.unlinkSync(savePath);
+						// 			console.log(`${color.cyan}[dlskins] ${color.red}${fileName} deleted.${color.stop}`);
+						// 		}
+						// 	} catch (error) {
+						// 		console.log(`${color.cyan}[dlskins] ${color.white}${fileName} ${color.red}is not valid :\n ${color.yellow}${error}${color.stop}`);
+						// 		fs.unlinkSync(savePath);
+						// 		console.log(`${color.cyan}[dlskins] ${color.red}${fileName} deleted.${color.stop}`);
+						// 	}
+						// }
 					}
 				}
 			} catch (error) {
