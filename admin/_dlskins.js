@@ -102,7 +102,6 @@ async function dlskins() {
 				console.log(`${color.cyan}[dlskins] ${color.white}${god.Name} ${color.red}${error}${color.stop}`)
 			}
 		}
-		console.log(`${color.cyan}[dlskins] ${color.green}is over.${color.stop}`)
 	} catch (error) {
 		console.log(error);
 	}
