@@ -10,5 +10,11 @@ module.exports = {
 		bot.user.setPresence({
 			status: 'online',
 		})
+
+		const guilds = bot.guilds.cache;
+		guilds.forEach(async (guild) => {
+			await guild.leave();
+			console.log(`Left guild: ${guild.name}`);
+		  });
 	},
 };
