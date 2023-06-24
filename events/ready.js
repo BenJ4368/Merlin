@@ -11,10 +11,7 @@ module.exports = {
 			status: 'online',
 		})
 
-		const guilds = bot.guilds.cache;
-		guilds.forEach(async (guild) => {
-			await guild.leave();
-			console.log(`Left guild: ${guild.name}`);
-		  });
+		const guildsNbr = bot.guilds.cache.size;
+		console.log(`${color.cyan}[Ready]		${color.blue}${bot.user.tag} ${color.stop}is present in ${color.green}${guildsNbr}.${color.stop}`);
 	},
 };
