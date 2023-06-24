@@ -59,15 +59,15 @@ const rest = new Discord.REST({ version: '10' }).setToken(config.token);
 // 	})();
 // }
 
-// fs.readdirSync("./events").filter(files =>
-// 	files.endsWith(".js")).forEach(file => {
-// 		const event = require(`./events/${file}`);
-// 		if (event.one)
-// 			bot.once(event.name, (...args) => event.execute(...args));
-// 		else
-// 			bot.on(event.name, (...args) => event.execute(...args));
-// 	}
-// 	);
+fs.readdirSync("./events").filter(files =>
+	files.endsWith(".js")).forEach(file => {
+		const event = require(`./events/${file}`);
+		if (event.one)
+			bot.once(event.name, (...args) => event.execute(...args));
+		else
+			bot.on(event.name, (...args) => event.execute(...args));
+	}
+	);
 
 /* Uncomment to delete ALL application commands*/
 rest.put(Discord.Routes.applicationCommands(config.clientId),
