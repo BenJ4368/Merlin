@@ -9,6 +9,7 @@
   "author": "./BenJ#5533",
   "license": "ISC",
   "dependencies": {
+    "@discordjs/builders": "^1.6.3",
     "@joshmiquel/hirez": "^3.0.1",
     "discord.js": "^14.11.0",
     "fs": "^0.0.1-security",

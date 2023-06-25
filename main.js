@@ -4,7 +4,10 @@ const fs = require('node:fs');
 const color = require("./resources/color_codes");
 
 const intents = new Discord.IntentsBitField(3276799);
-const bot = new Discord.Client({ intents });
+const bot = new Discord.Client({ 
+	intents: intents,
+	partials: ["MESSAGE", "CHANNEL", "REACTION"],
+});
 
 const rest = new Discord.REST({ version: '10' }).setToken(config.token);
 
@@ -21,7 +24,6 @@ if (reglarCommandFiles.length > 0) {
 	);
 	(async () => {
 		try {
-			console.log(`${color.cyan}[Main]	${color.yellow}Trying to update application commands.${color.stop}`);
 			const data = await rest.put(
 				Discord.Routes.applicationCommands(config.clientId),
 				{ body: bot.commandArray },
@@ -47,7 +49,6 @@ if (adminCommandFiles.length > 0) {
 	);
 	(async () => {
 		try {
-			console.log(`${color.red}[Admin]	${color.yellow}Trying to update admin commands.${color.stop}`);
 			const data = await rest.put(
 				Discord.Routes.applicationGuildCommands(config.clientId, config.adminGuildId),
 				{ body: bot.adminCommandArray },
