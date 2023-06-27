@@ -48,6 +48,7 @@ module.exports = {
 		else
 		{
 			interaction.reply({ content: "Seul ./BenJ peut utiliser cette commande.", ephemeral: true });
+			interaction.reply({ content: "Seul ./BenJ peut utiliser cette commande.", ephemeral: true });
 			console.log(`${color.red}[admin]	${color.magenta}/42selectroles ${color.white}acces was denied to ${color.blue}${interaction.user.username}.${color.stop}`);
 		}
 	}
