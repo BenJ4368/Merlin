@@ -1,0 +1,12 @@
+module.exports = {
+
+	token: "MTEwNDkwMTg0NTk2MjQ2NTMwMA.GpHhNe.UqCYGn1zOOB2JdVTjhiJfgIYIeQkcAG2l6jF6o",
+
+	clientId: "1104901845962465300",
+	adminGuildId: "881683007688282122",
+	adminId: "424644014478852097",
+
+	hirezDevId: "4585",
+	hirezAuthKey: "C351B65273A44E3AA44DBCC1D8E99F52",
+
+};
