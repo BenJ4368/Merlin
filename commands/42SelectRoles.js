@@ -9,7 +9,7 @@ module.exports = {
 
 	async execute(interaction)
 	{
-		console.log(`${color.red}[admin]	${color.magenta}/42selectroles ${color.white}was fired by ${color.blue}${interaction.user.tag}.${color.stop}`);
+		console.log(`${color.red}[admin]	${color.magenta}/42selectroles ${color.white}was fired by ${color.blue}${interaction.user.username}.${color.stop}`);
 		if (interaction.user.id === config.adminId) {
 			try {
 				
@@ -46,7 +46,10 @@ module.exports = {
 			}
 		}
 		else
+		{
 			interaction.reply({ content: "Seul ./BenJ peut utiliser cette commande.", ephemeral: true });
+			console.log(`${color.red}[admin]	${color.magenta}/42selectroles ${color.white}acces was denied to ${color.blue}${interaction.user.username}.${color.stop}`);
+		}
 	}
 }
 

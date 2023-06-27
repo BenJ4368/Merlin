@@ -8,7 +8,7 @@ module.exports = {
 
 	async execute(interaction)
 	{
-		console.log(`${color.cyan}[command]	${color.magenta}/merlin ${color.white}was fired by ${color.blue}${interaction.user.tag}.${color.stop}`);
+		console.log(`${color.cyan}[command]	${color.magenta}/merlin ${color.white}was fired by ${color.blue}${interaction.user.username}.${color.stop}`);
 		try {
 			interaction.reply('I am Merlin.\nDevelopped by ./BenJ, and still in testing phase.\nYes, this command is useless.');
 		} catch (error) {
