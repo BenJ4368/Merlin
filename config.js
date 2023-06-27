@@ -1,6 +1,6 @@
 module.exports = {
 
-	token: "MTEwNDkwMTg0NTk2MjQ2NTMwMA.GpHhNe.UqCYGn1zOOB2JdVTjhiJfgIYIeQkcAG2l6jF6o",
+	token: "MTEwNDkwMTg0NTk2MjQ2NTMwMA.Gl1CSh.b1oHNH_hN5vgSqg891HHbsXoallGPnDzp3s_fs",
 
 	clientId: "1104901845962465300",
 	adminGuildId: "881683007688282122",
