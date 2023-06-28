@@ -39,7 +39,7 @@ module.exports = {
 				await message.react("<:rocketleague:1122168421115764736>");
 				await message.react("<:leagueoflegends:1123729807725821983>");
 				await message.react("<:valorant:1123731014557118537>");
-				interaction.reply({ content: "Done, you may dismiss this response.", ephemeral: true });
+				await interaction.reply({ content: "Done, you may dismiss this response.", ephemeral: true });
 
 
 			} catch (error) {

@@ -19,7 +19,7 @@ module.exports = {
 				if (reactUser && overwatchRole) {
 					if (reactUser.roles.cache.has(overwatchRoleId)) {
 						reactUser.roles.remove(overwatchRole)
-							.then(console.log(`${color.cyan}[42RRAdd]	${color.blue}${user.username} ${color.yellow}unselected${color.white} the rôle "OverWatch".${color.stop}`))
+							.then(console.log(`${color.cyan}[42RRRemove]	${color.blue}${user.username} ${color.yellow}unselected${color.white} the rôle "OverWatch".${color.stop}`))
 							.catch(console.error);
 					}
 				}
@@ -31,7 +31,7 @@ module.exports = {
 				if (reactUser && vrisingRole) {
 					if (reactUser.roles.cache.has(vrisingRoleId)) {
 						reactUser.roles.remove(vrisingRole)
-							.then(console.log(`${color.cyan}[42RRAdd]	${color.blue}${user.username} ${color.yellow}unselected${color.white} the rôle "Vrising".${color.stop}`))
+							.then(console.log(`${color.cyan}[42RRRemove]	${color.blue}${user.username} ${color.yellow}unselected${color.white} the rôle "Vrising".${color.stop}`))
 							.catch(console.error);
 					}
 				}
@@ -43,7 +43,7 @@ module.exports = {
 				if (reactUser && minecraftRole) {
 					if (reactUser.roles.cache.has(minecraftRoleId)) {
 						reactUser.roles.remove(minecraftRole)
-							.then(console.log(`${color.cyan}[42RRAdd]	${color.blue}${user.username} ${color.yellow}unselected${color.white} the rôle "Minecraft".${color.stop}`))
+							.then(console.log(`${color.cyan}[42RRRemove]	${color.blue}${user.username} ${color.yellow}unselected${color.white} the rôle "Minecraft".${color.stop}`))
 							.catch(console.error);
 					}
 				}
@@ -55,9 +55,29 @@ module.exports = {
 				if (reactUser && rocketleagueRole) {
 					if (reactUser.roles.cache.has(rocketleagueRoleId)) {
 						reactUser.roles.remove(rocketleagueRole)
-							.then(console.log(`${color.cyan}[42RRAdd]	${color.blue}${user.username} ${color.yellow}unselected${color.white} the rôle "RocketLeague".${color.stop}`))
+							.then(console.log(`${color.cyan}[42RRRemove]	${color.blue}${user.username} ${color.yellow}unselected${color.white} the rôle "RocketLeague".${color.stop}`))
 							.catch(console.error);
 					}
+				}
+			}
+
+			if (reaction.emoji.name === "leagueoflegends") {
+				const leagueoflegendsRoleId = "1123731753706733649"
+				const leagueoflegendsRole = guild.roles.cache.get(leagueoflegendsRoleId);
+				if (reactUser && leagueoflegendsRole) {
+					reactUser.roles.remove(leagueoflegendsRole)
+						.then(console.log(`${color.cyan}[42RRRemove]	${color.blue}${user.username} ${color.yellow}unselected${color.white} the rôle "LeagueOfLegends".${color.stop}`))
+						.catch(console.error);
+				}
+			}
+
+			if (reaction.emoji.name === "valorant") {
+				const valorantRoleId = "1123731926050668714"
+				const valorantRole = guild.roles.cache.get(valorantRoleId);
+				if (reactUser && valorantRole) {
+					reactUser.roles.remove(valorantRole)
+						.then(console.log(`${color.cyan}[42RRRemove]	${color.blue}${user.username} ${color.yellow}unselected${color.white} the rôle "Valorant".${color.stop}`))
+						.catch(console.error);
 				}
 			}
 		}
