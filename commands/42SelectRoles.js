@@ -37,6 +37,8 @@ module.exports = {
 				await message.react("<:vrising:1122111992048656416>");
 				await message.react("<:minecraft:1122112010302279811>");
 				await message.react("<:rocketleague:1122168421115764736>");
+				await message.react("<:leagueoflegends:1123729807725821983>");
+				await message.react("<:valorant:1123731014557118537>");
 				interaction.reply({ content: "Done, you may dismiss this response.", ephemeral: true });
 
 

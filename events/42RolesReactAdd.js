@@ -52,6 +52,26 @@ module.exports = {
 						.catch(console.error);
 				}
 			}
+
+			if (reaction.emoji.name === "leagueoflegends") {
+				const leagueoflegendsRoleId = "1123731753706733649"
+				const leagueoflegendsRole = guild.roles.cache.get(leagueoflegendsRoleId);
+				if (reactUser && leagueoflegendsRole) {
+					reactUser.roles.add(leagueoflegendsRole)
+						.then(console.log(`${color.cyan}[42RRAdd]	${color.blue}${user.username} ${color.green}selected${color.white} the rôle "LeagueOfLegends".${color.stop}`))
+						.catch(console.error);
+				}
+			}
+
+			if (reaction.emoji.name === "valorant") {
+				const valorantRoleId = "1123731926050668714"
+				const valorantRole = guild.roles.cache.get(valorantRoleId);
+				if (reactUser && valorantRole) {
+					reactUser.roles.add(valorantRole)
+						.then(console.log(`${color.cyan}[42RRAdd]	${color.blue}${user.username} ${color.green}selected${color.white} the rôle "Valorant".${color.stop}`))
+						.catch(console.error);
+				}
+			}
 		}
 	},
 };
