@@ -81,7 +81,7 @@ module.exports = {
 				}
 			}
 
-			if (reaction.emoji.name === "🌐") {
+			if (reaction.emoji.name === "browsergames") {
 				const browserGamesRoleId = "1123993655473082530"
 				const browserGamesRole = guild.roles.cache.get(browserGamesRoleId);
 				if (reactUser && browserGamesRole) {
