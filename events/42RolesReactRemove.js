@@ -80,6 +80,16 @@ module.exports = {
 						.catch(console.error);
 				}
 			}
+
+			if (reaction.emoji.name === "🌐") {
+				const browserGamesRoleId = "1123993655473082530"
+				const browserGamesRole = guild.roles.cache.get(browserGamesRoleId);
+				if (reactUser && browserGamesRole) {
+					reactUser.roles.remove(browserGamesRole)
+						.then(console.log(`${color.cyan}[42RRAdd]	${color.blue}${user.username} ${color.yellow}unselected${color.white} the rôle "BrowserGames".${color.stop}`))
+						.catch(console.error);
+				}
+			}
 		}
 	},
 };

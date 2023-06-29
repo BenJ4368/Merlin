@@ -33,6 +33,7 @@ module.exports = {
 					if this block is uncommented the previous block has to be commented. */
 				
 				const message = await interaction.channel.messages.fetch("1122621252151033890");
+				await message.react('🌐');
 				await message.react("<:overwatch:1122112022386053231>");
 				await message.react("<:vrising:1122111992048656416>");
 				await message.react("<:minecraft:1122112010302279811>");
