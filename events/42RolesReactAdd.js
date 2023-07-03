@@ -82,6 +82,16 @@ module.exports = {
 						.catch(console.error);
 				}
 			}
+
+			if (reaction.emoji.name === "riskofrain") {
+				const riskofrainRoleId = "1125527220509749348"
+				const riskofrainRole = guild.roles.cache.get(riskofrainRoleId);
+				if (reactUser && riskofrainRole) {
+					reactUser.roles.add(riskofrainRole)
+						.then(console.log(`${color.cyan}[42RRAdd]	${color.blue}${user.username} ${color.green}selected${color.white} the rôle "RiskOfRain".${color.stop}`))
+						.catch(console.error);
+				}
+			}
 		}
 	},
 };
