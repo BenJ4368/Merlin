@@ -41,6 +41,8 @@ module.exports = {
 				await message.react("<:valorant:1123731014557118537>");
 				await message.react("<:browsergames:1123995499423350814>");
 				await message.react("<:riskofrain:1125527195364900892>");
+				await message.react("<:civilisationvi:1126217059613806613>");
+				await message.react("<:terraria:1126212041204572242>");
 				interaction.reply({ content: "Done, you may dismiss this response.", ephemeral: true });
 
 
@@ -56,10 +58,3 @@ module.exports = {
 		}
 	}
 }
-
-/*
-\<:rocketleague:1122168421115764736> 
-\<:overwatch:1122112022386053231> 
-\<:minecraft:1122112010302279811> 
-\<:vrising:1122111992048656416> 
-*/

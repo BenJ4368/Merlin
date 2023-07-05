@@ -92,6 +92,26 @@ module.exports = {
 						.catch(console.error);
 				}
 			}
+
+			if (reaction.emoji.name === "civilisationvi") {
+				const civRoleId = "1126216792528920637"
+				const civRole = guild.roles.cache.get(civRoleId);
+				if (reactUser && civRole) {
+					reactUser.roles.add(civRole)
+						.then(console.log(`${color.cyan}[42RRAdd]	${color.blue}${user.username} ${color.green}selected${color.white} the rôle "CivilisationVI".${color.stop}`))
+						.catch(console.error);
+				}
+			}
+
+			if (reaction.emoji.name === "terraria") {
+				const terrariaRoleId = "1126211347277955102"
+				const terrariaRole = guild.roles.cache.get(terrariaRoleId);
+				if (reactUser && terrariaRole) {
+					reactUser.roles.add(terrariaRole)
+						.then(console.log(`${color.cyan}[42RRAdd]	${color.blue}${user.username} ${color.green}selected${color.white} the rôle "Terraria".${color.stop}`))
+						.catch(console.error);
+				}
+			}
 		}
 	},
 };
