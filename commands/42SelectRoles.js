@@ -43,6 +43,7 @@ module.exports = {
 				await message.react("<:riskofrain:1125527195364900892>");
 				await message.react("<:civilisationvi:1126217059613806613>");
 				await message.react("<:terraria:1126212041204572242>");
+				await message.react("<:speedrunners:1128768967004131399>");
 				interaction.reply({ content: "Done, you may dismiss this response.", ephemeral: true });
 
 

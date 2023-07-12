@@ -112,6 +112,16 @@ module.exports = {
 						.catch(console.error);
 				}
 			}
+
+			if (reaction.emoji.name === "speedrunners") {
+				const speedrunnersRoleId = "1128753262946955304"
+				const speedrunnersRole = guild.roles.cache.get(speedrunnersRoleId);
+				if (reactUser && speedrunnersRole) {
+					reactUser.roles.add(speedrunnersRole)
+						.then(console.log(`${color.cyan}[42RRAdd]	${color.blue}${user.username} ${color.green}selected${color.white} the rôle "SpeedRunners".${color.stop}`))
+						.catch(console.error);
+				}
+			}
 		}
 	},
 };
