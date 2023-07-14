@@ -2,22 +2,22 @@ const Discord = require("discord.js");
 const color = require("../resources/color_codes");
 
 module.exports = {
-	name: Discord.Events.MessageReactionRemove,
+	name: Discord.Events.MessageReactionRemove,	// Triggers when any reaction is removed
 	async execute(reaction, user) {
 
-		if (user.id === reaction.message.client.user.id)
+		if (user.id === reaction.message.client.user.id) // Checks if the reaction was removed by the bot, if so, do nothing and return.
 			return ;
 			
-		if (reaction.message.id === "1122621252151033890") {
+		if (reaction.message.id === "1122621252151033890") {	// Checks if the reaction was removed from the target's message reactions (42RoleMessage)
 
-			const guild = reaction.message.guild;
-			const reactUser = guild.members.cache.get(user.id);
+			const guild = reaction.message.guild;	// Store the discord server where the triggering happend (guild)
+			const reactUser = guild.members.cache.get(user.id);	// Store the user who removed a reaction
 
-			if (reaction.emoji.name === "overwatch") {
-				const overwatchRoleId = "1122612244170162206"
-				const overwatchRole = guild.roles.cache.get(overwatchRoleId);
+			if (reaction.emoji.name === "overwatch") {	// Checks the reaction name
+				const overwatchRoleId = "1122612244170162206"	// Id of the corresponding role
+				const overwatchRole = guild.roles.cache.get(overwatchRoleId);	// Gets and stores the role
 				if (reactUser && overwatchRole) {
-					if (reactUser.roles.cache.has(overwatchRoleId)) {
+					if (reactUser.roles.cache.has(overwatchRoleId)) { // Id the user has the corresponding role, take it away. Console.log it, and log any errors.
 						reactUser.roles.remove(overwatchRole)
 							.then(console.log(`${color.cyan}[42RRRemove]	${color.blue}${user.username} ${color.yellow}unselected${color.white} the rôle "OverWatch".${color.stop}`))
 							.catch(console.error);
@@ -25,6 +25,7 @@ module.exports = {
 				}
 			}
 
+			/* Same code for each reaction emoji and its corresponding role */
 			if (reaction.emoji.name === "vrising") {
 				const vrisingRoleId = "1117865209596489840"
 				const vrisingRole = guild.roles.cache.get(vrisingRoleId);
