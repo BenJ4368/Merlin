@@ -88,7 +88,7 @@ module.exports = {
 		else	// If the user triggering the command is not an admin, sends an ephemeral message to explain it to him, and console log the denied acces.
 		{
 			interaction.reply({ content: "Only a Wizard can use this spell. You're full of shit, not Magic. Don't try again.", ephemeral: true });
-			console.log(`${color.red}[admin]	${color.magenta}/42selectroles ${color.white}acces was denied to ${color.blue}${interaction.user.username}.${color.stop}`);
+			console.log(`${color.red}[admin]	${color.magenta}/42survey ${color.white}acces was denied to ${color.blue}${interaction.user.username}.${color.stop}`);
 		}
 	}
 }
