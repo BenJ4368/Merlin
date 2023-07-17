@@ -14,7 +14,7 @@ module.exports = {
 			const embed = new Discord.EmbedBuilder()	// Creates a new embed
 			.setTitle(`**Sondage Modpack :**`)
 			.setDescription(`<@&1122612357722558617>
-							On prépare la création d'un serveur Minecraft réservé au Studs.
+							On prépare la création d'un serveur Minecraft réservé aux Studs.
 							Voici donc un sondage qui détermineras **quel Modpack sera installé**.
 							Vous pouvez voter pour plusieurs choix.`)
 			.setColor(Discord.Colors.White)
@@ -22,7 +22,7 @@ module.exports = {
 						{name: '\u200B', value: " "},
 						{	
 							name: `⬜  -  **Vanilla**  -  1.20`,
-							value: `Minecraft pur, sans aucun Mod.`,},
+							value: `Minecraft pur, sans aucuns Mod.`,},
 						{name: '\u200B', value: " "},
 						{
 							name: `🟪  -  **SevTech: Ages**  -  1.12.2`,
