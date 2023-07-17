@@ -12,38 +12,52 @@ module.exports = {
 		if (config.adminIds.includes(interaction.user.id)) {	// Checks if the user triggering the command is one of the admins (admin Ids are stored in the config.js file, in an array)
 
 			const embed = new Discord.EmbedBuilder()	// Creates a new embed message
-			.setTitle(`<@${1122612357722558617}> | Sondage Modpack :`)
-			.setDescription(`La Com. Jeux-Vidéos prépare la création d'un serveur Minecraft réservé au Studs.\n
-							Voici donc un sondage qui détermineras **quel Modpack sera installé**.\n
+			.setTitle(`**Sondage Modpack :**`)
+			.setDescription(`<@&1122612357722558617>
+							On prépare la création d'un serveur Minecraft réservé au Studs.
+							Voici donc un sondage qui détermineras **quel Modpack sera installé**.
 							Vous pouvez voter pour plusieurs choix.`)
 			.setColor(Discord.Colors.White)
-			.addFields({
-							"name": `⬜  -  Vanilla  -  1.20`,
-							"value": `     Minecraft pur, sans aucun Mod.`,
-						},
+			.addFields(
+						{name: '\u200B', value: " "},
+						{	
+							name: `⬜  -  **Vanilla**  -  1.20`,
+							value: `Minecraft pur, sans aucun Mod.`,},
+						{name: '\u200B', value: " "},
 						{
-							"name": `🟪  -  SevTech: Ages  -  1.12.2`,
-							"value": `     Progression long terme, Exploration, Tech, Magie, Basé sur quêtes\n     https://www.curseforge.com/minecraft/modpacks/sevtech-ages`
-						},
+							name: `🟪  -  **SevTech: Ages**  -  1.12.2`,
+							value: `Progression long terme, Exploration, Tech, Magie, Basé sur quêtes
+									https://www.curseforge.com/minecraft/modpacks/sevtech-ages`},
+						{name: '\u200B', value: " "},
 						{
-							"name": `🟦  -  RagnaMod VI  -  1.16`,
-							"value": `     Exploration, Tech, Magie, Basé sur quêtes\n     https://www.curseforge.com/minecraft/modpacks/ragnamod-vi`
-						},
+							name: `🟦  -  **RagnaMod VI**  -  1.16`,
+							value: `Exploration, Tech, Magie, Basé sur quêtes
+									https://www.curseforge.com/minecraft/modpacks/ragnamod-vi`},
+						{name: '\u200B', value: " "},
 						{
-							"name": `🟧  -  All The Mods 9  -  1.20`,
-							"value": `     (Très jeune, peut être instable)\n     Exploration, Tech, Magie\n     https://www.curseforge.com/minecraft/modpacks/all-the-mods-9`
-						},
+							name: `🟧  -  **All The Mods 9**  -  1.20`,
+							value: `*(Très jeune, peut être instable)*
+									Exploration, Tech, Magie
+									https://www.curseforge.com/minecraft/modpacks/all-the-mods-9`},
+						{name: '\u200B', value: " "},
 						{
-							"name": `🟨  -  All The Mods 8  -  1.19.2`,
-							"value": `     Exploration, Tech, Magie\n     https://www.curseforge.com/minecraft/modpacks/all-the-mods-8`
-						},
+							name: `🟨  -  **All The Mods 8**  -  1.19.2`,
+							value: `Exploration, Tech, Magie
+									https://www.curseforge.com/minecraft/modpacks/all-the-mods-8`},
+						{name: '\u200B', value: " "},
 						{
-							"name": `🟥  -  RLCraft -  1.12.2`,
-							"value": `     Hardcore, Exploration, Adventure/RPG\n     https://www.curseforge.com/minecraft/modpacks/rlcraft`
-						})
-			.setFooter({ "text": `\n\nSi vous souhaitez ajouter un choix, contactez le <@${1117866235800064050}> (Vendredi 21/07 max)\n
-							Fin du vote et résultats le Mercredi 26/07.`
-			})
+							name: `🟥  -  **RLCraft** -  1.12.2`,
+							value: `Hardcore, Exploration, Adventure/RPG
+									https://www.curseforge.com/minecraft/modpacks/rlcraft`},
+						{name: '\u200B', value: " "},
+						{
+							name: `**Si vous souhaitez ajouter un choix**`,
+							value: `contactez le <@&1117866235800064050> (Vendredi 21/07 max)`},
+						{name: '\u200B', value: " "},
+						{
+							name: `**Fin du vote et résultats le Mercredi 26/07.**`,
+							value: "Achat et steup du serveur sous peu ensuite."}
+			)
 		
 		const message = await interaction.reply({	// Reply to the interaction with the embed
 			embeds: [embed],
