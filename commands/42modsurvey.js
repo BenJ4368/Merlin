@@ -41,8 +41,9 @@ module.exports = {
 							"name": `🟥  -  RLCraft -  1.12.2`,
 							"value": `     Hardcore, Exploration, Adventure/RPG\n     https://www.curseforge.com/minecraft/modpacks/rlcraft`
 						})
-			.setFooter(`\n\nSi vous souhaitez ajouter un choix, contactez le <@${1117866235800064050}> (Vendredi 21/07 max)\n
-							Fin du vote et résultats le Mercredi 26/07.`)
+			.setFooter({ "text": `\n\nSi vous souhaitez ajouter un choix, contactez le <@${1117866235800064050}> (Vendredi 21/07 max)\n
+							Fin du vote et résultats le Mercredi 26/07.`
+			})
 		
 		const message = await interaction.reply({	// Reply to the interaction with the embed
 			embeds: [embed],
