@@ -10,7 +10,7 @@ module.exports = {
 			status: 'online',
 		})
 		bot.user.setActivity({	// Sets the activity
-			name: "Coding lessons",	// Name of the game/stream/music etc
+			name: "BenJ's best action",	// Name of the game/stream/music etc
 			type: Discord.ActivityType.Streaming,	// Type of activity (streaming, playing, listening to, competing etc)
 			url: "https://www.youtube.com/watch?v=4Gw5aui7efo"	// 'url' property only works with streaming type
 		})
