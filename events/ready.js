@@ -23,5 +23,6 @@ module.exports = {
 		/* fetching the 42Role message's cache for the listeners (42RolesReactAdd and 42RolesReactRemove) */
 		const channel42Role = await bot.channels.fetch("1121929529003364452");
 		const message42Role = await channel42Role.messages.fetch("1122621252151033890");
+		
 	},
 };
