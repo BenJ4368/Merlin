@@ -19,7 +19,7 @@ module.exports = {
 				// 	.setTitle("Selections des rôles :")
 				// 	.setDescription(`Sélectionne les jeux auxquels tu joues parmis les réactions de ce message.\n\
 				// 					Les rôles correspondants te seront attribués.\n\n\
-				// 					Si ce n'est pas le cas, signale-le moi:  <@${config.adminId}>`)
+				// 					Si ce n'est pas le cas, signale-le moi:  <@${config.adminIds[0])}>`)
 				// 	.setColor(Discord.Colors.White)
 				
 				// const message = await interaction.reply({	// Reply to the interaction with the embed
