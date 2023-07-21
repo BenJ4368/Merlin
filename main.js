@@ -29,7 +29,7 @@ if (regularCommandFiles.length > 0) {
 				Discord.Routes.applicationCommands(config.clientId),	// applicationCommands means the commands are stored for the bot, and so, accessible in any discord server where the bot is in.
 				{ body: bot.commandArray },
 			);
-			console.log(`${clr.cya}[Main]	${clr.blu}Successfully updated ${data.length} application commands.${clr.stop}`);
+			console.log(`${clr.cya}[Main]	${clr.blu}Successfully updated ${data.length} application commands${clr.stop}`);
 		} catch (error) {
 			console.error(error);
 		}
@@ -54,7 +54,7 @@ if (adminCommandFiles.length > 0) {
 				Discord.Routes.applicationGuildCommands(config.clientId, config.adminGuildId),	// applicationGuildCommand means the commands are stored for a specific discord server, and only accessible there.
 				{ body: bot.adminCommandArray },
 			);
-			console.log(`${clr.cya}[Admin]	${clr.red}Successfully updated ${data.length} admin commands.${clr.stop}`);
+			console.log(`${clr.cya}[Admin]	${clr.red}Successfully updated ${data.length} admin commands${clr.stop}`);
 		} catch (error) {
 			console.error(error);
 		}

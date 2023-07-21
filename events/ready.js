@@ -16,9 +16,9 @@ module.exports = {
 		})
 
 		const guildsNbr = bot.guilds.cache.size;  // Stores the numbers of server the bot is in
-		console.log(`${clr.cya}[Ready]	${clr.blu}${bot.user.username} is present in ${guildsNbr} servers${clr.stop}.`);
+		console.log(`${clr.cya}[Ready]	${clr.blu}${bot.user.username} is present in ${guildsNbr} servers${clr.stop}`);
 	
-		console.log(`${clr.cya}[Ready]	${clr.blu}${bot.user.username} ${clr.grn}is online${clr.stop}.`);
+		console.log(`${clr.cya}[Ready]	${clr.blu}${bot.user.username} ${clr.grn}is online${clr.stop}`);
 
 		/* fetching the 42Role message's cache for the listeners (42RolesReactAdd and 42RolesReactRemove) */
 		const channel42Role = await bot.channels.fetch("1121929529003364452");
