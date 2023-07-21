@@ -1,7 +1,7 @@
 const Discord = require("discord.js");
 const config = require("./config");
 const fs = require('node:fs');
-const color = require("./resources/color_codes");
+const clr = require("./resources/color_codes");
 
 /* Creates the client, passing it the wanted intents */
 const intents = new Discord.IntentsBitField(3276799);
@@ -21,7 +21,7 @@ if (regularCommandFiles.length > 0) {
 		const command = require(`./commands/${file}`);
 		bot.commands.set(command.data.name, command);
 		bot.commandArray.push(command.data.toJSON());
-		console.log(`${color.cyan}[Main]	${color.yellow}${file.slice(0, file.length - 3)} ${color.white} is operational.${color.cyan}`);
+		console.log(`${clr.cya}[Main]	${clr.yel}${file.slice(0, file.length - 3)} ${clr.whi}OK${clr.stop}`);
 	});
 	(async () => {	// Once all commands are loaded in the bot, give the commandArray and the bot's Id to the discord REST API, to update them
 		try {
@@ -29,7 +29,7 @@ if (regularCommandFiles.length > 0) {
 				Discord.Routes.applicationCommands(config.clientId),	// applicationCommands means the commands are stored for the bot, and so, accessible in any discord server where the bot is in.
 				{ body: bot.commandArray },
 			);
-			console.log(`${color.cyan}[Main]	${color.yellow}Successfully updated ${data.length} application commands.${color.stop}`);
+			console.log(`${clr.cya}[Main]	${clr.blu}Successfully updated ${data.length} application commands.${clr.stop}`);
 		} catch (error) {
 			console.error(error);
 		}
@@ -46,7 +46,7 @@ if (adminCommandFiles.length > 0) {
 		const command = require(`./admin/${file}`);
 		bot.adminCommands.set(command.data.name, command);
 		bot.adminCommandArray.push(command.data.toJSON());
-		console.log(`${color.red}[Admin] ${color.yellow}${file.slice(0, file.length - 3)} ${color.white} is operational.${color.cyan}`);
+		console.log(`${clr.cya}[Admin]	${clr.red}${file.slice(0, file.length - 3)} ${clr.whi}OK${clr.stop}`);
 	});
 	(async () => {
 		try {
@@ -54,7 +54,7 @@ if (adminCommandFiles.length > 0) {
 				Discord.Routes.applicationGuildCommands(config.clientId, config.adminGuildId),	// applicationGuildCommand means the commands are stored for a specific discord server, and only accessible there.
 				{ body: bot.adminCommandArray },
 			);
-			console.log(`${color.red}[Admin]	${color.yellow}Successfully updated ${data.length} admin commands.${color.stop}`);
+			console.log(`${clr.cya}[Admin]	${clr.red}Successfully updated ${data.length} admin commands.${clr.stop}`);
 		} catch (error) {
 			console.error(error);
 		}
@@ -75,13 +75,13 @@ fs.readdirSync("./events").filter(files => files.endsWith(".js")).forEach(file =
 // rest.put(Discord.Routes.applicationCommands(config.clientId),
 // 	{ body: [] },
 // );
-// console.log(`${color.cyan}[Main]	${color.red}Deleted all application commands.${color.stop}`);
+// console.log(`${clr.cya}[Admin]	${clr.red}Deleted all application commands.${clr.stop}`);
 
 
 /* Uncomment to delete ALL admin commands*/
 // rest.put(Discord.Routes.applicationGuildCommands(config.clientId, config.adminGuildId),
 // 	{ body: [] },
 // );
-// console.log(`${color.red}[Admin]	${color.red}Deleted all admin commands.${color.stop}`);
+// console.log(`${clr.cya}[Admin]	${clr.red}Deleted all admin commands.${clr.stop}`);
 
 bot.login(config.token); // Connects the bot. Triggers the Discord.Event.ClientReady event

@@ -1,5 +1,5 @@
 const Discord = require("discord.js");
-const color = require("../resources/color_codes");
+const clr = require("../resources/color_codes");
 
 module.exports = {
 	name: Discord.Events.MessageReactionAdd,	// Triggers when any reaction is added
@@ -18,7 +18,7 @@ module.exports = {
 				const overwatchRole = guild.roles.cache.get(overwatchRoleId);	// Gets and stores the role
 				if (reactUser && overwatchRole) {
 					reactUser.roles.add(overwatchRole)	// Give the user the corresponding role. Console.log it, and log any errors. (User already possessing the role doesn't do anything)
-						.then(console.log(`${color.cyan}[42RRAdd]	${color.blue}${user.username} ${color.green}selected${color.white} the rôle "OverWatch".${color.stop}`))
+						.then(console.log(`${clr.cya}[comd]	${clr.blu}${user.username} selected the rôle ${clr.whi}"OverWatch"${clr.stop}`))
 						.catch(console.error);
 				}
 			}
@@ -29,7 +29,7 @@ module.exports = {
 				const vrisingRole = guild.roles.cache.get(vrisingRoleId);
 				if (reactUser && vrisingRole) {
 					reactUser.roles.add(vrisingRole)
-						.then(console.log(`${color.cyan}[42RRAdd]	${color.blue}${user.username} ${color.green}selected${color.white} the rôle "Vrising".${color.stop}`))
+						.then(console.log(`${clr.cya}[comd]	${clr.blu}${user.username} selected the rôle ${clr.whi}"Vrising"${clr.stop}`))
 						.catch(console.error);
 				}
 			}
@@ -39,7 +39,7 @@ module.exports = {
 				const minecraftRole = guild.roles.cache.get(minecraftRoleId);
 				if (reactUser && minecraftRole) {
 					reactUser.roles.add(minecraftRole)
-						.then(console.log(`${color.cyan}[42RRAdd]	${color.blue}${user.username} ${color.green}selected${color.white} the rôle "Minecraft".${color.stop}`))
+						.then(console.log(`${clr.cya}[comd]	${clr.blu}${user.username} selected the rôle "Minecraft".${clr.stop}`))
 						.catch(console.error);
 				}
 			}
@@ -49,7 +49,7 @@ module.exports = {
 				const rocketleagueRole = guild.roles.cache.get(rocketleagueRoleId);
 				if (reactUser && rocketleagueRole) {
 					reactUser.roles.add(rocketleagueRole)
-						.then(console.log(`${color.cyan}[42RRAdd]	${color.blue}${user.username} ${color.green}selected${color.white} the rôle "RocketLeague".${color.stop}`))
+						.then(console.log(`${clr.cya}[comd]	${clr.blu}${user.username} selected the rôle ${clr.whi}"RocketLeague"${clr.stop}`))
 						.catch(console.error);
 				}
 			}
@@ -59,7 +59,7 @@ module.exports = {
 				const leagueoflegendsRole = guild.roles.cache.get(leagueoflegendsRoleId);
 				if (reactUser && leagueoflegendsRole) {
 					reactUser.roles.add(leagueoflegendsRole)
-						.then(console.log(`${color.cyan}[42RRAdd]	${color.blue}${user.username} ${color.green}selected${color.white} the rôle "LeagueOfLegends".${color.stop}`))
+						.then(console.log(`${clr.cya}[comd]	${clr.blu}${user.username} selected the rôle ${clr.whi}"LeagueOfLegends"${clr.stop}`))
 						.catch(console.error);
 				}
 			}
@@ -69,7 +69,7 @@ module.exports = {
 				const valorantRole = guild.roles.cache.get(valorantRoleId);
 				if (reactUser && valorantRole) {
 					reactUser.roles.add(valorantRole)
-						.then(console.log(`${color.cyan}[42RRAdd]	${color.blue}${user.username} ${color.green}selected${color.white} the rôle "Valorant".${color.stop}`))
+						.then(console.log(`${clr.cya}[comd]	${clr.blu}${user.username} selected the rôle ${clr.whi}"Valorant"${clr.stop}`))
 						.catch(console.error);
 				}
 			}
@@ -79,7 +79,7 @@ module.exports = {
 				const browserGamesRole = guild.roles.cache.get(browserGamesRoleId);
 				if (reactUser && browserGamesRole) {
 					reactUser.roles.add(browserGamesRole)
-						.then(console.log(`${color.cyan}[42RRAdd]	${color.blue}${user.username} ${color.green}selected${color.white} the rôle "BrowserGames".${color.stop}`))
+						.then(console.log(`${clr.cya}[comd]	${clr.blu}${user.username} selected the rôle ${clr.whi}"BrowserGames"${clr.stop}`))
 						.catch(console.error);
 				}
 			}
@@ -89,7 +89,7 @@ module.exports = {
 				const riskofrainRole = guild.roles.cache.get(riskofrainRoleId);
 				if (reactUser && riskofrainRole) {
 					reactUser.roles.add(riskofrainRole)
-						.then(console.log(`${color.cyan}[42RRAdd]	${color.blue}${user.username} ${color.green}selected${color.white} the rôle "RiskOfRain".${color.stop}`))
+						.then(console.log(`${clr.cya}[comd]	${clr.blu}${user.username} selected the rôle ${clr.whi}"RiskOfRain"${clr.stop}`))
 						.catch(console.error);
 				}
 			}
@@ -99,7 +99,7 @@ module.exports = {
 				const civRole = guild.roles.cache.get(civRoleId);
 				if (reactUser && civRole) {
 					reactUser.roles.add(civRole)
-						.then(console.log(`${color.cyan}[42RRAdd]	${color.blue}${user.username} ${color.green}selected${color.white} the rôle "CivilisationVI".${color.stop}`))
+						.then(console.log(`${clr.cya}[comd]	${clr.blu}${user.username} selected the rôle ${clr.whi}"CivilisationVI"${clr.stop}`))
 						.catch(console.error);
 				}
 			}
@@ -109,17 +109,17 @@ module.exports = {
 				const terrariaRole = guild.roles.cache.get(terrariaRoleId);
 				if (reactUser && terrariaRole) {
 					reactUser.roles.add(terrariaRole)
-						.then(console.log(`${color.cyan}[42RRAdd]	${color.blue}${user.username} ${color.green}selected${color.white} the rôle "Terraria".${color.stop}`))
+						.then(console.log(`${clr.cya}[comd]	${clr.blu}${user.username} selected the rôle ${clr.whi}"Terraria"${clr.stop}`))
 						.catch(console.error);
 				}
 			}
 
 			if (reaction.emoji.name === "speedrunners") {
-				const speedrunnersRoleId = "1128753262946955304"
-				const speedrunnersRole = guild.roles.cache.get(speedrunnersRoleId);
-				if (reactUser && speedrunnersRole) {
-					reactUser.roles.add(speedrunnersRole)
-						.then(console.log(`${color.cyan}[42RRAdd]	${color.blue}${user.username} ${color.green}selected${color.white} the rôle "SpeedRunners".${color.stop}`))
+				const speedRunnersRoleId = "1128753262946955304"
+				const speedRunnersRole = guild.roles.cache.get(speedRunnersRoleId);
+				if (reactUser && speedRunnersRole) {
+					reactUser.roles.add(speedRunnersRole)
+						.then(console.log(`${clr.cya}[comd]	${clr.blu}${user.username} selected the rôle ${clr.whi}"SpeedRunners"${clr.stop}`))
 						.catch(console.error);
 				}
 			}

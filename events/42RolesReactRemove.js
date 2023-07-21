@@ -1,5 +1,5 @@
 const Discord = require("discord.js");
-const color = require("../resources/color_codes");
+const clr = require("../resources/color_codes");
 
 module.exports = {
 	name: Discord.Events.MessageReactionRemove,	// Triggers when any reaction is removed
@@ -19,7 +19,7 @@ module.exports = {
 				if (reactUser && overwatchRole) {
 					if (reactUser.roles.cache.has(overwatchRoleId)) { // Id the user has the corresponding role, take it away. Console.log it, and log any errors.
 						reactUser.roles.remove(overwatchRole)
-							.then(console.log(`${color.cyan}[42RRRemove]	${color.blue}${user.username} ${color.yellow}unselected${color.white} the rôle "OverWatch".${color.stop}`))
+							.then(console.log(`${clr.cya}[comd]	${clr.blu}${user.username} unselected the rôle ${clr.whi}"OverWatch"${clr.stop}`))
 							.catch(console.error);
 					}
 				}
@@ -32,7 +32,7 @@ module.exports = {
 				if (reactUser && vrisingRole) {
 					if (reactUser.roles.cache.has(vrisingRoleId)) {
 						reactUser.roles.remove(vrisingRole)
-							.then(console.log(`${color.cyan}[42RRRemove]	${color.blue}${user.username} ${color.yellow}unselected${color.white} the rôle "Vrising".${color.stop}`))
+							.then(console.log(`${clr.cya}[comd]	${clr.blu}${user.username} unselected the rôle ${clr.whi}"Vrising"${clr.stop}`))
 							.catch(console.error);
 					}
 				}
@@ -44,7 +44,7 @@ module.exports = {
 				if (reactUser && minecraftRole) {
 					if (reactUser.roles.cache.has(minecraftRoleId)) {
 						reactUser.roles.remove(minecraftRole)
-							.then(console.log(`${color.cyan}[42RRRemove]	${color.blue}${user.username} ${color.yellow}unselected${color.white} the rôle "Minecraft".${color.stop}`))
+							.then(console.log(`${clr.cya}[comd]	${clr.blu}${user.username} unselected the rôle ${clr.whi}"Minecraft"${clr.stop}`))
 							.catch(console.error);
 					}
 				}
@@ -56,7 +56,7 @@ module.exports = {
 				if (reactUser && rocketleagueRole) {
 					if (reactUser.roles.cache.has(rocketleagueRoleId)) {
 						reactUser.roles.remove(rocketleagueRole)
-							.then(console.log(`${color.cyan}[42RRRemove]	${color.blue}${user.username} ${color.yellow}unselected${color.white} the rôle "RocketLeague".${color.stop}`))
+							.then(console.log(`${clr.cya}[comd]	${clr.blu}${user.username} unselected the rôle ${clr.whi}"RocketLeague"${clr.stop}`))
 							.catch(console.error);
 					}
 				}
@@ -67,7 +67,7 @@ module.exports = {
 				const leagueoflegendsRole = guild.roles.cache.get(leagueoflegendsRoleId);
 				if (reactUser && leagueoflegendsRole) {
 					reactUser.roles.remove(leagueoflegendsRole)
-						.then(console.log(`${color.cyan}[42RRRemove]	${color.blue}${user.username} ${color.yellow}unselected${color.white} the rôle "LeagueOfLegends".${color.stop}`))
+						.then(console.log(`${clr.cya}[comd]	${clr.blu}${user.username} unselected the rôle ${clr.whi}"LeagueOfLegends"${clr.stop}`))
 						.catch(console.error);
 				}
 			}
@@ -77,7 +77,7 @@ module.exports = {
 				const valorantRole = guild.roles.cache.get(valorantRoleId);
 				if (reactUser && valorantRole) {
 					reactUser.roles.remove(valorantRole)
-						.then(console.log(`${color.cyan}[42RRRemove]	${color.blue}${user.username} ${color.yellow}unselected${color.white} the rôle "Valorant".${color.stop}`))
+						.then(console.log(`${clr.cya}[comd]	${clr.blu}${user.username} unselected the rôle ${clr.whi}"Valorant"${clr.stop}`))
 						.catch(console.error);
 				}
 			}
@@ -87,7 +87,7 @@ module.exports = {
 				const browserGamesRole = guild.roles.cache.get(browserGamesRoleId);
 				if (reactUser && browserGamesRole) {
 					reactUser.roles.remove(browserGamesRole)
-						.then(console.log(`${color.cyan}[42RRRemove]	${color.blue}${user.username} ${color.yellow}unselected${color.white} the rôle "BrowserGames".${color.stop}`))
+						.then(console.log(`${clr.cya}[comd]	${clr.blu}${user.username} unselected the rôle ${clr.whi}"BrowserGames"${clr.stop}`))
 						.catch(console.error);
 				}
 			}
@@ -97,7 +97,7 @@ module.exports = {
 				const riskofrainRole = guild.roles.cache.get(riskofrainRoleId);
 				if (reactUser && riskofrainRole) {
 					reactUser.roles.remove(riskofrainRole)
-						.then(console.log(`${color.cyan}[42RRRemove]	${color.blue}${user.username} ${color.yellow}unselected${color.white} the rôle "RiskOfRain".${color.stop}`))
+						.then(console.log(`${clr.cya}[comd]	${clr.blu}${user.username} unselected the rôle ${clr.whi}"RiskOfRain"${clr.stop}`))
 						.catch(console.error);
 				}
 			}
@@ -107,7 +107,7 @@ module.exports = {
 				const civRole = guild.roles.cache.get(civRoleId);
 				if (reactUser && civRole) {
 					reactUser.roles.remove(civRole)
-						.then(console.log(`${color.cyan}[42RRRemove]	${color.blue}${user.username} ${color.yellow}unselected${color.white} the rôle "CivilisationVI".${color.stop}`))
+						.then(console.log(`${clr.cya}[comd]	${clr.blu}${user.username} unselected the rôle ${clr.whi}"CivilisationVI"${clr.stop}`))
 						.catch(console.error);
 				}
 			}
@@ -117,17 +117,17 @@ module.exports = {
 				const terrariaRole = guild.roles.cache.get(terrariaRoleId);
 				if (reactUser && terrariaRole) {
 					reactUser.roles.remove(terrariaRole)
-						.then(console.log(`${color.cyan}[42RRRemove]	${color.blue}${user.username} ${color.yellow}unselected${color.white} the rôle "Terraria".${color.stop}`))
+						.then(console.log(`${clr.cya}[comd]	${clr.blu}${user.username} unselected the rôle ${clr.whi}"Terraria"${clr.stop}`))
 						.catch(console.error);
 				}
 			}
 
 			if (reaction.emoji.name === "speedrunners") {
-				const speedrunnersRoleId = "1128753262946955304"
-				const speedrunnersRole = guild.roles.cache.get(speedrunnersRoleId);
-				if (reactUser && speedrunnersRole) {
-					reactUser.roles.remove(speedrunnersRole)
-						.then(console.log(`${color.cyan}[42RRRemove]	${color.blue}${user.username} ${color.yellow}unselected${color.white} the rôle "speedrunners".${color.stop}`))
+				const speedRunnersRoleId = "1128753262946955304"
+				const speedRunnersRole = guild.roles.cache.get(speedRunnersRoleId);
+				if (reactUser && speedRunnersRole) {
+					reactUser.roles.remove(speedRunnersRole)
+						.then(console.log(`${clr.cya}[comd]	${clr.blu}${user.username} unselected the rôle ${clr.whi}"SpeedRunners"${clr.stop}`))
 						.catch(console.error);
 				}
 			}

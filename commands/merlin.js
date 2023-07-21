@@ -1,5 +1,5 @@
 const Discord = require('discord.js');
-const color = require("../resources/color_codes");
+const clr = require("../resources/color_codes");
 
 module.exports = {
 	data: new Discord.SlashCommandBuilder()
@@ -8,7 +8,7 @@ module.exports = {
 
 	async execute(interaction)	// Simply sends back a message
 	{
-		console.log(`${color.cyan}[command]	${color.magenta}/merlin ${color.white}was fired by ${color.blue}${interaction.user.username}.${color.stop}`);
+		console.log(`${clr.cya}[comd]	${clr.mag}/merlin ${clr.whi}was fired by ${clr.blu}${interaction.user.username}${clr.stop}`);
 
 		interaction.reply('I am Merlin.\nDevelopped by ./BenJ, and still in testing phase.\nYes, this command is useless.');
 	}

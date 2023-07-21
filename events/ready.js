@@ -1,5 +1,5 @@
 const Discord = require("discord.js");
-const color = require("../resources/color_codes");
+const clr = require("../resources/color_codes");
 
 module.exports = {
 	name: Discord.Events.ClientReady,	// Triggers when the bot is connected
@@ -16,9 +16,9 @@ module.exports = {
 		})
 
 		const guildsNbr = bot.guilds.cache.size;  // Stores the numbers of server the bot is in
-		console.log(`${color.cyan}[Ready]		${color.blue}${bot.user.username} ${color.stop}is present in ${color.green}${guildsNbr} servers${color.stop}.`);
+		console.log(`${clr.cya}[Ready]		${clr.blu}${bot.user.username} is present in ${guildsNbr} servers${clr.stop}.`);
 	
-		console.log(`${color.cyan}[Ready]		${color.blue}${bot.user.username} ${color.green}online${color.stop}.`);
+		console.log(`${clr.cya}[Ready]		${clr.blu}${bot.user.username} ${clr.grn}is online${clr.stop}.`);
 
 		/* fetching the 42Role message's cache for the listeners (42RolesReactAdd and 42RolesReactRemove) */
 		const channel42Role = await bot.channels.fetch("1121929529003364452");

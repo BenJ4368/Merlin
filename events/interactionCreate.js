@@ -1,5 +1,5 @@
 const Discord = require("discord.js");
-const color = require("../resources/color_codes");
+const clr = require("../resources/color_codes");
 
 module.exports = {
 	name: Discord.Events.InteractionCreate,	// triggers when an interaction id made
@@ -19,7 +19,7 @@ module.exports = {
 		}
 		catch (error) {	// Log an eventual error (Command not found...)
 			console.error(error);
-				await interaction.followUp({ content: `${color.cyan}[InteractionCreate]	${color.red}Error while executing ${color.yellow}${interaction.commandName}${color.stop}`, ephemeral: true});
+				await interaction.followUp({ content: `${clr.cya}[InteractionCreate]	${clr.red}Error while executing ${clr.yel}${interaction.commandName}${clr.stop}`, ephemeral: true});
 		}
 	},
 };

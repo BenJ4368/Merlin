@@ -1,5 +1,5 @@
 const Discord = require('discord.js');
-const color = require("../resources/color_codes");
+const clr = require("../resources/color_codes");
 const config = require("../config");
 
 module.exports = {
@@ -8,7 +8,7 @@ module.exports = {
 		.setDescription("RESTRICTED - Wizards only."),
 
 	async execute(interaction) {
-		console.log(`${color.red}[admin]	${color.magenta}/42survey ${color.white}was fired by ${color.blue}${interaction.user.username}.${color.stop}`);
+		console.log(`${clr.cya}[Admin]	${clr.mag}/42survey ${clr.whi}was fired by ${clr.blu}${interaction.user.username}${clr.stop}`);
 		if (config.adminIds.includes(interaction.user.id)) {	// Checks if the user triggering the command is one of the admins (admin Ids are stored in the config.js file, in an array)
 
 			const embed = new Discord.EmbedBuilder()	// Creates a new embed
@@ -88,7 +88,7 @@ module.exports = {
 		else	// If the user triggering the command is not an admin, sends an ephemeral message to explain it to him, and console log the denied acces.
 		{
 			interaction.reply({ content: "Only a Wizard can use this spell. You're full of shit, not Magic. Don't try again.", ephemeral: true });
-			console.log(`${color.red}[admin]	${color.magenta}/42survey ${color.white}acces was denied to ${color.blue}${interaction.user.username}.${color.stop}`);
+			console.log(`${clr.cya}[Admin]	${clr.mag}/42survey ${clr.whi}acces was denied to ${clr.blu}${interaction.user.username}${clr.stop}`);
 		}
 	}
 }
