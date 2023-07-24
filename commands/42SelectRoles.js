@@ -32,7 +32,7 @@ module.exports = {
 					if this block is uncommented the previous block has to be commented. */
 				
 				const message = await interaction.channel.messages.fetch("1122621252151033890");	// Fetches the target message with its Id (42RoleMessage)
-				interaction.reply({ content: "Done, you may dismiss this response.", ephemeral: true });	// Sends a ephemeral reply, to end the interaction (necessery)
+				interaction.reply({ content: "Fait, vous pouvez disposer de ce message.", ephemeral: true });	// Sends a ephemeral reply, to end the interaction (necessery)
 				await message.react("<:overwatch:1122112022386053231>");	// React to the target message with an emoji
 				await message.react("<:vrising:1122111992048656416>");				// 'await' tells the code to wait until the reaction is done before doing another, so the order here matters.
 				await message.react("<:minecraft:1122112010302279811>");			// without the awaits, the order of reactions on the message will be random.
@@ -47,7 +47,7 @@ module.exports = {
 		}
 		else	// If the user triggering the command is not an admin, sends an ephemeral message to explain it to him, and console log the denied acces.
 		{
-			interaction.reply({ content: "Only a Wizard can use this spell. You're full of shit, not Magic. Don't try again.", ephemeral: true });
+			interaction.reply({ content: "Seul un Sorcier peut lancer ce sort. Tu sens la merde, pas la magie. Ne réessaie pas.", ephemeral: true });
 			console.log(`${clr.cya}[Admin]	${clr.mag}/42selectroles ${clr.whi}acces was denied to ${clr.blu}${interaction.user.username}${clr.stop}`);
 		}
 	}

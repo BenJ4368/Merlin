@@ -75,7 +75,7 @@ module.exports = {
 		const message42Survey = await channel42Survey.messages.fetch("1130576414622613524");
 
 		message42Survey.edit({ embeds: [embed] })  // Edits the embed
-		interaction.reply({ content: "Done, you may dismiss this response.", ephemeral: true });	// Sends a ephemeral reply, to end the interaction (necessery)
+		interaction.reply({ content: "Fait, vous pouvez disposer de ce message", ephemeral: true });	// Sends a ephemeral reply, to end the interaction (necessery)
 
 			await message42Survey.react("⬜");	// React to the target message with an emoji
 			await message42Survey.react("🟪");				// 'await' tells the code to wait until the reaction is done before doing another, so the order here matters.
@@ -87,7 +87,7 @@ module.exports = {
 		}
 		else	// If the user triggering the command is not an admin, sends an ephemeral message to explain it to him, and console log the denied acces.
 		{
-			interaction.reply({ content: "Only a Wizard can use this spell. You're full of shit, not Magic. Don't try again.", ephemeral: true });
+			interaction.reply({ content: "Seul un Sorcier peut lancer ce sort. Tu sens la merde, pas la magie. Ne réessaie pas.", ephemeral: true });
 			console.log(`${clr.cya}[Admin]	${clr.mag}/42survey ${clr.whi}acces was denied to ${clr.blu}${interaction.user.username}${clr.stop}`);
 		}
 	}

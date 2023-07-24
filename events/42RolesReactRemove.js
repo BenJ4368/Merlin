@@ -21,6 +21,7 @@ module.exports = {
 						reactUser.roles.remove(overwatchRole)
 							.then(console.log(`${clr.cya}[comd]	${clr.blu}${user.username} unselected the rôle ${clr.whi}"OverWatch"${clr.stop}`))
 							.catch(console.error);
+						reactUser.send("Le rôle *Overwatch* t'as été retiré.");
 					}
 				}
 			}
@@ -34,6 +35,7 @@ module.exports = {
 						reactUser.roles.remove(vrisingRole)
 							.then(console.log(`${clr.cya}[comd]	${clr.blu}${user.username} unselected the rôle ${clr.whi}"Vrising"${clr.stop}`))
 							.catch(console.error);
+						reactUser.send("Le rôle *VRising* t'as été retiré.");
 					}
 				}
 			}
@@ -46,6 +48,7 @@ module.exports = {
 						reactUser.roles.remove(minecraftRole)
 							.then(console.log(`${clr.cya}[comd]	${clr.blu}${user.username} unselected the rôle ${clr.whi}"Minecraft"${clr.stop}`))
 							.catch(console.error);
+						reactUser.send("Le rôle *Minecraft* t'as été retiré.");
 					}
 				}
 			}
@@ -58,6 +61,7 @@ module.exports = {
 						reactUser.roles.remove(rocketleagueRole)
 							.then(console.log(`${clr.cya}[comd]	${clr.blu}${user.username} unselected the rôle ${clr.whi}"RocketLeague"${clr.stop}`))
 							.catch(console.error);
+						reactUser.send("Le rôle *RocketLeague* t'as été retiré.");
 					}
 				}
 			}
@@ -69,6 +73,7 @@ module.exports = {
 					reactUser.roles.remove(leagueoflegendsRole)
 						.then(console.log(`${clr.cya}[comd]	${clr.blu}${user.username} unselected the rôle ${clr.whi}"LeagueOfLegends"${clr.stop}`))
 						.catch(console.error);
+					reactUser.send("Le rôle *LeagueOfLegends* t'as été retiré.");
 				}
 			}
 
@@ -79,6 +84,7 @@ module.exports = {
 					reactUser.roles.remove(valorantRole)
 						.then(console.log(`${clr.cya}[comd]	${clr.blu}${user.username} unselected the rôle ${clr.whi}"Valorant"${clr.stop}`))
 						.catch(console.error);
+					reactUser.send("Le rôle *Valorant* t'as été retiré.");
 				}
 			}
 
@@ -89,6 +95,7 @@ module.exports = {
 					reactUser.roles.remove(browserGamesRole)
 						.then(console.log(`${clr.cya}[comd]	${clr.blu}${user.username} unselected the rôle ${clr.whi}"BrowserGames"${clr.stop}`))
 						.catch(console.error);
+					reactUser.send("Le rôle *BrowserGames* t'as été retiré.");
 				}
 			}
 
@@ -99,6 +106,7 @@ module.exports = {
 					reactUser.roles.remove(riskofrainRole)
 						.then(console.log(`${clr.cya}[comd]	${clr.blu}${user.username} unselected the rôle ${clr.whi}"RiskOfRain"${clr.stop}`))
 						.catch(console.error);
+					reactUser.send("Le rôle *RiskOfRain* t'as été retiré.");
 				}
 			}
 
@@ -109,6 +117,7 @@ module.exports = {
 					reactUser.roles.remove(civRole)
 						.then(console.log(`${clr.cya}[comd]	${clr.blu}${user.username} unselected the rôle ${clr.whi}"CivilisationVI"${clr.stop}`))
 						.catch(console.error);
+					reactUser.send("Le rôle *CivilisationVI* t'as été retiré.");
 				}
 			}
 
@@ -119,6 +128,7 @@ module.exports = {
 					reactUser.roles.remove(terrariaRole)
 						.then(console.log(`${clr.cya}[comd]	${clr.blu}${user.username} unselected the rôle ${clr.whi}"Terraria"${clr.stop}`))
 						.catch(console.error);
+					reactUser.send("Le rôle *Terraria* t'as été retiré.");
 				}
 			}
 
@@ -129,6 +139,7 @@ module.exports = {
 					reactUser.roles.remove(speedRunnersRole)
 						.then(console.log(`${clr.cya}[comd]	${clr.blu}${user.username} unselected the rôle ${clr.whi}"SpeedRunners"${clr.stop}`))
 						.catch(console.error);
+					reactUser.send("Le rôle *SpeedRunners* t'as été retiré.");
 				}
 			}
 		}

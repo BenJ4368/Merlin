@@ -20,7 +20,7 @@ module.exports = {
 					reactUser.roles.add(overwatchRole)	// Give the user the corresponding role. Console.log it, and log any errors. (User already possessing the role doesn't do anything)
 						.then(console.log(`${clr.cya}[comd]	${clr.blu}${user.username} selected the rôle ${clr.whi}"OverWatch"${clr.stop}`))
 						.catch(console.error);
-					reactUser.send("Test overwatch.");
+					reactUser.send("Le rôle *Overwatch* t'as été donné.");
 				}
 			}
 
@@ -32,6 +32,7 @@ module.exports = {
 					reactUser.roles.add(vrisingRole)
 						.then(console.log(`${clr.cya}[comd]	${clr.blu}${user.username} selected the rôle ${clr.whi}"Vrising"${clr.stop}`))
 						.catch(console.error);
+					reactUser.send("Le rôle *VRising* t'as été donné.");
 				}
 			}
 
@@ -42,6 +43,7 @@ module.exports = {
 					reactUser.roles.add(minecraftRole)
 						.then(console.log(`${clr.cya}[comd]	${clr.blu}${user.username} selected the rôle "Minecraft".${clr.stop}`))
 						.catch(console.error);
+					reactUser.send("Le rôle *Minecraft* t'as été donné.");
 				}
 			}
 
@@ -52,6 +54,7 @@ module.exports = {
 					reactUser.roles.add(rocketleagueRole)
 						.then(console.log(`${clr.cya}[comd]	${clr.blu}${user.username} selected the rôle ${clr.whi}"RocketLeague"${clr.stop}`))
 						.catch(console.error);
+					reactUser.send("Le rôle *RocketLeague* t'as été donné.");
 				}
 			}
 
@@ -62,6 +65,7 @@ module.exports = {
 					reactUser.roles.add(leagueoflegendsRole)
 						.then(console.log(`${clr.cya}[comd]	${clr.blu}${user.username} selected the rôle ${clr.whi}"LeagueOfLegends"${clr.stop}`))
 						.catch(console.error);
+					reactUser.send("Le rôle *LeagueOfLegends* t'as été donné.");
 				}
 			}
 
@@ -72,6 +76,7 @@ module.exports = {
 					reactUser.roles.add(valorantRole)
 						.then(console.log(`${clr.cya}[comd]	${clr.blu}${user.username} selected the rôle ${clr.whi}"Valorant"${clr.stop}`))
 						.catch(console.error);
+					reactUser.send("Le rôle *Valorant* t'as été donné.");
 				}
 			}
 
@@ -82,6 +87,7 @@ module.exports = {
 					reactUser.roles.add(browserGamesRole)
 						.then(console.log(`${clr.cya}[comd]	${clr.blu}${user.username} selected the rôle ${clr.whi}"BrowserGames"${clr.stop}`))
 						.catch(console.error);
+					reactUser.send("Le rôle *BrowserGames* t'as été donné.");
 				}
 			}
 
@@ -92,6 +98,7 @@ module.exports = {
 					reactUser.roles.add(riskofrainRole)
 						.then(console.log(`${clr.cya}[comd]	${clr.blu}${user.username} selected the rôle ${clr.whi}"RiskOfRain"${clr.stop}`))
 						.catch(console.error);
+					reactUser.send("Le rôle *RiskOfRain* t'as été donné.");
 				}
 			}
 
@@ -102,6 +109,7 @@ module.exports = {
 					reactUser.roles.add(civRole)
 						.then(console.log(`${clr.cya}[comd]	${clr.blu}${user.username} selected the rôle ${clr.whi}"CivilisationVI"${clr.stop}`))
 						.catch(console.error);
+					reactUser.send("Le rôle *CivilisationVI* t'as été donné.");
 				}
 			}
 
@@ -112,6 +120,7 @@ module.exports = {
 					reactUser.roles.add(terrariaRole)
 						.then(console.log(`${clr.cya}[comd]	${clr.blu}${user.username} selected the rôle ${clr.whi}"Terraria"${clr.stop}`))
 						.catch(console.error);
+					reactUser.send("Le rôle *Terraria* t'as été donné.");
 				}
 			}
 
@@ -122,6 +131,7 @@ module.exports = {
 					reactUser.roles.add(speedRunnersRole)
 						.then(console.log(`${clr.cya}[comd]	${clr.blu}${user.username} selected the rôle ${clr.whi}"SpeedRunners"${clr.stop}`))
 						.catch(console.error);
+					reactUser.send("Le rôle *SpeedRunners* t'as été donné.");
 				}
 			}
 		}
