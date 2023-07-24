@@ -20,6 +20,7 @@ module.exports = {
 					reactUser.roles.add(overwatchRole)	// Give the user the corresponding role. Console.log it, and log any errors. (User already possessing the role doesn't do anything)
 						.then(console.log(`${clr.cya}[comd]	${clr.blu}${user.username} selected the rôle ${clr.whi}"OverWatch"${clr.stop}`))
 						.catch(console.error);
+					reactUser.send("Test overwatch.");
 				}
 			}
 
