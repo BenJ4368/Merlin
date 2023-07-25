@@ -4,8 +4,8 @@ const config = require("../config");
 
 module.exports = {
 	data: new Discord.SlashCommandBuilder()
-		.setName('merlin')	
-		.setDescription('Je suis Merlin.')
+		.setName('server')	
+		.setDescription('Rejoingez le Serveur Minecraft')
 		.addStringOption(option =>
 			option.setName('42login')
 			  .setDescription('Votre login 42, obligatoire')
