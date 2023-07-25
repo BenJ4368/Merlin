@@ -16,9 +16,9 @@ module.exports = {
 	{
 		console.log(`${clr.cya}[comd]	${clr.mag}/merlin ${clr.whi}was fired by ${clr.blu}${interaction.user.username}${clr.stop}`);
 
-		const login = interaction.options.getString('votreOption');
+		const login = interaction.options.getString('42login');
 		const admin = await interaction.client.users.fetch(config.adminIds[0]);
-		admin.send(`${interaction.user.username} used /server and send < ${votreOption} > as his/her 42 login`)
+		admin.send(`${interaction.user.username} used /server and send < ${login} > as his/her 42 login`)
 		interaction.reply({ content: "IP : 42mulhouse.uhcserv.eu", ephemeral: true });
 	}
 }
