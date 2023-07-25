@@ -25,8 +25,8 @@ module.exports = {
 						{name: '\u200B', value: " "},
 						{
 							name: `**Pour jouer sur le serveur :**`,
-							value: `Entrez la commande /server (de Merlin), en lui donnant votre 42login.
-									lancez ensuite Ragnamod VI, et rejoingez.`},
+							value: `Entrez la commande /server (de <@${config.clientId}>), en lui donnant votre 42login.
+									lancez ensuite Ragnamod VI, et rejoignez.`},
 			)
 
 			const message42Survey = await interaction.reply({	// Reply to the interaction with the embed
