@@ -19,6 +19,6 @@ module.exports = {
 		const login = interaction.options.getString('42login');
 		const admin = await interaction.client.users.fetch(config.adminIds[0]);
 		admin.send(`${interaction.user.username} used /server and send < ${login} > as his/her 42 login`)
-		interaction.reply({ content: "IP : 42mulhouse.uhcserv.eu", ephemeral: true });
+		interaction.reply({ content: "Thanks ${login}, here's the server's IP adress: 42mulhouse.uhcserv.eu", ephemeral: true });
 	}
 }
