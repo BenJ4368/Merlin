@@ -14,7 +14,7 @@ module.exports = {
 
 	async execute(interaction)	// Simply sends back a message
 	{
-		console.log(`${clr.cya}[comd]	${clr.mag}/merlin ${clr.whi}was fired by ${clr.blu}${interaction.user.username}${clr.stop}`);
+		console.log(`${clr.cya}[comd]	${clr.mag}/server ${clr.whi}was fired by ${clr.blu}${interaction.user.username}${clr.stop}`);
 
 		const login = interaction.options.getString('42login');
 		const admin = await interaction.client.users.fetch(config.adminIds[0]);
