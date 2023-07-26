@@ -7,8 +7,8 @@ module.exports = {
 		.setName('server')	
 		.setDescription('Rejoingez le Serveur Minecraft')
 		.addStringOption(option =>
-			option.setName('42login')
-			  .setDescription('Votre login 42, obligatoire')
+			option.setName('name')
+			  .setDescription('Votre login 42 Ou un nom pour vous reconnaitre')
 			  .setRequired(true)
 		  ),
 
