@@ -5,7 +5,7 @@ const config = require("../config");
 module.exports = {
 	data: new Discord.SlashCommandBuilder()
 		.setName('42selectroles')
-		.setDescription("RESTRICTED - Wizards only."),
+		.setDescription("ACCES RESTREINT - Sorcier uniquement"),
 
 	async execute(interaction)
 	{

@@ -5,7 +5,7 @@ const config = require("../config");
 module.exports = {
 	data: new Discord.SlashCommandBuilder()
 		.setName('42survey')
-		.setDescription("RESTRICTED - Wizards only."),
+		.setDescription("ACCES RESTREINT - Sorcier uniquement"),
 
 	async execute(interaction) {
 		console.log(`${clr.cya}[Admin]	${clr.mag}/42survey ${clr.whi}was fired by ${clr.blu}${interaction.user.username}${clr.stop}`);
