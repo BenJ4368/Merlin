@@ -1,4 +1,5 @@
 const Discord = require('discord.js');
+const config = require("../config");
 const clr = require("../resources/color_codes");
 
 module.exports = {
