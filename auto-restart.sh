@@ -6,5 +6,5 @@ STOP='\033[0m'
 while true; do
 	git pull
 	node ./main.js
-	echo -e "${RED}MERLIN - Auto-restart${NC}\n"
+	echo -e "${RED}MERLIN - Auto-restart ${NC} \n"
 done
