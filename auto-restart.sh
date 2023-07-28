@@ -2,6 +2,7 @@
 
 # Auto restarts the bot when it crashes
 while true; do
-  node ./main.js
-  echo "Merlin died. Reanimation..."
+	git pull
+	node ./main.js
+	echo "\033[0;31m // Auto-restart //"
 done
