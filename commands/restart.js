@@ -11,7 +11,7 @@ module.exports = {
 		console.log(`${clr.cya}[Admin]	${clr.mag}/restart ${clr.whi}was fired by ${clr.blu}${interaction.user.username}${clr.stop}`);
 		if (config.adminIds.includes(interaction.user.id)) {	// Checks if the user triggering the command is one of the admins (admin Ids are stored in the config.js file, in an array)
 			console.log(`${clr.cya}[Admin]	${clr.red}Restart procedure...`);
-			interaction.reply({ content: "Procédure de redémarrage...", ephemeral: true });
+			await interaction.reply({ content: "Procédure de redémarrage...", ephemeral: true });
 			interaction.client.destroy();
 		}
 		else	// If the user triggering the command is not an admin, sends an ephemeral message to explain it to him, and console log the denied acces.
