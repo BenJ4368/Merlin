@@ -15,11 +15,6 @@ module.exports = {
 	async execute(interaction)	// Simply sends back a message
 	{
 		console.log(`${clr.cya}[comd]	${clr.mag}/server ${clr.whi}was fired by ${clr.blu}${interaction.user.username}${clr.stop}`);
-		if (interaction.user.id === "290163948861390849" || interaction.user.id === "509256239830794240")
-		{
-			interaction.reply({ content: `TG ENCULER`, ephemeral: true });
-			return ;
-		}
 
 		const login = interaction.options.getString('nickname');
 		const admin = await interaction.client.users.fetch(config.adminIds[0]);
