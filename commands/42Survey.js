@@ -87,7 +87,7 @@ module.exports = {
 		}
 		else	// If the user triggering the command is not an admin, sends an ephemeral message to explain it to him, and console log the denied acces.
 		{
-			interaction.reply({ content: "Seul un Sorcier peut lancer ce sort. Tu sens la merde, pas la magie. Ne réessaie pas.", ephemeral: true });
+			interaction.reply({ content: "Seul un Sorcier peut lancer ce sort.", ephemeral: true });
 			console.log(`${clr.cya}[Admin]	${clr.mag}/42survey ${clr.whi}acces was denied to ${clr.blu}${interaction.user.username}${clr.stop}`);
 		}
 	}
