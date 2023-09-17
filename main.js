@@ -40,7 +40,7 @@ if (regularCommandFiles.length > 0) {
 /* Practicly the same code as above, with minor changes */
 bot.adminCommands = new Discord.Collection();	
 bot.adminCommandArray = [];
-const adminCommandFiles = fs.readdirSync("./admin").filter(file => file.endsWith(".js")); // Reads the ./admin file
+const adminCommandFiles = fs.readdirSync("./admin").filter(file => file.endsWith(".js") && !file.startsWith('_')); // Reads the ./admin file
 if (adminCommandFiles.length > 0) {
 	adminCommandFiles.forEach(file => {
 		const command = require(`./admin/${file}`);
