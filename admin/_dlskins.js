@@ -1,4 +1,4 @@
-const config = require("../../config");
+const config = require("../config");
 const Hirez = require('@joshmiquel/hirez');
 const color = require("../../resources/color_codes")
 const fs = require('fs');
