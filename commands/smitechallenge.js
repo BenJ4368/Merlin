@@ -132,7 +132,7 @@ async function playDeityImage(CommandInteraction) {
 			await message.reactions.removeAll();
 			await message.react('✅');
 			embed
-				.setTitle(`${userPressedButton.member.displayName} is right !`)
+				.setTitle(`${userPressedButton.member.nickname} is right !`)
 				.setDescription(`The answer was : ${godAnswer}`)
 				.setColor(Discord.Colors.Red)
 			await CommandInteraction.editReply({
@@ -159,11 +159,11 @@ async function playDeityImage(CommandInteraction) {
 
 module.exports = {
 	data: new Discord.SlashCommandBuilder()
-		.setName('challenge')
+		.setName('smitechallenge')
 		.setDescription('Merlin will challenge your Smite knowledge.'),
 
 	async execute(CommandInteraction) {
-		console.log(`${color.cyan}[command]	${color.magenta}/challenge ${color.white}was fired by ${color.blue}${CommandInteraction.user.tag}.${color.stop}`);
+		console.log(`${color.cya}[command]	${color.mag}/smitechallenge ${color.whi}was fired by ${color.blu}${CommandInteraction.user.tag}.${color.stop}`);
 		try {
 			playDeityImage(CommandInteraction);
 		} catch (error) {
