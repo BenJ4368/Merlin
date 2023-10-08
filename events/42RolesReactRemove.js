@@ -143,7 +143,7 @@ module.exports = {
 				}
 			}
 
-			if (reaction.emoji.name === "gtfo") {
+			if (reaction.emoji.name === "GTFO") {
 				const GTFORoleId = "1160566739441033318"
 				const GTFORole = guild.roles.cache.get(GTFORoleId);
 				if (reactUser && GTFORole) {
