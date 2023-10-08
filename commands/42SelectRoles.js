@@ -44,6 +44,7 @@ module.exports = {
 				await message.react("<:civilisationvi:1126217059613806613>");
 				await message.react("<:terraria:1126212041204572242>");
 				await message.react("<:speedrunners:1128768967004131399>");
+				await message.react("<:GTFO:1160568449077100715> ");
 		}
 		else	// If the user triggering the command is not an admin, sends an ephemeral message to explain it to him, and console log the denied acces.
 		{

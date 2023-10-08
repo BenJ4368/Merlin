@@ -134,6 +134,17 @@ module.exports = {
 					reactUser.send("Le rôle *SpeedRunners* t'as été donné.");
 				}
 			}
+
+			if (reaction.emoji.name === "GTFO") {
+				const GTFORoleId = "1160566739441033318"
+				const GTFORole = guild.roles.cache.get(GTFORoleId);
+				if (reactUser && GTFORole) {
+					reactUser.roles.add(GTFORole)
+						.then(console.log(`${clr.cya}[comd]	${clr.blu}${user.username} selected the rôle "GTFO".${clr.stop}`))
+						.catch(console.error);
+					reactUser.send("Le rôle *GTFO* t'as été donné.");
+				}
+			}
 		}
 	},
 };

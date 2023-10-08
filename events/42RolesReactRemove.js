@@ -142,6 +142,19 @@ module.exports = {
 					reactUser.send("Le rôle *SpeedRunners* t'as été retiré.");
 				}
 			}
+
+			if (reaction.emoji.name === "gtfo") {
+				const GTFORoleId = "1160566739441033318"
+				const GTFORole = guild.roles.cache.get(GTFORoleId);
+				if (reactUser && GTFORole) {
+					if (reactUser.roles.cache.has(GTFORoleId)) {
+						reactUser.roles.remove(GTFORole)
+							.then(console.log(`${clr.cya}[comd]	${clr.blu}${user.username} unselected the rôle ${clr.whi}"GTFO"${clr.stop}`))
+							.catch(console.error);
+						reactUser.send("Le rôle *GTFO* t'as été retiré.");
+					}
+				}
+			}
 		}
 	},
 };
