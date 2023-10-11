@@ -2,7 +2,7 @@ const Discord = require("discord.js");
 const clr = require("../resources/color_codes");
 
 module.exports = {
-	name: Discord.Events.ClientReady,
+	name: Discord.Events.GuildMemberAdd,
 	execute(member) {
 		const targetChannel = member.guild.channels.cache.find((channel) => channel.id === '1118450787450892311');
 
