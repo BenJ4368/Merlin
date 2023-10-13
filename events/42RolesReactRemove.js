@@ -155,6 +155,19 @@ module.exports = {
 					}
 				}
 			}
+
+			if (reaction.emoji.name === "smite") {
+				const smiteRoleId = "1162460348381663292"
+				const smiteRole = guild.roles.cache.get(smiteRoleId);
+				if (reactUser && smiteRole) {
+					if (reactUser.roles.cache.has(smiteRoleId)) {
+						reactUser.roles.remove(smiteRole)
+							.then(console.log(`${clr.cya}[comd]	${clr.blu}${user.username} unselected the rôle ${clr.whi}"smite"${clr.stop}`))
+							.catch(console.error);
+						reactUser.send("Le rôle *Smite* t'as été retiré.");
+					}
+				}
+			}
 		}
 	},
 };
