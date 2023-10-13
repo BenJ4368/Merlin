@@ -9,7 +9,7 @@ module.exports = {
 		targetChannel.send(`## Bienvenue ${member}, :wave:\n**Va parler à [Merlin](https://discord.com/channels/1117863871827431434/1121929529003364452/1122621252151033890) dès que possible**,\ntu pourras ensuite mentionner tout les rôles de jeux pour savoir qui veux jouer.`);
 
 		const studRoleId = "1122112439849328651";
-		const studRole = member.guild.cache.get(studRoleId);
+		const studRole = member.guild.roles.cache.get(studRoleId);
 		member.roles.add(studRole).then(console.log(`${clr.cya}[+mbr]	${clr.grn}${user.username} joined.${clr.stop}`))
 	},
 };
