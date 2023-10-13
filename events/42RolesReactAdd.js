@@ -150,7 +150,7 @@ module.exports = {
 				const smiteRoleId = "1162460348381663292"
 				const smiteRole = guild.roles.cache.get(smiteRoleId);
 				if (reactUser && smiteRole) {
-					reactUser.roles.add(GTFORole)
+					reactUser.roles.add(smiteRole)
 						.then(console.log(`${clr.cya}[comd]	${clr.blu}${user.username} selected the rôle "smite".${clr.stop}`))
 						.catch(console.error);
 					reactUser.send("Le rôle *Smite* t'as été donné.");
