@@ -12,7 +12,7 @@ module.exports = {
 		bot.user.setActivity({	// Sets the activity
 			name: "BenJ's top 50",	// Name of the game/stream/music etc
 			type: Discord.ActivityType.Streaming,	// Type of activity (streaming, playing, listening to, competing etc)
-			url: "https://www.youtube.com/playlist?list=PLUXvz7hjf_iGViHLHoveZwyz5w48rEE-6"	// 'url' property only works with streaming type
+			url: "https://www.youtube.com/watch?v=cnzfaETtVkU&list=PLUXvz7hjf_iGViHLHoveZwyz5w48rEE-6"	// 'url' property only works with streaming type
 		})
 
 		const guildsNbr = bot.guilds.cache.size;  // Stores the numbers of server the bot is in
