@@ -10,6 +10,6 @@ module.exports = {
 
 		const studRoleId = "1122112439849328651";
 		const studRole = member.guild.roles.cache.get(studRoleId);
-		member.roles.add(studRole).then(console.log(`${clr.cya}[+mbr]	${clr.grn}${member} joined.${clr.stop}`))
+		member.roles.add(studRole).then(console.log(`${clr.cya}[+mbr]	${clr.grn}${member.displayName} joined.${clr.stop}`))
 	},
 };
