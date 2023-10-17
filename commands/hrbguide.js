@@ -24,10 +24,10 @@ module.exports = {
 		if (fs.existsSync(dir)) {
 			const files = fs.readdirSync(dir);
 			const imageFiles = files.filter(file => file.endsWith(".jpg") || file.endsWith(".png") || file.endsWith(".jpeg"));
-			imageFiles.map(async (file) => {
+			await Promise.all(imageFiles.map(async (file) => {
 				await sleep(1);
 				await interaction.channel.send({ files: [`${dir}/${file}`] });
-			});
+			}));
 			await interaction.reply({ content: "Done", ephemeral: true });
 		} else {
 			await interaction.reply("Le dossier spécifié n'existe pas.");
