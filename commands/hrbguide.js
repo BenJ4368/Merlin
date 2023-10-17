@@ -16,21 +16,15 @@ module.exports = {
 		const dir = './hrbguide';
 
 		if (fs.existsSync(dir)) {
-            fs.readdir(dir, (err, files) => {
-                if (err) {
-                    console.error('Erreur lors de la lecture du dossier:', err);
-                    return;
-                }
-
-                files.forEach(file => {
-                    if (file.endsWith(".jpg") || file.endsWith(".png") || file.endsWith(".jpeg")) {
-                        interaction.reply({ files: [`${dir}/${file}`] });
-                    }
-                });
-            });
-        } else {
-            interaction.reply("Le dossier spécifié n'existe pas.");
-        }
+			const files = fs.readdirSync(dir);
+			const imageFiles = files.filter(file => file.endsWith(".jpg") || file.endsWith(".png") || file.endsWith(".jpeg"));
+			await Promise.all(imageFiles.map(async (file) => {
+				await interaction.channel.send({ files: [`${dir}/${file}`] });
+			}));
+			await interaction.reply({ content: "Done", ephemeral: true });
+		} else {
+			await interaction.reply("Le dossier spécifié n'existe pas.");
+		}
 
 			
 		}
