@@ -17,8 +17,6 @@ module.exports = {
 		console.log(`${clr.cya}[cmd]	${clr.mag}/hrbguide ${clr.whi}was fired by ${clr.blu}${interaction.user.username}${clr.stop}`);
 		if (config.adminIds.includes(interaction.user.id)) {	// Checks if the user triggering the command is one of the admins (admin Ids are stored in the config.js file, in an array)
 
-		console.log(`${clr.cya}[cmd]	${clr.mag}/hrbguide ${clr.whi}was fired by ${clr.blu}${interaction.user.tag}.${clr.stop}`);
-
 		const dir = './hrbguide';
 
 		if (fs.existsSync(dir)) {
