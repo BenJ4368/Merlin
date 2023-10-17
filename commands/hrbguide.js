@@ -23,8 +23,8 @@ module.exports = {
 			const files = fs.readdirSync(dir);
 			const imageFiles = files.filter(file => file.endsWith(".jpg") || file.endsWith(".png") || file.endsWith(".jpeg"));
 			await Promise.all(imageFiles.map(async (file) => {
-				await sleep(1);
-				await interaction.channel.send({ files: [`${dir}/${file}`] });
+				await sleep(2);
+				interaction.channel.send({ files: [`${dir}/${file}`] });
 			}));
 			await interaction.reply({ content: "Done", ephemeral: true });
 		} else {
