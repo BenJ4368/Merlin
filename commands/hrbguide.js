@@ -3,6 +3,10 @@ const config = require("../config");
 const clr = require("../resources/color_codes");
 const fs = require('fs');
 
+function sleep(seconds) {
+	return new Promise(resolve => setTimeout(resolve, 1000 * seconds));
+}
+
 module.exports = {
 	data: new Discord.SlashCommandBuilder()
 		.setName('hrbguide')	
@@ -21,6 +25,7 @@ module.exports = {
 			const files = fs.readdirSync(dir);
 			const imageFiles = files.filter(file => file.endsWith(".jpg") || file.endsWith(".png") || file.endsWith(".jpeg"));
 			await Promise.all(imageFiles.map(async (file) => {
+				sleep(1);
 				await interaction.channel.send({ files: [`${dir}/${file}`] });
 			}));
 			await interaction.reply({ content: "Done", ephemeral: true });
