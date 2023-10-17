@@ -24,12 +24,12 @@ module.exports = {
 
                 files.forEach(file => {
                     if (file.endsWith(".jpg") || file.endsWith(".png") || file.endsWith(".jpeg")) {
-                        message.channel.send({ files: [`${dir}/${file}`] });
+                        interaction.reply({ files: [`${dir}/${file}`] });
                     }
                 });
             });
         } else {
-            message.channel.send("Le dossier spécifié n'existe pas.");
+            interaction.reply("Le dossier spécifié n'existe pas.");
         }
 
 			
