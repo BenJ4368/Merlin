@@ -61,7 +61,7 @@ async function playDeityImage(CommandInteraction) {
 		embeds: [embed],
 		files: [{
 			attachment: croppedImage,
-			name: 'GoBackOnDiscordAndStopTryingToCheat.png'
+			name: 'Go_Back_On_Discord_And_Stop_Trying_To_Cheat.png'
 		}],
 		fetchReply: true,
 	});
