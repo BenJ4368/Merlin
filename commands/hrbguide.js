@@ -62,8 +62,6 @@ module.exports = {
 			await interaction.channel.send({ files: [`./hrbguide/m.png`] });
 			await sleep(1);
 			await interaction.channel.send({ files: [`./hrbguide/n.png`] });
-			await sleep(1);
-			await interaction.channel.send({ files: [`./hrbguide/o.png`] });
 			
 		}
 		else	// If the user triggering the command is not an admin, sends an ephemeral message to explain it to him, and console log the denied acces.
