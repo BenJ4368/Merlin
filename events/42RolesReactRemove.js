@@ -169,32 +169,6 @@ module.exports = {
 				}
 			}
 
-			if (reaction.emoji.name ="supersmashbros") {
-				const superSmashBrosRoleId = "1164623682510000258"
-				const superSmashBrosRole = guild.roles.cache.get(superSmashBrosRoleId);
-				if (reactUser && superSmashBrosRole) {
-					if (reactUser.roles.cache.has(superSmashBrosRoleId)) {
-						reactUser.roles.remove(superSmashBrosRole)
-							.then(console.log(`${clr.cya}[comd]	${clr.blu}${user.username} unselected the rôle ${clr.whi}"SuperSmashBros"${clr.stop}`))
-							.catch(console.error);
-						reactUser.send("Le rôle *SuperSmashBros* t'as été retiré.");
-					}
-				}
-			}
-
-			if (reaction.emoji.name ="brawlhalla") {
-				const brawlhallaRoleId = "1164626789977555055"
-				const brawlhallaRole = guild.roles.cache.get(brawlhallaRoleId);
-				if (reactUser && brawlhallaRole) {
-					if (reactUser.roles.cache.has(brawlhallaRoleId)) {
-						reactUser.roles.remove(brawlhallaRole)
-							.then(console.log(`${clr.cya}[comd]	${clr.blu}${user.username} unselected the rôle ${clr.whi}"Brawlhalla"${clr.stop}`))
-							.catch(console.error);
-						reactUser.send("Le rôle *Brawlhalla* t'as été retiré.");
-					}
-				}
-			}
-
 		}
 	},
 };
