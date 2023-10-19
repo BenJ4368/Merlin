@@ -168,6 +168,17 @@ module.exports = {
 				}
 			}
 
+			if (reaction.emoji.name === "brawlhalla") {
+				const brawlhallaRoleId = "1164626789977555055"
+				const brawlhallaRole = guild.roles.cache.get(brawlhallaRoleId);
+				if (reactUser && brawlhallaRole) {
+					reactUser.roles.add(brawlhallaRole)
+						.then(console.log(`${clr.cya}[comd]	${clr.blu}${user.username} selected the rôle ${clr.whi}"Brawlhalla".${clr.stop}`))
+						.catch(console.error);
+					reactUser.send("Le rôle *Brawlhalla* t'as été donné.");
+				}
+			}
+
 		}
 	},
 };
