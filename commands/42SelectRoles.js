@@ -46,6 +46,7 @@ module.exports = {
 				await message.react("<:speedrunners:1128768967004131399>");
 				await message.react("<:GTFO:1160568449077100715>");
 				await message.react("<:smite:1162460265082789968>");
+				await message.react("<:supersmashbros:1164625389281353778>");
 		}
 		else	// If the user triggering the command is not an admin, sends an ephemeral message to explain it to him, and console log the denied acces.
 		{

@@ -41,7 +41,7 @@ module.exports = {
 				const minecraftRole = guild.roles.cache.get(minecraftRoleId);
 				if (reactUser && minecraftRole) {
 					reactUser.roles.add(minecraftRole)
-						.then(console.log(`${clr.cya}[comd]	${clr.blu}${user.username} selected the rôle "Minecraft".${clr.stop}`))
+						.then(console.log(`${clr.cya}[comd]	${clr.blu}${user.username} selected the rôle ${clr.whi}"Minecraft".${clr.stop}`))
 						.catch(console.error);
 					reactUser.send("Le rôle *Minecraft* t'as été donné.");
 				}
@@ -140,7 +140,7 @@ module.exports = {
 				const GTFORole = guild.roles.cache.get(GTFORoleId);
 				if (reactUser && GTFORole) {
 					reactUser.roles.add(GTFORole)
-						.then(console.log(`${clr.cya}[comd]	${clr.blu}${user.username} selected the rôle "GTFO".${clr.stop}`))
+						.then(console.log(`${clr.cya}[comd]	${clr.blu}${user.username} selected the rôle ${clr.whi}"GTFO".${clr.stop}`))
 						.catch(console.error);
 					reactUser.send("Le rôle *GTFO* t'as été donné.");
 				}
@@ -151,9 +151,20 @@ module.exports = {
 				const smiteRole = guild.roles.cache.get(smiteRoleId);
 				if (reactUser && smiteRole) {
 					reactUser.roles.add(smiteRole)
-						.then(console.log(`${clr.cya}[comd]	${clr.blu}${user.username} selected the rôle "smite".${clr.stop}`))
+						.then(console.log(`${clr.cya}[comd]	${clr.blu}${user.username} selected the rôle ${clr.whi}"smite".${clr.stop}`))
 						.catch(console.error);
 					reactUser.send("Le rôle *Smite* t'as été donné.");
+				}
+			}
+
+			if (reaction.emoji.name === "superSmashBros") {
+				const superSmashBrosRoleId = "1164623682510000258"
+				const superSmashBrosRole = guild.roles.cache.get(superSmashBrosRoleId);
+				if (reactUser && superSmashBrosRole) {
+					reactUser.roles.add(superSmashBrosRole)
+						.then(console.log(`${clr.cya}[comd]	${clr.blu}${user.username} selected the rôle ${clr.whi}"SuperSmashBros".${clr.stop}`))
+						.catch(console.error);
+					reactUser.send("Le rôle *SuperSmashBros* t'as été donné.");
 				}
 			}
 		}
