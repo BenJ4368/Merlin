@@ -169,7 +169,7 @@ module.exports = {
 				}
 			}
 
-			if (reaction.emoji.name ="superSmashBros") {
+			if (reaction.emoji.name ="supersmashbros") {
 				const superSmashBrosRoleId = "1164623682510000258"
 				const superSmashBrosRole = guild.roles.cache.get(superSmashBrosRoleId);
 				if (reactUser && superSmashBrosRole) {
