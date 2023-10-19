@@ -157,6 +157,17 @@ module.exports = {
 				}
 			}
 
+			if (reaction.emoji.name === "supersmashbros") {
+				const supersmashbrosRoleId = "1164623682510000258"
+				const supersmashbrosRole = guild.roles.cache.get(supersmashbrosRoleId);
+				if (reactUser && supersmashbrosRole) {
+					reactUser.roles.add(supersmashbrosRole)
+						.then(console.log(`${clr.cya}[comd]	${clr.blu}${user.username} selected the rôle ${clr.whi}"SuperSmashBros".${clr.stop}`))
+						.catch(console.error);
+					reactUser.send("Le rôle *SuperSmashBros* t'as été donné.");
+				}
+			}
+
 		}
 	},
 };
