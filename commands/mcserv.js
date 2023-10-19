@@ -12,15 +12,17 @@ module.exports = {
 		if (config.adminIds.includes(interaction.user.id)) {	// Checks if the user triggering the command is one of the admins (admin Ids are stored in the config.js file, in an array)
 
 			const embed = new Discord.EmbedBuilder()	// Creates a new embed
-			.setTitle(`**<@&1122612357722558617>**`)
-			.setDescription(`On prépare la création d'un serveur 1.20.1 Vanilla.
-							Pour l'occasion, on a développer un (Datapack custom)[https://discord.com/channels/1117863871827431434/1163915014487425044/1164150713354567721].`)
-			.setColor(Discord.Colors.White)
+			.setTitle(`**Serveur 42Mulhouse**`)
+			.setDescription(`<@&1122612357722558617>\n
+							On prépare la création d'un serveur 1.20.1 Vanilla.
+							Pour l'occasion, on a développer un Datapack custom\n
+							=> https://discord.com/channels/1117863871827431434/1163915014487425044/1164150713354567721 .`)
+			.setColor(Discord.Colors.Green)
 			.addFields(
 				{name: '\u200B', value: " "},
 				{name: 'Aucun téléchargement requis', value: "Pour vous c'est du full Vanilla."},
-				{name: '\u200B', value: " "},
-				{name: 'Lancement prévue courant de semaine prochaine', value: "Faites passez le mot?"},
+				{name: 'En fonction du nombre de joueurs', value: "on organiseras des evennements à prix."},
+				{name: 'Lancement prévu courant de semaine prochaine', value: "Faites passez le mot?"},
 			)
 
 		 await interaction.reply({	// Reply to the interaction with the embed
