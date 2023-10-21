@@ -22,7 +22,7 @@ module.exports = {
 				{name: '\u200B', value: " "},
 				{name: 'Aucun téléchargement requis', value: "Pour vous c'est du full Vanilla."},
 				{name: 'En fonction du nombre de joueurs', value: "On organiseras des evennements à prix."},
-				{name: 'Lancement prévu courant de semaine prochaine', value: "Faites passez le mot?"},
+				{name: 'Lancement prévu Lundi 23, 18h', value: "Faites passez le mot?"},
 			)
 
 		 await interaction.reply({	// Reply to the interaction with the embed
