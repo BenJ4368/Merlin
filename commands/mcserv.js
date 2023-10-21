@@ -15,7 +15,7 @@ module.exports = {
 			.setTitle(`**Oyé Oyé**`)
 			.setDescription(`<@&1122612357722558617>\n
 							On prépare la création d'un serveur 1.20.1 Vanilla.
-							Pour l'occasion, on a développer un Datapack custom
+							Pour l'occasion, on a développé un Datapack custom
 							https://discord.com/channels/1117863871827431434/1163915014487425044/1164150713354567721`)
 			.setColor(Discord.Colors.Green)
 			.addFields(
