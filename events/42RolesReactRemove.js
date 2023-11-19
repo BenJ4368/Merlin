@@ -195,7 +195,7 @@ module.exports = {
 				}
 			}
 
-			if (reaction.emoji.name === "bow_and_arrow") {
+			if (reaction.emoji.name === "monsterHunter") {
 				const monsterHunterRoleId = "1175802012361834596"
 				const monsterHunterRole = guild.roles.cache.get(monsterHunterRoleId);
 				if (reactUser && monsterHunterRole) {
