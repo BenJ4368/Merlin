@@ -195,6 +195,19 @@ module.exports = {
 				}
 			}
 
+			if (reaction.emoji.name === "bow_and_arrow") {
+				const monsterHunterRoleId = "1175802012361834596"
+				const monsterHunterRole = guild.roles.cache.get(monsterHunterRoleId);
+				if (reactUser && monsterHunterRole) {
+					if (reactUser.roles.cache.has(monsterHunterRoleId)) {
+						reactUser.roles.remove(monsterHunterRole)
+							.then(console.log(`${clr.cya}[comd]	${clr.blu}${user.username} unselected the rôle ${clr.whi}"monsterHunter"${clr.stop}`))
+							.catch(console.error);
+						reactUser.send("Le rôle *Monster Hunter* t'as été retiré.");
+					}
+				}
+			}
+
 		}
 	},
 };

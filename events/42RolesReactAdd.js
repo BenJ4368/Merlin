@@ -179,6 +179,17 @@ module.exports = {
 				}
 			}
 
+			if (reaction.emoji.name === "bow_and_arrow") {
+				const monsterHunterRoleId = "1175802012361834596"
+				const monsterHunterRole = guild.roles.cache.get(monsterHunterRoleId);
+				if (reactUser && monsterHunterRole) {
+					reactUser.roles.add(monsterHunterRole)
+						.then(console.log(`${clr.cya}[comd]	${clr.blu}${user.username} selected the rôle ${clr.whi}"Monster Hunter".${clr.stop}`))
+						.catch(console.error);
+					reactUser.send("Le rôle *Monster Hunter* t'as été donné.");
+				}
+			}
+
 		}
 	},
 };
