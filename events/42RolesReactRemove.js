@@ -208,6 +208,18 @@ module.exports = {
 				}
 			}
 
+			if (reaction.emoji.name === "valheim") {
+				const valheimRoleId = "1176599173303373958"
+				const valheimRole = guild.roles.cache.get(valheimRoleId);
+				if (reactUser && valheimRole) {
+					if (reactUser.roles.cache.has(valheimRoleId)) {
+						reactUser.roles.remove(valheimRole)
+							.then(console.log(`${clr.cya}[comd]	${clr.blu}${user.username} unselected the rôle ${clr.whi}"Valheim"${clr.stop}`))
+							.catch(console.error);
+						reactUser.send("Le rôle *Valheim* t'as été retiré.");
+					}
+				}
+			}
 		}
 	},
 };
