@@ -200,6 +200,17 @@ module.exports = {
 					reactUser.send("Le rôle *Valheim* t'as été donné.");
 				}
 			}
+
+			if (reaction.emoji.name === "lethalcompany") {
+				const lethalCompantRoleId = "1181354970616971427"
+				const lethalCompantRole = guild.roles.cache.get(lethalCompantRoleId);
+				if (reactUser && lethalCompantRole) {
+					reactUser.roles.add(lethalCompantRole)
+						.then(console.log(`${clr.cya}[comd]	${clr.blu}${user.username} selected the rôle ${clr.whi}"Lethal Company".${clr.stop}`))
+						.catch(console.error);
+					reactUser.send("Le rôle *Lethal Company* t'as été donné.");
+				}
+			}
 		}
 	},
 };

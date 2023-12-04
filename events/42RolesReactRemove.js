@@ -220,6 +220,19 @@ module.exports = {
 					}
 				}
 			}
+
+			if (reaction.emoji.name === "lethalcompany") {
+				const lethalCompanyRoleId = "1181354970616971427"
+				const lethalCompanyRole = guild.roles.cache.get(lethalCompanyRoleId);
+				if (reactUser && lethalCompanyRole) {
+					if (reactUser.roles.cache.has(lethalCompanyRoleId)) {
+						reactUser.roles.remove(lethalCompanyRole)
+							.then(console.log(`${clr.cya}[comd]	${clr.blu}${user.username} unselected the rôle ${clr.whi}"Lethal Company"${clr.stop}`))
+							.catch(console.error);
+						reactUser.send("Le rôle *Lethal Company* t'as été retiré.");
+					}
+				}
+			}
 		}
 	},
 };
