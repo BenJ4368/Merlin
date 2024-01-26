@@ -46,7 +46,7 @@ if (adminCommandFiles.length > 0) {
 		const command = require(`./admin/${file}`);
 		bot.adminCommands.set(command.data.name, command);
 		bot.adminCommandArray.push(command.data.toJSON());
-		console.log(`${clr.cya}[Admin]	${clr.red}${file.slice(0, file.length - 3)} ${clr.whi}OK${clr.stop}`);
+		console.log(`${clr.red}[Admin]	${clr.red}${file.slice(0, file.length - 3)} ${clr.whi}OK${clr.stop}`);
 	});
 	(async () => {
 		try {
@@ -54,7 +54,7 @@ if (adminCommandFiles.length > 0) {
 				Discord.Routes.applicationGuildCommands(config.clientId, config.adminGuildId),	// applicationGuildCommand means the commands are stored for a specific discord server, and only accessible there.
 				{ body: bot.adminCommandArray },
 			);
-			console.log(`${clr.cya}[Admin]	${clr.red}Successfully updated ${data.length} admin commands${clr.stop}`);
+			console.log(`${clr.red}[Admin]	${clr.red}Successfully updated ${data.length} admin commands${clr.stop}`);
 		} catch (error) {
 			console.error(error);
 		}
@@ -75,13 +75,13 @@ fs.readdirSync("./events").filter(files => files.endsWith(".js")).forEach(file =
 // rest.put(Discord.Routes.applicationCommands(config.clientId),
 // 	{ body: [] },
 // );
-// console.log(`${clr.cya}[Admin]	${clr.red}Deleted all application commands.${clr.stop}`);
+// console.log(`${clr.red}[Admin]	${clr.red}Deleted all application commands.${clr.stop}`);
 
 
 /* Uncomment to delete ALL admin commands*/
 // rest.put(Discord.Routes.applicationGuildCommands(config.clientId, config.adminGuildId),
 // 	{ body: [] },
 // );
-// console.log(`${clr.cya}[Admin]	${clr.red}Deleted all admin commands.${clr.stop}`);
+// console.log(`${clr.red}[Admin]	${clr.red}Deleted all admin commands.${clr.stop}`);
 
 bot.login(config.token); // Connects the bot. Triggers the Discord.Event.ClientReady event

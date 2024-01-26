@@ -15,7 +15,7 @@ module.exports = {
 			member.roles.add(studRole).then(console.log(`${clr.cya}[+mbr]	${clr.grn}${member.displayName} joined.${clr.stop}`));
 
 		} else {
-			console.error("Target channel not found");
+			console.error(`${clr.cya}[+mbr]	${clr.grn}Channel not found OR different server${clr.stop}`);
 		}
 	},
 };

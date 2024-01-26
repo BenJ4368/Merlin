@@ -9,7 +9,7 @@ module.exports = {
 
 	async execute(interaction)
 	{
-		console.log(`${clr.cya}[Admin]	${clr.red}/42selectroles ${clr.whi}was fired by ${clr.blu}${interaction.user.username}${clr.stop}`);
+		console.log(`${clr.red}[Admin]	${clr.red}/42selectroles ${clr.whi}was fired by ${clr.blu}${interaction.user.username}${clr.stop}`);
 		if (config.adminIds.includes(interaction.user.id)) {	// Checks if the user triggering the command is one of the admins (admin Ids are stored in the config.js file, in an array)
 	
 				/* uncomment if the command should create a new embed message.
@@ -55,7 +55,7 @@ module.exports = {
 		else	// If the user triggering the command is not an admin, sends an ephemeral message to explain it to him, and console log the denied acces.
 		{
 			interaction.reply({ content: "Seul un Sorcier peut lancer ce sort.", ephemeral: true });
-			console.log(`${clr.cya}[Admin]	${clr.mag}/42selectroles ${clr.whi}acces was denied to ${clr.blu}${interaction.user.username}${clr.stop}`);
+			console.log(`${clr.red}[Admin]	${clr.mag}/42selectroles ${clr.whi}acces was denied to ${clr.blu}${interaction.user.username}${clr.stop}`);
 		}
 	}
 }

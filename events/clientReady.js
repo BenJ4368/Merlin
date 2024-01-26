@@ -10,9 +10,9 @@ module.exports = {
 			status: 'online',
 		})
 		bot.user.setActivity({	// Sets the activity
-			name: "Smite2 trailer",	// Name of the game/stream/music etc
-			type: Discord.ActivityType.Streaming,	// Type of activity (streaming, playing, listening to, competing etc)
-			url: "https://www.youtube.com/watch?v=o1PHxmPq5o4"	// 'url' property only works with streaming type
+			name: "JDR",	// Name of the game/stream/music etc
+			type: Discord.ActivityType.Playing,	// Type of activity (streaming, playing, listening to, competing etc)
+			//url: ""	// 'url' property only works with streaming type
 		})
 
 		const guildsNbr = bot.guilds.cache.size;  // Stores the numbers of server the bot is in
