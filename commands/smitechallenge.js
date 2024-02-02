@@ -132,7 +132,7 @@ async function playDeityImage(CommandInteraction) {
 			await message.reactions.removeAll();
 			await message.react('✅');
 			embed
-				.setTitle(`${userPressedButton.member.nickname} is right !`)
+				.setTitle(`${userPressedButton.member.user.displayName} is right !`)
 				.setDescription(`The answer was : ${godAnswer}`)
 				.setColor(Discord.Colors.Red)
 			await CommandInteraction.editReply({
