@@ -10,7 +10,7 @@ module.exports = {
 			status: 'online',
 		})
 		bot.user.setActivity({	// Sets the activity
-			name: "Qbe3D ?",	// Name of the game/stream/music etc
+			name: "Magic!",	// Name of the game/stream/music etc
 			type: Discord.ActivityType.Playing,	// Type of activity (streaming, playing, listening to, competing etc)
 			//url: ""	// 'url' property only works with streaming type
 		})
