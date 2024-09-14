@@ -2,7 +2,7 @@ const Discord = require("discord.js");
 const clr = require("../resources/color_codes");
 
 module.exports = {
-	name: Discord.Events.InteractionCreate,	// triggers when an interaction id made
+	name: Discord.Events.InteractionCreate,	// triggers when an interaction is made
 	async execute(interaction) {
 
 		if (!interaction.isChatInputCommand())	// Filter to only support chat commands

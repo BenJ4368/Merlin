@@ -10,7 +10,7 @@ module.exports = {
 			status: 'online',
 		})
 		bot.user.setActivity({	// Sets the activity
-			name: "Your wizard is back",	// Name of the game/stream/music etc
+			name: "Wanna play?",	// Name of the game/stream/music etc
 			type: Discord.ActivityType.Playing,	// Type of activity (streaming, playing, listening to, competing etc)
 			//url: ""	// 'url' property only works with streaming type
 		})
@@ -19,10 +19,5 @@ module.exports = {
 		console.log(`${clr.cya}[Ready]	${clr.blu}${bot.user.username} is present in ${guildsNbr} servers${clr.stop}`);
 
 		console.log(`${clr.cya}[Ready]	${clr.blu}${bot.user.username} ${clr.grn}is online${clr.stop}`);
-
-		/* fetching the 42Role message's cache for the listeners (42RolesReactAdd and 42RolesReactRemove) */
-		const channel42Role = await bot.channels.fetch("1121929529003364452");
-		const message42Role = await channel42Role.messages.fetch("1122621252151033890");
-
 	},
 };
