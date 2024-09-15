@@ -50,7 +50,12 @@ module.exports = {
 
 		try {
 			const imposteurRole = new r.Imposteur();
-			await imposteur.send({ embeds: [imposteurRole.getEmbed()] });
+			await imposteur.send({
+				embeds: [imposteurRole.getEmbed()],
+				files: [{
+					attachment: await imposteurRole.getImage()
+				}],
+			});
 			players.splice(imposteurIndex, 1); // Cut out the player that got the role.
 
 			roles = roles.sort(() => Math.random() - 0.5).slice(0, players.length); // Shuffle roles and pick only 4.
@@ -59,7 +64,12 @@ module.exports = {
 				const player = players[i];
 				const RoleClass = roles[i];  // Sélectionne un rôle du tableau aléatoire
 				const role = new RoleClass(); // Crée une instance du rôle
-				await player.send({ embeds: [role.getEmbed()] });
+				await player.send({
+					embeds: [role.getEmbed()],
+					files: [{
+						attachment: await role.getImage()
+					}],
+				});
 			}
 
 			console.log(`${clr.mag}Tous les rôles ont été attribués aux joueurs.${clr.stop}`);

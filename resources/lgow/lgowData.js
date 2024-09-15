@@ -1,4 +1,4 @@
-const fetch = require('node-fetch');
+const Jimp = require('jimp');
 const { EmbedBuilder } = require('discord.js');
 
 class Imposteur {
@@ -17,6 +17,10 @@ class Imposteur {
 			.setDescription(this.description)
 			.setColor(this.color);
 		return embed;
+	}
+	async getImage() {
+		const image = await Jimp.read(`./resources/lgow/images/Imposteur.png`);
+		return await image.getBufferAsync(Jimp.MIME_PNG);
 	}
 }
 
@@ -37,6 +41,10 @@ class Prouveur {
 			.setColor(this.color);
 		return embed;
 	}
+	async getImage() {
+		const image = await Jimp.read(`./resources/lgow/images/Prouveur.png`);
+		return await image.getBufferAsync(Jimp.MIME_PNG);
+	}
 }
 
 class Aveugle {
@@ -55,6 +63,10 @@ class Aveugle {
 			.setDescription(this.description)
 			.setColor(this.color);
 		return embed;
+	}
+	async getImage() {
+		const image = await Jimp.read(`./resources/lgow/images/Aveugle.png`);
+		return await image.getBufferAsync(Jimp.MIME_PNG);
 	}
 }
 
@@ -77,8 +89,12 @@ class Servante {
 			.setColor(this.color)
 			.addFields(
 				{ name: 'Votre maître pour cette partie est :', value: 'placeholder', inline: true }
-			);
+			)
 		return embed;
+	}
+	async getImage() {
+		const image = await Jimp.read(`./resources/lgow/images/Servante.png`);
+		return await image.getBufferAsync(Jimp.MIME_PNG);
 	}
 }
 
@@ -104,6 +120,10 @@ class Voleur {
 			);
 		return embed;
 	}
+	async getImage() {
+		const image = await Jimp.read(`./resources/lgow/images/Voleur.png`);
+		return await image.getBufferAsync(Jimp.MIME_PNG);
+	}
 
 }
 
@@ -123,6 +143,10 @@ class Bouffon {
 			.setDescription(this.description)
 			.setColor(this.color)
 		return embed;
+	}
+	async getImage() {
+		const image = await Jimp.read(`./resources/lgow/images/Bouffon.png`);
+		return await image.getBufferAsync(Jimp.MIME_PNG);
 	}
 }
 
@@ -165,6 +189,10 @@ class Erudit {
 			]);
 		return embed;
 	}
+	async getImage() {
+		const image = await Jimp.read(`./resources/lgow/images/Erudit.png`);
+		return await image.getBufferAsync(Jimp.MIME_PNG);
+	}
 }
 
 class Peureux {
@@ -183,6 +211,10 @@ class Peureux {
 			.setDescription(this.description)
 			.setColor(this.color)
 		return embed;
+	}
+	async getImage() {
+		const image = await Jimp.read(`./resources/lgow/images/Peureux.png`);
+		return await image.getBufferAsync(Jimp.MIME_PNG);
 	}
 }
 
@@ -233,6 +265,25 @@ class Agent {
 			);
 		return embed;
 	}
+	async getImage() {
+		if (this.name == 'Agent d\'Overwatch') {
+			const image = await Jimp.read(`./resources/lgow/images/AgentOverwatch.png`);
+			return await image.getBufferAsync(Jimp.MIME_PNG);
+		}
+		else if (this.name == "Agent de la Griffe") {
+			const image = await Jimp.read(`./resources/lgow/images/AgentGriffe.png`);
+			return await image.getBufferAsync(Jimp.MIME_PNG);
+		}
+		else if (this.name == "Agent du Secteur Zero") {
+			const image = await Jimp.read(`./resources/lgow/images/AgentSecteurZero.png`);
+			return await image.getBufferAsync(Jimp.MIME_PNG);
+		}
+		else if (this.name == "Agent Neutre") {
+			const image = await Jimp.read(`./resources/lgow/images/AgentNeutre.png`);
+			return await image.getBufferAsync(Jimp.MIME_PNG);
+		}
+	}
+
 }
 
 class Star {
@@ -252,6 +303,11 @@ class Star {
 			.setColor(this.color)
 		return embed;
 	}
+	async getImage() {
+		const image = await Jimp.read(`./resources/lgow/images/Star.png`);
+		return await image.getBufferAsync(Jimp.MIME_PNG);
+	}
+
 }
 
 class Sniper {
@@ -270,6 +326,10 @@ class Sniper {
 			.setDescription(this.description)
 			.setColor(this.color)
 		return embed;
+	}
+	async getImage() {
+		const image = await Jimp.read(`./resources/lgow/images/Sniper.png`);
+		return await image.getBufferAsync(Jimp.MIME_PNG);
 	}
 }
 
@@ -292,6 +352,10 @@ class Archer {
 				{ name: "Cibler un joueur :", value: " " }
 			)
 		return embed;
+	}
+	async getImage() {
+		const image = await Jimp.read(`./resources/lgow/images/Archer.png`);
+		return await image.getBufferAsync(Jimp.MIME_PNG);
 	}
 }
 
