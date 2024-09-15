@@ -3,7 +3,7 @@ const { createAudioPlayer, createAudioResource, joinVoiceChannel, NoSubscriberBe
 const config = require("../config");
 const Jimp = require('jimp');
 const clr = require("../resources/color_codes");
-const rpData = require("../resources/rp_data");
+const rpData = require("../resources/rp/rp_data");
 
 function RP_help(interaction)
 {
@@ -20,7 +20,7 @@ function RP_help(interaction)
 			//{ name: '\u200B', value: '\u200B' },
 		)
 		.setColor(Discord.Colors.White)
-	
+
 	interaction.reply( { embeds: [embed], } );
 }
 
@@ -120,7 +120,7 @@ function RP_stopSession(interaction, admin)
 {
 	if ( rpData.getStatus() == 1 ) { // Checks if a session is running
 
-		if ( interaction.user.id == rpData.getGameMaster().id 
+		if ( interaction.user.id == rpData.getGameMaster().id
 			|| (config.adminIds.includes(interaction.user.id) && admin == true)) {	// Only the gameMaster can end the session. (or admin ofc)
 
 			console.log(`${clr.cya}[RP]	${clr.yel}RP session stopped by ${interaction.user.username}${clr.stop}`);
@@ -151,7 +151,7 @@ async function RP_diceRoll(interaction, max)
 	{
 		if (interaction.channel == RP_threadDiceRolls) {
 			let diceRoll = Math.floor(Math.random() * max) + 1;
-			
+
 			let rollColor;
 			let rollSound;
 			if (diceRoll > max / 2) {
@@ -178,7 +178,7 @@ async function RP_diceRoll(interaction, max)
 
 			await interaction.deferReply();
 			RP_soundBox.play(createAudioResource(RP_soundDiceRolling));
-			
+
 				setTimeout(async () => {
 					RP_soundBox.play(createAudioResource(rollSound));
 					await interaction.editReply({
