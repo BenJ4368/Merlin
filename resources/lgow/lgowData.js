@@ -1,6 +1,19 @@
 const Jimp = require('jimp');
 const { EmbedBuilder } = require('discord.js');
 
+function stealRole(role) {
+	switch (role.getName()) {
+		case 'Archer':
+			return new Archer();
+		case 'Servante dévouée':
+			return new Servante();
+		case 'Erudit':
+			return new Erudit();
+		default:
+			return role;
+	}
+}
+
 class Imposteur {
 	constructor() {
 		this.name = 'Imposteur';
@@ -79,6 +92,7 @@ class Servante {
 	}
 
 	setMaster(player) { this.master = player }
+	getMaster() { return this.master }
 	getName() { return this.name }
 	getDesc() { return this.description }
 	getColor() { return this.color }
@@ -88,7 +102,7 @@ class Servante {
 			.setDescription(this.description)
 			.setColor(this.color)
 			.addFields(
-				{ name: 'Votre maître pour cette partie est :', value: 'placeholder', inline: true }
+				{ name: 'Votre maître pour cette partie est :', value: `${this.master.username}`, inline: true }
 			)
 		return embed;
 	}
@@ -155,31 +169,25 @@ class Erudit {
 		this.name = 'Erudit';
 		this.description = 'Placez, à haute voix, les 3 mots aléatoire qui vous sont donnés.';
 		this.color = '#00ccff';
-		this.words = "un deux trois";
+		this.words = '';
 	}
 
-	/*async setRandomWords() {
-		try {
-			const response = await fetch('https://trouve-mot.fr/api/random/3');
-			if (!response.ok)
-				throw new Error(`Erreur lors de l'appel API \'trouve-mot\'`);
-
-			const responseJson = await response.json();
-			const randomWords = responseJson.map(mot => mot.name).join(', ');
-			this.words = randomWords;
-		} catch (error) {
-			console.error(error);
-			this.words = "Erreur lors de la récuperation des mots. La partie ne peux pas continuer.";
+	async setRandomWords() {
+		const response = await fetch('https://trouve-mot.fr/api/random/3');
+		if (!response.ok) {
+			this.words = "Erreur, Récuperation, Mots"
+			return;
 		}
-	}*/
+
+		const responseJson = await response.json();
+		const randomWords = responseJson.map(mot => mot.name).join(', ');
+		this.words = randomWords;
+	}
 	getWords() { return this.words }
 	getName() { return this.name }
 	getDesc() { return this.description }
 	getColor() { return this.color }
-	/*async */getEmbed() {
-		/*if (!this.words) {
-			await this.setRandomWords();
-		}*/
+	getEmbed() {
 		const embed = new EmbedBuilder()
 			.setTitle(this.name)
 			.setDescription(this.description)
@@ -360,5 +368,5 @@ class Archer {
 }
 
 module.exports = {
-	Imposteur, Prouveur, Aveugle, Servante, Voleur, Bouffon, Erudit, Peureux, Agent, Star, Sniper, Archer,
+	stealRole, Imposteur, Prouveur, Aveugle, Servante, Voleur, Bouffon, Erudit, Peureux, Agent, Star, Sniper, Archer,
 }

@@ -1,11 +1,138 @@
 const Discord = require('discord.js');
-const fs = require('fs');
-const config = require("../config");
 const clr = require("../resources/color_codes");
 const r = require("../resources/lgow/lgowData")
 
-module.exports = {
+async function archerFunction(player, role, players, gameMap) {
+	// Sending the role embed and image
+	await player.send({
+		embeds: [role.getEmbed()],
+		files: [{
+			attachment: await role.getImage()
+		}],
+	});
+	// Create buttons for every otherPlayer
+	const targetList = players.filter(p => p !== player);
+	const actionRow = new Discord.ActionRowBuilder();
+	for (let i = 0; i < targetList.length; i++) {
+		const button = new Discord.ButtonBuilder()
+			.setCustomId(i.toString())
+			.setLabel(targetList[i].displayName)
+			.setStyle(Discord.ButtonStyle.Secondary);
+		actionRow.addComponents(button);
+	}
+	const buttonMessage = await player.send({
+		content: "_ _",
+		components: [actionRow]
+	})
+	// collect answer
+	const collector = buttonMessage.createMessageComponentCollector({
+		componentType: Discord.ComponentType.Button,
+		time: 30000 // 30s
+	});
+	let clicked = false;
+	collector.on('collect', async buttonPressed => {
+		clicked = true;
+		selectedRole = gameMap.get(targetList[buttonPressed.customId]);
+		const embed = new Discord.EmbedBuilder()
+			.setTitle(`Vous avez cibler ${targetList[buttonPressed.customId].username}`)
+			.setDescription(`Son role est:		${selectedRole.getName()}`)
+			.setColor(selectedRole.getColor());
+		if (!buttonMessage.deleted) {
+			await buttonMessage.edit({
+				content: "_ _",
+				embeds: [embed],
+				components: [],
+			});
+		}
+	});
+	collector.on('end', async () => {
+		if (clicked == false && !buttonMessage.deleted) {
+			await buttonMessage.edit({
+				content: "\nVous n'avez pas selectionnez de cible a temps. La partie ne peux pas continuer.",
+				components: []
+			});
+		}
+	});
+}
 
+async function voleurFunction(player, role, players, gameMap) {
+	// Sending the role embed and image
+	await player.send({
+		embeds: [role.getEmbed()],
+		files: [{
+			attachment: await role.getImage()
+		}],
+	});
+	// Create buttons for every otherPlayer
+	const targetList = players.filter(p => p !== player);
+	const actionRow = new Discord.ActionRowBuilder();
+	for (let i = 0; i < targetList.length; i++) {
+		const button = new Discord.ButtonBuilder()
+			.setCustomId(i.toString())
+			.setLabel(targetList[i].displayName)
+			.setStyle(Discord.ButtonStyle.Secondary);
+		actionRow.addComponents(button);
+	}
+	const buttonMessage = await player.send({
+		content: "_ _",
+		components: [actionRow]
+	})
+	// collect answer
+	const collector = buttonMessage.createMessageComponentCollector({
+		componentType: Discord.ComponentType.Button,
+		time: 30000 // 30s
+	});
+
+	let clicked = false;
+	collector.on('collect', async buttonPressed => {
+		clicked = true;
+		selectedRole = gameMap.get(targetList[buttonPressed.customId]);
+		console.dir(selectedRole);
+		let newRole = r.stealRole(selectedRole);
+		console.dir(newRole);
+		const embed = new Discord.EmbedBuilder()
+			.setTitle(`Vous avez cibler ${targetList[buttonPressed.customId].username}`)
+			.setDescription(`Vous lui volez donc son role de: ${newRole.getName()}`)
+			.setColor(Discord.Colors.White);
+		if (!buttonMessage.deleted) {
+			await buttonMessage.edit({
+				content: "_ _",
+				embeds: [embed],
+				components: [],
+			});
+		}
+		if (newRole.getName() == 'Archer')
+			archerFunction(player, newRole, players, gameMap);
+		if (newRole.getName() == "Erudit")
+			await newRole.setRandomWords();
+		else {
+			if (newRole.getName() == 'Servante dévouée') {
+				const masterList = players.filter(p => p !== player);
+				const masterIndex = Math.floor(Math.random() * masterList.length);
+				newRole.setMaster(masterList[masterIndex]);
+			}
+
+			// Sending the role to the player
+			await player.send({
+				embeds: [newRole.getEmbed()],
+				files: [{
+					attachment: await newRole.getImage()
+				}],
+			});
+		}
+	});
+	collector.on('end', async () => {
+		if (clicked == false && !buttonMessage.deleted) {
+			await buttonMessage.edit({
+				content: "\nVous n'avez pas selectionnez de cible a temps. La partie ne peux pas continuer.",
+				components: []
+			});
+		}
+	});
+
+}
+
+module.exports = {
 	data: new Discord.SlashCommandBuilder()
 		.setName('lgow')
 		.setDescription('Lance une partie de Loup-Garouverwatch. 5 Joueurs requis.')
@@ -31,52 +158,71 @@ module.exports = {
 				.setRequired(true)),
 
 	async execute(interaction) {
-		console.log(`${clr.cya}[cmd]	${clr.mag}/lgow ${clr.whi}was fired by ${clr.blu}${interaction.user.username}${clr.stop}`);
-
-		const p1 = interaction.options.getUser('joueur1');
-		const p2 = interaction.options.getUser('joueur2');
-		const p3 = interaction.options.getUser('joueur3');
-		const p4 = interaction.options.getUser('joueur4');
-		const p5 = interaction.options.getUser('joueur5');
-
-		let players = [p1, p2, p3, p4, p5];
-		let roles = [r.Prouveur, r.Aveugle, r.Servante, r.Voleur, r.Bouffon,
-						r.Erudit, r.Peureux, r.Agent, r.Star, r.Sniper, r.Archer];
-
-		players = players.sort(() => Math.random() - 0.5); // Shuffle players
-
-		const imposteurIndex = Math.floor(Math.random() * players.length);
-		const imposteur = players[imposteurIndex]; // Random player gets the Imposteur role.
+			console.log(`${clr.cya}[cmd]	${clr.mag}/lgow ${clr.whi}was fired by ${clr.blu}${interaction.user.username}${clr.stop}`);
+			await interaction.reply({ content: 'Attribution des roles...' });
 
 		try {
-			const imposteurRole = new r.Imposteur();
-			await imposteur.send({
-				embeds: [imposteurRole.getEmbed()],
-				files: [{
-					attachment: await imposteurRole.getImage()
-				}],
-			});
-			players.splice(imposteurIndex, 1); // Cut out the player that got the role.
+			let players = [ interaction.options.getUser('joueur1'),
+							interaction.options.getUser('joueur2'),
+							interaction.options.getUser('joueur3'),
+							interaction.options.getUser('joueur4'),
+							interaction.options.getUser('joueur5') ];
 
-			roles = roles.sort(() => Math.random() - 0.5).slice(0, players.length); // Shuffle roles and pick only 4.
 
-			for (let i = 0; i < players.length; i++) {
-				const player = players[i];
-				const RoleClass = roles[i];  // Sélectionne un rôle du tableau aléatoire
-				const role = new RoleClass(); // Crée une instance du rôle
-				await player.send({
-					embeds: [role.getEmbed()],
-					files: [{
-						attachment: await role.getImage()
-					}],
-				});
+			let roles = [r.Prouveur, r.Aveugle, r.Servante, r.Voleur, r.Bouffon,
+							r.Erudit, r.Peureux, r.Agent, r.Star, r.Sniper, r.Archer];
+
+			// Shuffle players
+			players = players.sort(() => Math.random() - 0.5);
+			// Shuffle roles, and select 4
+			let chosenRoles = [];
+			for (let i = 0; i < 4; i++) {
+				let randomIndex = Math.floor(Math.random() * roles.length);
+				const randomRole = new roles[randomIndex]();
+				if (randomRole.getName() == "Erudit")
+					await randomRole.setRandomWords();
+				chosenRoles.push(randomRole);
+				roles.splice(randomIndex, 1);
 			}
+			// add the Imposteur role at a random index.
+			let randomIndex = Math.floor(Math.random() * chosenRoles.length);
+			chosenRoles.splice(randomIndex, 0, new r.Imposteur());
 
-			console.log(`${clr.mag}Tous les rôles ont été attribués aux joueurs.${clr.stop}`);
-			interaction.reply({ content: 'Tous les rôles ont été attribués avec succès.' });
+
+			// Map to assign chosenRole to Player
+			const gameMap = new Map()
+			for (let i = 0; i < players.length; i++)
+				gameMap.set(players[i], chosenRoles[i]);
+
+			// Iterate over every player
+			for (const [player, role] of gameMap.entries()) {
+				if (role.getName() == 'Archer')
+					archerFunction(player, role, players, gameMap);
+				else if (role.getName() == 'Voleur') {
+					voleurFunction(player, role, players, gameMap);
+				}
+				else { // Roles that does not need interaction
+					// Assign a random master to the Servante (Excluding the Servante herslef)
+					if (role.getName() == 'Servante dévouée') {
+						const masterList = players.filter(p => p !== player);
+						const masterIndex = Math.floor(Math.random() * masterList.length);
+						role.setMaster(masterList[masterIndex]);
+					}
+
+					// Sending the role to the player
+					await player.send({
+						embeds: [role.getEmbed()],
+						files: [{
+							attachment: await role.getImage()
+						}],
+					});
+				}
+			};
+
+			await interaction.editReply({ content: 'Tout les rôles ont été attribués.\nLa Partie peu commencer.' });
 		} catch (error) {
-			console.error(`${clr.red}Erreur lors de l'envoi des rôles aux joueurs.${clr.stop}`);
-			interaction.reply({ content: `Erreur: tous les rôles n'ont pas pu être envoyés. ${error}` });
+			console.dir(error);
+			await interaction.editReply({ content: `Erreur: tous les rôles n'ont pas pu être attribués.\n${error}` });
 		}
 
 	}
