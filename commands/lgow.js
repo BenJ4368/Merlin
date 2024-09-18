@@ -87,9 +87,7 @@ async function voleurFunction(player, role, players, gameMap) {
 	collector.on('collect', async buttonPressed => {
 		clicked = true;
 		selectedRole = gameMap.get(targetList[buttonPressed.customId]);
-		console.dir(selectedRole);
 		let newRole = r.stealRole(selectedRole);
-		console.dir(newRole);
 		const embed = new Discord.EmbedBuilder()
 			.setTitle(`Vous avez cibler ${targetList[buttonPressed.customId].username}`)
 			.setDescription(`Vous lui volez donc son role de: ${newRole.getName()}`)
