@@ -40,7 +40,7 @@ class Imposteur {
 class Prouveur {
 	constructor() {
 		this.name = 'Prouveur';
-		this.description = 'Soyez l\'action de la partie\n  **ou**\nAyez plus d\'éliminations que chacun de vos coequipier.';
+		this.description = '**Objectif:** Soyez l\'action de la partie\n  **ou**\nAyez plus d\'éliminations que chacun de vos coequipier.';
 		this.color = '#0066ff';
 	}
 
@@ -86,7 +86,7 @@ class Aveugle {
 class Servante {
 	constructor() {
 		this.name = 'Servante dévouée';
-		this.description = 'Ayez le même nombre de morts que votre maître.\n';
+		this.description = '**Objectif:** Ayez le même nombre de morts que votre maître.\n';
 		this.color = '#ff00ff';
 		this.master = null;
 	}
@@ -167,7 +167,7 @@ class Bouffon {
 class Erudit {
 	constructor() {
 		this.name = 'Erudit';
-		this.description = 'Placez, à haute voix, les 3 mots aléatoire qui vous sont donnés.';
+		this.description = '**Objectif:** Placez, à haute voix, les 3 mots aléatoire qui vous sont donnés.';
 		this.color = '#00ccff';
 		this.words = '';
 	}
@@ -206,7 +206,7 @@ class Erudit {
 class Peureux {
 	constructor() {
 		this.name = 'Chevalier Peureux';
-		this.description = 'Ayez moins de morts que chacun de vos coequipier à la fin de la partie.';
+		this.description = '**Objectif:** Ayez moins de morts que chacun de vos coequipier à la fin de la partie.';
 		this.color = '#b38600';
 	}
 
@@ -229,7 +229,7 @@ class Peureux {
 class Agent {
 	constructor() {
 		this.name = this.setName();
-		this.description = 'Jouez uniquement des héros qui appartiennent au camp attribué.';
+		this.description = '**Objectif:** Jouez uniquement des héros qui appartiennent au camp attribué.';
 		this.color = '#999999';
 	}
 
@@ -297,7 +297,7 @@ class Agent {
 class Star {
 	constructor() {
 		this.name = 'Star';
-		this.description = 'Soyez l\'Action de la partie.';
+		this.description = '**Objectif:** Soyez l\'Action de la partie.';
 		this.color = '#ffff00';
 	}
 
