@@ -19,5 +19,10 @@ module.exports = {
 		console.log(`${clr.cya}[Ready]	${clr.blu}${bot.user.username} is present in ${guildsNbr} servers${clr.stop}`);
 
 		console.log(`${clr.cya}[Ready]	${clr.blu}${bot.user.username} ${clr.grn}is online${clr.stop}`);
+
+		/* fetching the cinemaRole message's cache for the listeners (cinemaRoleAdd and cinemaRoleReactRemove) */
+		const cinemaRoleChannel = await bot.channels.fetch("1286659163467944017");
+		const cinemaRoleMessage = await cinemaRoleChannel.messages.fetch("1286674813724921969");
+
 	},
 };
