@@ -2,7 +2,6 @@ const Discord = require('discord.js');
 const config = require("../config");
 const clr = require("../resources/color_codes");
 const schedule = require('node-schedule');
-const { add } = require('libsodium-wrappers');
 
 let vipUsers = {};
 
@@ -47,7 +46,7 @@ module.exports = {
 		if (!duration && (action == 'add' || action == 'remove')) { // if duration is not specified for add/remove
 			return interaction.reply({ content: "Veuillez spécifier une durée en jours pour les actions add/remove.", ephemeral: true });
 		}
-		if (action === 'add' || action === 'remove' && !config.adminIds.includes(interaction.user.id)) { // if user is not an admin and is trying to add/remove VIP status
+		if ((action === 'add' || action === 'remove') && !config.adminIds.includes(interaction.user.id)) { // if user is not an admin and is trying to add/remove VIP status
 			return interaction.reply({ content: "Vous n'avez pas la permission d'ajouter ou de retirer le statut VIP.", ephemeral: true });
 		}
 
