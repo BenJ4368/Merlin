@@ -48,15 +48,23 @@ module.exports = {
 		}
 
 
-		// Get the current VIP expiration time from the db
-		let result;
+		// Get expiration time of user in the vip_users TABLE, or currentTime if user is not in the table
+		let expirationTime;
 		try {
-			let result = await dbClient.query(`SELECT expiration_time FROM vip_users WHERE user_id = $1`, [user.id]);
+			await dbClient.query(`SELECT * FROM vip_users WHERE user_id = $1`, [user.id])
+				.then(res => {
+					if (res.rows[0]) {
+						expirationTime = res.rows[0].expiration_time;
+					}
+					else {
+						expirationTime = currentTime;
+					}
+				});
 		} catch (err) {
-			console.log(`${clr.red}[VIP]	Error while getting VIP data from the database:${clr.stop} ${err}`);
+			console.log(`${clr.red}[VIP]	Error while fetching VIP data from the database:${clr.stop} ${err}`);
 			return interaction.reply({ content: "Une erreur s'est produite lors de la récupération des données VIP.", ephemeral: true });
 		}
-		let expirationTime = result.rows.length > 0 ? result.rows[0].expiration_time : currentTime;
+
 
 		if (action === 'add') {
 			expirationTime += duration * 60 * 1000; // days -> milliseconds
