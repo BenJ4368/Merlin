@@ -5,7 +5,7 @@ const clr = require("./resources/color_codes");
 
 /* Creates the client, passing it the wanted intents */
 const intents = new Discord.IntentsBitField(3276799);
-const bot = new Discord.Client({ 
+const bot = new Discord.Client({
 	intents: intents,
 });
 
@@ -38,7 +38,7 @@ if (regularCommandFiles.length > 0) {
 
 /* Loading/Updating Admin commands */
 /* Practicly the same code as above, with minor changes */
-bot.adminCommands = new Discord.Collection();	
+bot.adminCommands = new Discord.Collection();
 bot.adminCommandArray = [];
 const adminCommandFiles = fs.readdirSync("./admin").filter(file => file.endsWith(".js") && !file.startsWith('_')); // Reads the ./admin file
 if (adminCommandFiles.length > 0) {

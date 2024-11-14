@@ -2,6 +2,7 @@ const Discord = require('discord.js');
 const config = require("../config");
 const clr = require("../resources/color_codes");
 const schedule = require('node-schedule');
+const dbClient = require('../database')
 
 let vipUsers = {};
 
