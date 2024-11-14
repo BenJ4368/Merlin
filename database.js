@@ -14,10 +14,6 @@ dbClient.connect()
     .then(async () => {
 		console.log(`${clr.grn}[PG]	Connexion à PostgreSQL établie${clr.stop}`);
 		try {
-			await dbClient.query(`
-				CREATE DATABASE IF NOT EXISTS merlinDB;
-				GRANT ALL PRIVILEGES ON DATABASE merlinDB TO postgresuser;
-			`);
 			console.log(`${clr.grn}[PG]	DATABASE merlindb OK${clr.stop}`);
 			await dbClient.query(`
 				CREATE TABLE IF NOT EXISTS vip_users (
