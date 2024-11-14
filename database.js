@@ -15,6 +15,10 @@ dbClient.connect()
 		console.log(`${clr.grn}[PG]	Connexion à PostgreSQL établie${clr.stop}`);
 		try {
 			await dbClient.query(`
+				CREATE DATABASE IF NOT EXISTS merlinDB;
+				GRANT ALL PRIVILEGES ON DATABASE merlinDB TO postgresuser;
+			`);
+			await dbClient.query(`
 				CREATE TABLE IF NOT EXISTS vip_users (
 					user_id VARCHAR(50) PRIMARY KEY,
 					expiration_time BIGINT NOT NULL
