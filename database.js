@@ -18,13 +18,14 @@ dbClient.connect()
 				CREATE DATABASE IF NOT EXISTS merlinDB;
 				GRANT ALL PRIVILEGES ON DATABASE merlinDB TO postgresuser;
 			`);
+			console.log(`${clr.grn}[PG]	DATABASE merlindb OK${clr.stop}`);
 			await dbClient.query(`
 				CREATE TABLE IF NOT EXISTS vip_users (
 					user_id VARCHAR(50) PRIMARY KEY,
 					expiration_time BIGINT NOT NULL
 				);
 			`);
-			console.log(`${clr.grn}[PG]	vip_users OK${clr.stop}`);
+			console.log(`${clr.grn}[PG]	TABLE vip_users OK${clr.stop}`);
 		} catch (err) {
 			console.error(`${clr.red}[PG]	Erreur lors de la création de la table vip_users${clr.stop}`, err);
 		}
