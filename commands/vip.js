@@ -4,8 +4,6 @@ const clr = require("../resources/color_codes");
 const schedule = require('node-schedule');
 const dbClient = require('../database')
 
-let vipUsers = {};
-
 module.exports = {
 	data: new Discord.SlashCommandBuilder()
 		.setName('vip')
@@ -33,14 +31,12 @@ module.exports = {
 		),
 
 	async execute(interaction) {
-
 		const user = interaction.options.getUser('utilisateur');
 		const action = interaction.options.getString('action');
 		const duration = interaction.options.getInteger('duree');
 		const member = interaction.guild.members.cache.get(user.id);
 		const role = interaction.guild.roles.cache.find(role => role.name === 'VIP');
 		const currentTime = Date.now();
-		let expirationTime = vipUsers[user.id]?.expirationTime || currentTime;
 
 		if (!role) return interaction.reply({ content: "Une erreur s'est produite: Le rôle VIP n'existe pas.", ephemeral: true });
 
@@ -51,21 +47,41 @@ module.exports = {
 			return interaction.reply({ content: "Vous n'avez pas la permission d'ajouter ou de retirer le statut VIP.", ephemeral: true });
 		}
 
+
+		// Get the current VIP expiration time from the db
+		let result;
+		try {
+			let result = await dbClient.query(`SELECT expiration_time FROM vip_users WHERE user_id = $1`, [user.id]);
+		} catch (err) {
+			console.log(`${clr.red}[VIP]	Error while getting VIP data from the database:${clr.stop} ${err}`);
+			return interaction.reply({ content: "Une erreur s'est produite lors de la récupération des données VIP.", ephemeral: true });
+		}
+		let expirationTime = result.rows.length > 0 ? result.rows[0].expiration_time : currentTime;
+
 		if (action === 'add') {
 			expirationTime += duration * 24 * 60 * 60 * 1000; // days -> milliseconds
-			vipUsers[user.id] = { expirationTime };
 
-			if (!member.roles.cache.has(role.id)) {
-				await user.send(`Vous êtes désormais VIP pour une durée de ${duration} jours.`);
-				await member.roles.add(role);
-			}
-			else {
-				await user.send(`Votre statut VIP a été prolongé de ${duration} jours.`);
+			// Add the user to the vip_users TABLE
+			try {
+				await dbClient.query(
+					`INSERT INTO vip_users (user_id, expiration_time) VALUES ($1, $2) ON CONFLICT (user_id) DO UPDATE SET expiration_time = $2`,
+					[user.id, expirationTime]
+				);
+				if (!member.roles.cache.has(role.id)) {
+					await user.send(`Vous êtes désormais VIP pour une durée de ${duration} jours.`);
+					await member.roles.add(role);
+				}
+				else {
+					await user.send(`Votre statut VIP a été prolongé de ${duration} jours.`);
+				}
+			} catch (err) {
+				console.log(`${clr.red}[VIP]	Error while adding VIP data to the database:${clr.stop} ${err}`);
+				return interaction.reply({ content: "Une erreur s'est produite lors de l'ajout des données VIP.", ephemeral: true });
 			}
 
-			// schedule a job to remove the role when the expiration time is reached
+			// schedule a job to remove the role and delete from db when the expiration time is reached
 			schedule.scheduleJob(new Date(expirationTime), async () => {
-				delete vipUsers[user.id];
+				await dbClient.query(`DELETE FROM vip_users WHERE user_id = $1`, [user.id]);
 				if (member.roles.cache.has(role.id)) {
 					await member.roles.remove(role);
 					await user.send(`Votre statut VIP a expirer.`);
@@ -82,13 +98,12 @@ module.exports = {
 				}
 			});
 
-
 			interaction.reply({ content: `L'utilisateur ${user.username} a été ajouté à la liste des VIP pour une durée de ${duration} jours.`, ephemeral: true });
 		}
 		else if (action === 'remove') {
 			if (expirationTime - currentTime <= duration * 24 * 60 * 60 * 1000) {
-				// if time left is less than the duration, remove the role
-				delete vipUsers[user.id];
+				// if time left is less than the duration, remove the role and delete from db
+				await dbClient.query(`DELETE FROM vip_users WHERE user_id = $1`, [user.id]);
 				if (member.roles.cache.has(role.id)) {
 					await member.roles.remove(role);
 				}
@@ -97,9 +112,15 @@ module.exports = {
 			}
 			else {
 				expirationTime -= duration * 24 * 60 * 60 * 1000;
-				vipUsers[user.id].expirationTime = expirationTime;
+				try {
+					await dbClient.query(`UPDATE vip_users SET expiration_time = $1 WHERE user_id = $2`, [expirationTime, user.id]);
+				}
+				catch (err) {
+					console.log(`${clr.red}[VIP]	Error while updating VIP data in the database:${clr.stop} ${err}`);
+					return interaction.reply({ content: "Une erreur s'est produite lors de la mise à jour des données VIP.", ephemeral: true });
+				}
 				timeLeft = Math.ceil((expirationTime - currentTime) / (24 * 60 * 60 * 1000));
-				await user.send(`La durée de votre statut VIP a été réduite de ${duration} jours. Il vous en reste ${timeLeft} jours.`);
+				await user.send(`La durée de votre statut VIP a été réduite de ${duration} jours. Durée restante:	${timeLeft} jours.`);
 				interaction.reply({ content: `La durée du statut VIP de ${user.username} a été réduite de ${duration} jours. (reste: ${timeLeft})`, ephemeral: true });
 			}
 		}
