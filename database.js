@@ -12,9 +12,8 @@ const dbClient = new Client({
 
 dbClient.connect()
     .then(async () => {
-		console.log(`${clr.grn}[PG]	Connexion à PostgreSQL établie${clr.stop}`);
+		console.log(`${clr.grn}[PG]	Connexion à PostgreSQL (merlindb) établie${clr.stop}`);
 		try {
-			console.log(`${clr.grn}[PG]	DATABASE merlindb OK${clr.stop}`);
 			await dbClient.query(`
 				CREATE TABLE IF NOT EXISTS vip_users (
 					user_id VARCHAR(50) PRIMARY KEY,
