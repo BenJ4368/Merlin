@@ -9,12 +9,16 @@ module.exports = {
 	once: true,	// Triggers only once.
 	async execute(bot) {
 
+		const timeSetting = 60 * 60 * 24 * 1000; // days in milliseconds
+		//  60 * 60 * 1000          hours in milliseconds
+		//  60 * 1000               minutes in milliseconds
+
 		const VIPguild = bot.guilds.cache.get(config.adminGuildId);
 
 		// Schedulejob every day at noon, that gets all VIP users from the vip_users table and
 		// checks if their expiration_time is less than the current time. If it is,
 		// remove them from the database and remove the vip role.
-		schedule.scheduleJob('* * * * *', async () => {
+		schedule.scheduleJob('0 12 * * *', async () => {
 			const currentTime = Date.now();
 			const vipUsers = await dbClient.query(`SELECT * FROM vip_users`);
 			const vipRole = VIPguild.roles.cache.find(role => role.name === 'VIP');
@@ -31,7 +35,7 @@ module.exports = {
 					}
 				}
 				// if expiration time is less than 3 days, notify the user
-				else if  (vipUser.expiration_time - 3 * 60 * 1000 < currentTime && !vipUser.notified) {
+				else if  (vipUser.expiration_time - 3 * timeSetting < currentTime && !vipUser.notified) {
 					const user = await bot.users.fetch(vipUser.user_id);
 					await dbClient.query(`UPDATE vip_users SET notified = TRUE WHERE user_id = $1`, [user.id]);
 					await user.send(`Votre statut VIP DEVZONE va expirer dans 3 jours.`);

@@ -47,6 +47,9 @@ module.exports = {
 			return interaction.reply({ content: "Vous n'avez pas la permission d'ajouter ou de retirer le statut VIP.", ephemeral: true });
 		}
 
+		const timeSetting = 60 * 60 * 24 * 1000; // days in milliseconds
+						//  60 * 60 * 1000          hours in milliseconds
+						//  60 * 1000               minutes in milliseconds
 
 		// Get expiration time of user in the vip_users TABLE, or currentTime if user is not in the table
 		let expirationTime;
@@ -68,11 +71,7 @@ module.exports = {
 
 
 		if (action === 'add') {
-			console.log(`expirationTime before: ${expirationTime}`);
-			console.log(`currentTime: ${currentTime}`);
-			console.log(`duration: ${duration}`);
-			expirationTime = expirationTime + (duration * 60 * 1000);
-			console.log(`expirationTime after: ${expirationTime}`);
+			expirationTime = expirationTime + (duration * timeSetting);
 
 			// Add the user to the vip_users TABLE
 			try {
@@ -95,7 +94,7 @@ module.exports = {
 			}
 		}
 		else if (action === 'remove') {
-			if (expirationTime - currentTime <= duration * 60 * 1000) {
+			if (expirationTime - currentTime <= duration * timeSetting) {
 				// if time left is less than the duration, remove the role and delete from db
 				await dbClient.query(`DELETE FROM vip_users WHERE user_id = $1`, [user.id]);
 				if (member.roles.cache.has(role.id)) {
@@ -105,7 +104,7 @@ module.exports = {
 				interaction.reply({ content: `L'utilisateur ${user.username} a été retiré de la liste des VIP.`, ephemeral: true });
 			}
 			else {
-				expirationTime -= duration * 60 * 1000;
+				expirationTime -= duration * timeSetting;
 				try {
 					await dbClient.query(`UPDATE vip_users SET expiration_time = $1 WHERE user_id = $2`, [expirationTime, user.id]);
 				}
@@ -113,7 +112,7 @@ module.exports = {
 					console.log(`${clr.red}[VIP]	Error while updating VIP data in the database:${clr.stop} ${err}`);
 					return interaction.reply({ content: "Une erreur s'est produite lors de la mise à jour des données VIP.", ephemeral: true });
 				}
-				timeLeft = Math.ceil((expirationTime - currentTime) / (60 * 1000));
+				timeLeft = Math.ceil((expirationTime - currentTime) / timeSetting);
 				await user.send(`La durée de votre statut VIP DEVZONE a été réduite de ${duration} jours. Durée restante:	${timeLeft} jours.`);
 				interaction.reply({ content: `La durée du statut VIP de ${user.username} a été réduite de ${duration} jours. (reste: ${timeLeft})`, ephemeral: true });
 			}
@@ -122,7 +121,7 @@ module.exports = {
 			if (interaction.user.id !== user.id && !config.adminIds.includes(interaction.user.id) ) { // if user is trying to check another user's VIP status and does not have permission
 				return interaction.reply({ content: "Vous ne pouvez pas vérifier le detail du statut VIP DEVZONE d'un autre utilisateur.", ephemeral: true });
 			}
-			timeLeft = Math.ceil((expirationTime - currentTime) / (60 * 1000));
+			timeLeft = Math.ceil((expirationTime - currentTime) / timeSetting);
 			interaction.reply({ content: `L'utilisateur ${user.username} est VIP DEVZONE pour encore ${timeLeft} jours.`, ephemeral: true });
 		}
 	}
