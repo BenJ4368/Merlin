@@ -17,7 +17,8 @@ dbClient.connect()
 			await dbClient.query(`
 				CREATE TABLE IF NOT EXISTS vip_users (
 					user_id VARCHAR(50) PRIMARY KEY,
-					expiration_time BIGINT NOT NULL
+					expiration_time BIGINT NOT NULL,
+					notified BOOLEAN DEFAULT FALSE
 				);
 			`);
 			console.log(`${clr.grn}[PG]	TABLE vip_users OK${clr.stop}`);

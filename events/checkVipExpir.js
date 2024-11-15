@@ -31,13 +31,14 @@ module.exports = {
 					}
 				}
 				// if expiration time is less than 3 days, notify the user
-				if  (vipUser.expiration_time - 3 * 60 * 1000 < currentTime) {
+				else if  (vipUser.expiration_time - 3 * 60 * 1000 < currentTime && !vipUser.notified) {
 					const user = await bot.users.fetch(vipUser.user_id);
+					await dbClient.query(`UPDATE vip_users SET notified = TRUE WHERE user_id = $1`, [user.id]);
 					await user.send(`Votre statut VIP DEVZONE va expirer dans 3 jours.`);
 					console.log(`${clr.red}[VIP]	${clr.red}${user.username} ${clr.whi}has been notified that their VIP DEVZONE status will expire in 3 days.`);
 				}
 			});
 		});
-		console.log(`${clr.mag}[VIP]	${clr.whi}Scheduled job to check VIP expiration every day at noon.`);
+		console.log(`${clr.grn}[VIP]	Scheduled job to check VIP expiration.${clr.stop}`);
 	},
 };
