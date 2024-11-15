@@ -67,27 +67,27 @@ module.exports = {
 
 
 		if (action === 'add') {
-			expirationTime += duration * 60 * 1000; // days -> milliseconds
+			expirationTime += (duration * 60 * 1000); // days -> milliseconds
 
 			// Add the user to the vip_users TABLE
 			try {
 				await dbClient.query(
-					`INSERT INTO vip_users (user_id, expiration_time) VALUES ($1, $2) ON CONFLICT (user_id) DO UPDATE SET expiration_time = $2`,
+					`INSERT INTO vip_users (user_id, expiration_time, notified) VALUES ($1, $2, FALSE) ON CONFLICT (user_id) DO UPDATE SET expiration_time = $2, notified = FALSE`,
 					[user.id, expirationTime]
 				);
 				if (!member.roles.cache.has(role.id)) {
 					await user.send(`Vous êtes désormais VIP DEVZONE pour une durée de ${duration} jours.`);
 					await member.roles.add(role);
+					interaction.reply({ content: `L'utilisateur ${user.username} a été ajouté à la liste des VIP pour une durée de ${duration} jours.`, ephemeral: true });
 				}
 				else {
 					await user.send(`Votre statut VIP DEVZONE a été prolongé de ${duration} jours.`);
+					interaction.reply({ content: `La durée du statut VIP de ${user.username} a été prolongée de ${duration} jours.`, ephemeral: true });
 				}
 			} catch (err) {
 				console.log(`${clr.red}[VIP]	Error while adding VIP data to the database:${clr.stop} ${err}`);
 				return interaction.reply({ content: "Une erreur s'est produite lors de l'ajout des données VIP.", ephemeral: true });
 			}
-
-			interaction.reply({ content: `L'utilisateur ${user.username} a été ajouté à la liste des VIP pour une durée de ${duration} jours.`, ephemeral: true });
 		}
 		else if (action === 'remove') {
 			if (expirationTime - currentTime <= duration * 60 * 1000) {
@@ -114,11 +114,11 @@ module.exports = {
 			}
 		}
 		else if (action === 'check') {
-			if (interaction.user.id !== user.id) { // if user is trying to check another user's VIP status
+			if (interaction.user.id !== user.id && !config.adminIds.includes(interaction.user.id) ) { // if user is trying to check another user's VIP status and does not have permission
 				return interaction.reply({ content: "Vous ne pouvez pas vérifier le detail du statut VIP DEVZONE d'un autre utilisateur.", ephemeral: true });
 			}
 			timeLeft = Math.ceil((expirationTime - currentTime) / (60 * 1000));
-			interaction.reply({ content: `Il vous reste ${timeLeft} jours de status VIP DEVZONE.`, ephemeral: true });
+			interaction.reply({ content: `L'utilisateur ${user.username} est VIP DEVZONE pour encore ${timeLeft} jours.`, ephemeral: true });
 		}
 	}
 }
