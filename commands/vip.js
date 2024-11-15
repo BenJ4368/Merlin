@@ -67,7 +67,7 @@ module.exports = {
 
 
 		if (action === 'add') {
-			expirationTime += (duration * 60 * 1000); // days -> milliseconds
+			expirationTime = expirationTime + (duration * 60 * 1000); // days -> milliseconds
 
 			// Add the user to the vip_users TABLE
 			try {
