@@ -76,35 +76,16 @@ module.exports = {
 					[user.id, expirationTime]
 				);
 				if (!member.roles.cache.has(role.id)) {
-					await user.send(`Vous êtes désormais VIP pour une durée de ${duration} jours.`);
+					await user.send(`Vous êtes désormais VIP DEVZONE pour une durée de ${duration} jours.`);
 					await member.roles.add(role);
 				}
 				else {
-					await user.send(`Votre statut VIP a été prolongé de ${duration} jours.`);
+					await user.send(`Votre statut VIP DEVZONE a été prolongé de ${duration} jours.`);
 				}
 			} catch (err) {
 				console.log(`${clr.red}[VIP]	Error while adding VIP data to the database:${clr.stop} ${err}`);
 				return interaction.reply({ content: "Une erreur s'est produite lors de l'ajout des données VIP.", ephemeral: true });
 			}
-
-			// schedule a job to remove the role and delete from db when the expiration time is reached
-			schedule.scheduleJob(new Date(expirationTime), async () => {
-				await dbClient.query(`DELETE FROM vip_users WHERE user_id = $1`, [user.id]);
-				if (member.roles.cache.has(role.id)) {
-					await member.roles.remove(role);
-					await user.send(`Votre statut VIP a expirer.`);
-					console.log(`${clr.red}[VIP]	${clr.red}${user.username} ${clr.whi}a perdu son statut VIP.`);
-				}
-			});
-
-			// schedule a job to notify the user 3 days before expiration
-			const notifyTime = expirationTime - 3 * 60 * 1000; // 5 days before expiration
-			schedule.scheduleJob(new Date(notifyTime), async () => {
-				if (vipUsers[user.id]) {
-					await user.send(`Votre statut VIP va expirer dans 5 jours.`);
-					console.log(`${clr.red}[VIP]	${clr.red}${user.username} ${clr.whi}a été notifié de l'expiration de son statut VIP dans 5 jours.`);
-				}
-			});
 
 			interaction.reply({ content: `L'utilisateur ${user.username} a été ajouté à la liste des VIP pour une durée de ${duration} jours.`, ephemeral: true });
 		}
@@ -115,7 +96,7 @@ module.exports = {
 				if (member.roles.cache.has(role.id)) {
 					await member.roles.remove(role);
 				}
-				await user.send(`Votre statut VIP vous a été retiré par un administrateur.`);
+				await user.send(`Votre statut VIP DEVZONE vous a été retiré par un administrateur.`);
 				interaction.reply({ content: `L'utilisateur ${user.username} a été retiré de la liste des VIP.`, ephemeral: true });
 			}
 			else {
@@ -128,16 +109,16 @@ module.exports = {
 					return interaction.reply({ content: "Une erreur s'est produite lors de la mise à jour des données VIP.", ephemeral: true });
 				}
 				timeLeft = Math.ceil((expirationTime - currentTime) / (60 * 1000));
-				await user.send(`La durée de votre statut VIP a été réduite de ${duration} jours. Durée restante:	${timeLeft} jours.`);
+				await user.send(`La durée de votre statut VIP DEVZONE a été réduite de ${duration} jours. Durée restante:	${timeLeft} jours.`);
 				interaction.reply({ content: `La durée du statut VIP de ${user.username} a été réduite de ${duration} jours. (reste: ${timeLeft})`, ephemeral: true });
 			}
 		}
 		else if (action === 'check') {
 			if (interaction.user.id !== user.id) { // if user is trying to check another user's VIP status
-				return interaction.reply({ content: "Vous ne pouvez pas vérifier le detail du statut VIP d'un autre utilisateur.", ephemeral: true });
+				return interaction.reply({ content: "Vous ne pouvez pas vérifier le detail du statut VIP DEVZONE d'un autre utilisateur.", ephemeral: true });
 			}
 			timeLeft = Math.ceil((expirationTime - currentTime) / (60 * 1000));
-			interaction.reply({ content: `Il vous reste ${timeLeft} jours de status VIP.`, ephemeral: true });
+			interaction.reply({ content: `Il vous reste ${timeLeft} jours de status VIP DEVZONE.`, ephemeral: true });
 		}
 	}
 }
