@@ -55,6 +55,7 @@ module.exports = {
 				.then(res => {
 					if (res.rows[0]) {
 						expirationTime = res.rows[0].expiration_time;
+						expirationTime = Number(expirationTime);
 					}
 					else {
 						expirationTime = currentTime;
