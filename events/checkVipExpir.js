@@ -38,5 +38,6 @@ module.exports = {
 				}
 			});
 		});
+		console.log(`${clr.mag}[VIP]	${clr.whi}Scheduled job to check VIP expiration every day at noon.`);
 	},
 };
