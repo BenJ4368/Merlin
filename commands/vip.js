@@ -68,7 +68,9 @@ module.exports = {
 
 		if (action === 'add') {
 			expirationTime = expirationTime + (duration * 60 * 1000);
-			console.log(expirationTime);
+			console.log(`currentTime: ${currentTime}`);
+			console.log(`duration: ${duration}`);
+			console.log(`expirationTime: ${expirationTime}`);
 
 			// Add the user to the vip_users TABLE
 			try {
