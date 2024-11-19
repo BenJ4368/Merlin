@@ -15,10 +15,10 @@ module.exports = {
 
 		const VIPguild = bot.guilds.cache.get(config.adminGuildId);
 
-		// Schedulejob every day at noon, that gets all VIP users from the vip_users table and
+		// Schedulejob every day at midnight, that gets all VIP users from the vip_users table and
 		// checks if their expiration_time is less than the current time. If it is,
 		// remove them from the database and remove the vip role.
-		schedule.scheduleJob('0 12 * * *', async () => {
+		schedule.scheduleJob('0 0 * * *', async () => {
 			const currentTime = Date.now();
 			const vipUsers = await dbClient.query(`SELECT * FROM vip_users`);
 			const vipRole = VIPguild.roles.cache.find(role => role.name === 'VIP');
