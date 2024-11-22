@@ -19,7 +19,7 @@ module.exports = {
 				if (reactUser && spectatorRole) {
 					if (reactUser.roles.cache.has(spectatorRoleId)) { // Id the user has the corresponding role, take it away. Console.log it, and log any errors.
 						reactUser.roles.remove(spectatorRole)
-							.then(console.log(`${clr.cya}[comd]	${clr.blu}${user.username} unselected the rôle ${clr.whi}"Spectateur"${clr.stop}`))
+							.then(console.log(`${clr.cya}[comd]	${clr.blu}${user.username}${clr.whi} unselected the rôle "Spectateur"${clr.stop}`))
 							.catch(console.error);
 						reactUser.send("Le rôle *Spectateur* t'as été retiré.");
 					}
@@ -33,7 +33,7 @@ module.exports = {
 				if (reactUser && gamingRole) {
 					if (reactUser.roles.cache.has(gamingRoleId)) {
 						reactUser.roles.remove(gamingRole)
-							.then(console.log(`${clr.cya}[comd]	${clr.blu}${user.username} unselected the rôle ${clr.whi}"Gamer"${clr.stop}`))
+							.then(console.log(`${clr.cya}[comd]	${clr.blu}${user.username}${clr.whi} unselected the rôle "Gamer"${clr.stop}`))
 							.catch(console.error);
 						reactUser.send("Le rôle *Gamer* t'as été retiré.");
 					}

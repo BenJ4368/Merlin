@@ -7,7 +7,7 @@ const rpData = require("../resources/rp/rp_data");
 
 function RP_help(interaction)
 {
-	console.log(`${clr.cya}[RP]	${clr.mag}/rp help${clr.whi} was fired by ${clr.blu}${interaction.user.username}${clr.stop}`);
+	console.log(`${clr.cya}[RP]	${clr.blu}/rp help ${clr.whi}was fired by ${clr.blu}${interaction.user.username}${clr.stop}`);
 
 	let embed = new Discord.EmbedBuilder()
 		.setTitle(`List of /rp commands :`)
@@ -107,12 +107,12 @@ async function RP_startSession(interaction)
 		RP_voiceConnection.subscribe(RP_soundBox);
 
 		interaction.editReply({ content: `${interaction.user.username} est le Maître du jeu pour cette session.` });
-		console.log(`${clr.cya}[RP]	${clr.grn}RP session started by ${interaction.user.username}${clr.stop}`);
+		console.log(`${clr.cya}[RP]	${clr.whi}RP session started by ${clr.blu}${interaction.user.username}${clr.stop}`);
 	}
 	else	// If a session is already running, stop here.
 	{
 		interaction.reply({ content: `${interaction.user.username} est Maître d'une session en cours.\nTu vas devoir attendre.`});
-		console.log(`${clr.cya}[RP]	${clr.mag}/rp start${clr.whi} session already running${clr.stop}`);
+		console.log(`${clr.cya}[RP]	${clr.whi}RP session already running${clr.stop}`);
 	}
 }
 
@@ -123,7 +123,7 @@ function RP_stopSession(interaction, admin)
 		if ( interaction.user.id == rpData.getGameMaster().id
 			|| (config.adminIds.includes(interaction.user.id) && admin == true)) {	// Only the gameMaster can end the session. (or admin ofc)
 
-			console.log(`${clr.cya}[RP]	${clr.yel}RP session stopped by ${interaction.user.username}${clr.stop}`);
+			console.log(`${clr.cya}[RP]	${clr.whi}RP session stopped by ${clr.blu}${interaction.user.username}${clr.stop}`);
 			rpData.stopSession();
 
 			RP_channelVoice.delete();
@@ -135,11 +135,11 @@ function RP_stopSession(interaction, admin)
 		else	// user is not the gameMaster
 		{
 			interaction.reply({ content: `Seul ${rpData.getGameMaster().username}, le Maître du Jeu, peut mettre fin à sa session de jdr.` });
-			console.log(`${clr.cya}[RP]	${clr.mag}/rp stop ${clr.whi}acces was denied to ${clr.blu}${interaction.user.username}${clr.stop}`);
+			console.log(`${clr.cya}[RP]	${clr.mag}/rp stop, acces was denied to ${interaction.user.username}${clr.stop}`);
 		}
 	}
 	else {	// If no session is running, stop here.
-		console.log(`${clr.cya}[RP]	${clr.mag}/rp stop${clr.whi} no session running${clr.stop}`);
+		console.log(`${clr.cya}[RP]	${clr.whi}/rp stop, no session running${clr.stop}`);
 			interaction.reply({ content: "Mais de quelle jdr tu parles ?\nT'es sûr que ça va ?"});
 	}
 
@@ -223,31 +223,31 @@ module.exports = {
 				RP_help(interaction)
 				break;
 			case 'start':
-				console.log(`${clr.cya}[RP]	${clr.mag}/rp start${clr.whi} was fired by ${clr.blu}${interaction.user.username}${clr.stop}`);
+				console.log(`${clr.cya}[RP]	${clr.blu}/rp start${clr.whi} was fired by ${clr.blu}${interaction.user.username}${clr.stop}`);
 				RP_startSession(interaction);
 				break;
 			case 'stop':
-				console.log(`${clr.cya}[RP]	${clr.mag}/rp stop ${clr.whi}was fired by ${clr.blu}${interaction.user.username}${clr.stop}`);
+				console.log(`${clr.cya}[RP]	${clr.blu}/rp stop ${clr.whi}was fired by ${clr.blu}${interaction.user.username}${clr.stop}`);
 				RP_stopSession(interaction, false);
 				break;
 			case 'adminstop':
-				console.log(`${clr.cya}[RP]	${clr.mag}/rp adminstop ${clr.whi}was fired by ${clr.blu}${interaction.user.username}${clr.stop}`);
+				console.log(`${clr.cya}[RP]	${clr.blu}/rp adminstop ${clr.whi}was fired by ${clr.blu}${interaction.user.username}${clr.stop}`);
 				RP_stopSession(interaction, true);
 				break;
 			case '1d4':
-				console.log(`${clr.cya}[RP]	${clr.mag}/rp 1d4 ${clr.whi}was fired by ${clr.blu}${interaction.user.username}${clr.stop}`);
+				console.log(`${clr.cya}[RP]	${clr.blu}/rp 1d4 ${clr.whi}was fired by ${clr.blu}${interaction.user.username}${clr.stop}`);
 				RP_diceRoll(interaction, 4);
 				break;
 			case '1d10':
-				console.log(`${clr.cya}[RP]	${clr.mag}/rp 1d10 ${clr.whi}was fired by ${clr.blu}${interaction.user.username}${clr.stop}`);
+				console.log(`${clr.cya}[RP]	${clr.blu}/rp 1d10 ${clr.whi}was fired by ${clr.blu}${interaction.user.username}${clr.stop}`);
 				RP_diceRoll(interaction, 10);
 				break;
 			case '1d20':
-				console.log(`${clr.cya}[RP]	${clr.mag}/rp 1d20 ${clr.whi}was fired by ${clr.blu}${interaction.user.username}${clr.stop}`);
+				console.log(`${clr.cya}[RP]	${clr.blu}/rp 1d20 ${clr.whi}was fired by ${clr.blu}${interaction.user.username}${clr.stop}`);
 				RP_diceRoll(interaction, 20);
 				break;
 			case '1d100':
-				console.log(`${clr.cya}[RP]	${clr.mag}/rp 1d100 ${clr.whi}was fired by ${clr.blu}${interaction.user.username}${clr.stop}`);
+				console.log(`${clr.cya}[RP]	${clr.blu}/rp 1d100 ${clr.whi}was fired by ${clr.blu}${interaction.user.username}${clr.stop}`);
 				RP_diceRoll(interaction, 100);
 				break;
 			default:

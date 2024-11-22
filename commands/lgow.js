@@ -156,7 +156,7 @@ module.exports = {
 				.setRequired(true)),
 
 	async execute(interaction) {
-			console.log(`${clr.cya}[cmd]	${clr.mag}/lgow ${clr.whi}was fired by ${clr.blu}${interaction.user.username}${clr.stop}`);
+			console.log(`${clr.cya}[cmd]	${clr.blu}/lgow ${clr.whi}was fired by ${clr.blu}${interaction.user.username}${clr.stop}`);
 			await interaction.reply({ content: 'Attribution des roles...' });
 
 		try {

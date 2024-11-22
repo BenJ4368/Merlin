@@ -19,7 +19,7 @@ module.exports = {
 		}
 		catch (error) {	// Log an eventual error (Command not found...)
 			console.error(error);
-				await interaction.followUp({ content: `${clr.cya}[InteractionCreate]	${clr.red}Error while executing ${clr.yel}${interaction.commandName}${clr.stop}`, ephemeral: true});
+				await interaction.followUp({ content: `${clr.red}[InteractionCreate]	Error while executing ${clr.yel}${interaction.commandName}${clr.stop}`, ephemeral: true});
 		}
 	},
 };

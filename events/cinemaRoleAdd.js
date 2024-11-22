@@ -18,7 +18,7 @@ module.exports = {
 				const spectatorRole = guild.roles.cache.get(spectatorRoleId);	// Gets and stores the role
 				if (reactUser && spectatorRole) {
 					reactUser.roles.add(spectatorRole)	// Give the user the corresponding role. Console.log it, and log any errors. (User already possessing the role doesn't do anything)
-						.then(console.log(`${clr.cya}[comd]	${clr.blu}${user.username} selected the rôle ${clr.whi}"Spectateur"${clr.stop}`))
+						.then(console.log(`${clr.cya}[comd]	${clr.blu}${user.username}${clr.whi} selected the rôle "Spectateur"${clr.stop}`))
 						.catch(console.error);
 					reactUser.send("Le rôle *Spectateur* t'as été donné.");
 				}
@@ -30,7 +30,7 @@ module.exports = {
 				const gamingRole = guild.roles.cache.get(gamingRoleId);
 				if (reactUser && gamingRole) {
 					reactUser.roles.add(gamingRole)
-						.then(console.log(`${clr.cya}[comd]	${clr.blu}${user.username} selected the rôle ${clr.whi}"Gamer"${clr.stop}`))
+						.then(console.log(`${clr.cya}[comd]	${clr.blu}${user.username}${clr.whi} selected the rôle "Gamer"${clr.stop}`))
 						.catch(console.error);
 					reactUser.send("Le rôle *Gamer* t'as été donné.");
 				}
