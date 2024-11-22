@@ -112,7 +112,7 @@ module.exports = {
 					await user.send(`La durée de votre statut VIP DEVZONE a été réduite de ${duration} jours. Durée restante:	${timeLeft} jours.`);
 					interaction.reply({ content: `La durée du statut VIP de ${user.username} a été réduite de ${duration} jours. (reste: ${timeLeft})`, ephemeral: true });
 				}
-			} catch {
+			} catch (err) {
 				console.log(`${clr.red}[VIP]	Error while updating VIP data in the database:${clr.stop} ${err}`);
 				return interaction.reply({ content: "Une erreur s'est produite lors de la mise à jour des données VIP.", ephemeral: true });
 			}
