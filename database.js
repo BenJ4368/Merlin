@@ -12,7 +12,7 @@ const dbClient = new Client({
 
 dbClient.connect()
     .then(async () => {
-		console.log(`${clr.cya}[PG]	${clr.gre}Connexion à PostgreSQL (${config.DBname}) établie${clr.stop}`);
+		console.log(`${clr.cya}[PG]	${clr.grn}Connexion à PostgreSQL (${config.DBname}) établie${clr.stop}`);
 		try {
 			await dbClient.query(`
 				CREATE TABLE IF NOT EXISTS vip_users (
@@ -21,7 +21,7 @@ dbClient.connect()
 					notified BOOLEAN DEFAULT FALSE
 				);
 			`);
-			console.log(`${clr.cya}[PG]	${clr.gre}OK ${clr.blu}TABLE vip_users${clr.stop}`);
+			console.log(`${clr.cya}[PG]	${clr.grn}OK ${clr.blu}TABLE vip_users${clr.stop}`);
 		} catch (err) {
 			console.error(`${clr.red}[PG]	Erreur lors de la création de la table vip_users${clr.stop}`, err);
 		}
