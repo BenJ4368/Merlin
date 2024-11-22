@@ -4,7 +4,7 @@ const clr = require("../resources/color_codes");
 
 module.exports = {
 	data: new Discord.SlashCommandBuilder()
-		.setName('restart')	
+		.setName('restart')
 		.setDescription('ACCES RESTREINT - Sorcier uniquement'),
 
 	async execute(interaction)
@@ -14,6 +14,7 @@ module.exports = {
 			console.log(`${clr.red}[Admin]	${clr.red}Restart procedure...`);
 			await interaction.reply({ content: "Procédure de redémarrage..." });
 			interaction.client.destroy();
+			process.exit(0);
 		}
 		else	// If the user triggering the command is not an admin, sends an ephemeral message to explain it to him, and console log the denied acces.
 		{
