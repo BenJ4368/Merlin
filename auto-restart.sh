@@ -3,7 +3,7 @@
 RED='\033[0;31m'
 STOP='\033[0m'
 
-# Auto restarts the bot when it crashes
+# Auto restarts the bot when it stops
 while true; do
 	git pull
 	node ./main.js
