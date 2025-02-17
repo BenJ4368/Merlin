@@ -10,14 +10,16 @@
   "license": "ISC",
   "dependencies": {
     "@discordjs/builders": "^1.6.3",
-    "@discordjs/voice": "^0.16.1",
+    "@discordjs/voice": "^0.18.0",
     "@joshmiquel/hirez": "^3.0.1",
     "axios": "^1.7.9",
     "discord.js": "^14.11.0",
     "fs": "^0.0.1-security",
-    "jimp": "^0.22.8",
+    "jimp": "^1.6.0",
     "libsodium-wrappers": "^0.7.13",
     "node-schedule": "^2.1.1",
-    "pg": "^8.13.1"
+    "pg": "^8.13.1",
+    "ytdl-core": "^4.11.5",
+    "ytpl": "^2.3.0"
   }
 }
