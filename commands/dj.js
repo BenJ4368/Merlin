@@ -36,14 +36,17 @@ module.exports = {
 				return interaction.reply({ content: 'Vous devez fournir une URL youtube pour jouer une playlist.', flags: Discord.MessageFlags.Ephemeral });
 
 			await interaction.reply({ content: `🔊 Lecture de la playlist : ${url}` });
+			let playlist
 			try {
-				await play.playlist_info(url, { incomplete: true });
+				playlist = await play.playlist_info(url, { incomplete: true });
 			} catch (error) {
 				console.error("Erreur lors de la récupération de la playlist:", error);
 				return interaction.reply({ content: "Une erreur s'est produite. Verifiez l'URL fournie.", flags: Discord.MessageFlags.Ephemeral });
 			}
 
+
 			let videos = await playlist.all_videos();
+
 			if (videos.length === 0)
 				return interaction.followUp({ content: "Cette playlist est vide.", flags: Discord.MessageFlags.Ephemeral });
 
