@@ -78,23 +78,41 @@ module.exports = {
 				}
 
 				const video = subscription.queue[subscription.currentIndex];
+				console.log(`🔊 Tentative de lecture : ${video.title} (${video.url})`);
+
 				let stream;
 				try {
 					stream = await play.stream(video.url);
+					console.log("✅ Stream récupéré avec succès");
 				} catch (error) {
-					console.error("Erreur lors du streaming de la vidéo :", video.url, error);
+					console.error("❌ Erreur lors du streaming de la vidéo :", video.url, error);
 					subscription.currentIndex++;
 					return playNext();
 				}
+
 				const resource = createAudioResource(stream.stream, { inputType: stream.type });
+				if (!resource) {
+					console.error("⚠️ Ressource audio non créée !");
+					return;
+				}
+				console.log("🎵 Ressource audio créée");
+
 				subscription.player.play(resource);
+				console.log("▶️ Lecture démarrée");
+
 				interaction.followUp({ content: `▶️ Lecture : **${video.title}**`, flags: Discord.MessageFlags.Ephemeral });
 
 				subscription.player.once(AudioPlayerStatus.Idle, () => {
+					console.log("⏭️ Passage à la vidéo suivante");
 					subscription.currentIndex++;
 					playNext();
 				});
+
+				subscription.player.on('error', error => {
+					console.error("🎵 Erreur du player :", error);
+				});
 			};
+
 
 			playNext();
 
