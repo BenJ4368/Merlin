@@ -35,10 +35,18 @@ module.exports = {
 			if (!url)
 				return interaction.reply({ content: 'Vous devez fournir une URL youtube pour jouer une playlist.', flags: Discord.MessageFlags.Ephemeral });
 
-			if (await play.validate(url) !== "playlist")
+			let validation = await play.validate(url)
+			console.log("Validation: ", validation);
+			try {
+				let playlist = await play.playlist_info(url, { incomplete: true });
+				console.log("Playlist Name:", playlist.title);
+			} catch (error) {
+				console.error("Erreur lors de la récupération de la playlist:", error);
 				return interaction.reply({ content: "URL invalide. Veuillez fournir une URL de playlist YouTube.", flags: Discord.MessageFlags.Ephemeral });
+			}
 
 			await interaction.reply({ content: `🔊 Lecture de la playlist : ${url}` });
+
 
 			let playlist;
 			try {
