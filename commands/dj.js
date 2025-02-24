@@ -26,7 +26,12 @@ module.exports = {
 
 		const action = interaction.options.getString('action');
 		const url = interaction.options.getString('url');
+
 		const voiceChannel = interaction.member.voice.channel;
+		if (!voiceChannel.permissionsFor(interaction.client.user).has(["SPEAK", "CONNECT", "STREAM"])) {
+			console.log("⚠️ Le bot n'a pas les permissions nécessaires !");
+			return interaction.reply("❌ Le bot n'a pas les permissions pour parler dans ce salon !");
+		}
 
 		if (!voiceChannel)
 			return interaction.reply({ content: "Vous devez être dans un salon vocal pour utiliser cette commande.", flags: Discord.MessageFlags.Ephemeral });
@@ -78,27 +83,26 @@ module.exports = {
 				}
 
 				const video = subscription.queue[subscription.currentIndex];
-				console.log(`🔊 Tentative de lecture : ${video.title} (${video.url})`);
-
 				let stream;
 				try {
 					stream = await play.stream(video.url);
-					console.log("✅ Stream récupéré avec succès");
 				} catch (error) {
-					console.error("❌ Erreur lors du streaming de la vidéo :", video.url, error);
+					console.error("Erreur lors du streaming de la vidéo :", video.url, error);
 					subscription.currentIndex++;
 					return playNext();
 				}
 
-				const resource = createAudioResource(stream.stream, { inputType: stream.type });
+				const resource = createAudioResource(stream.stream, {
+					inputType: stream.type,
+					inlineVolume: true
+				});
 				if (!resource) {
-					console.error("⚠️ Ressource audio non créée !");
+					console.error("Ressource audio non créée !");
 					return;
 				}
-				console.log("🎵 Ressource audio créée");
+				resource.volume.setVolume(1.0);
 
 				subscription.player.play(resource);
-				console.log("▶️ Lecture démarrée");
 
 				interaction.followUp({ content: `▶️ Lecture : **${video.title}**`, flags: Discord.MessageFlags.Ephemeral });
 
