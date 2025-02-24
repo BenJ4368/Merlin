@@ -34,7 +34,7 @@ module.exports = {
 				});
 
 				if (!searchResponse.data.data || searchResponse.data.data.length === 0) {
-					await interaction.reply({ content: `Aucun résultat trouvé pour **${recherche}**.`, ephemeral: true });
+					await interaction.reply({ content: `Aucun résultat trouvé pour **${recherche}**.`, flags: Discord.MessageFlags.Ephemeral });
 					return;
 				}
 

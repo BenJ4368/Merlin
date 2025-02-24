@@ -29,14 +29,14 @@ module.exports = {
 		const voiceChannel = interaction.member.voice.channel;
 
 		if (!voiceChannel)
-			return interaction.reply({ content: "Vous devez être dans un salon vocal pour utiliser cette commande.", ephemeral: true });
+			return interaction.reply({ content: "Vous devez être dans un salon vocal pour utiliser cette commande.", flags: Discord.MessageFlags.Ephemeral });
 
 		if (action === 'play') {
 			if (!url)
-				return interaction.reply({ content: 'Vous devez fournir une URL youtube pour jouer une playlist.', ephemeral: true });
+				return interaction.reply({ content: 'Vous devez fournir une URL youtube pour jouer une playlist.', flags: Discord.MessageFlags.Ephemeral });
 
 			if (await play.validate(url) !== "playlist")
-				return interaction.reply({ content: "URL invalide. Veuillez fournir une URL de playlist YouTube.", ephemeral: true });
+				return interaction.reply({ content: "URL invalide. Veuillez fournir une URL de playlist YouTube.", flags: Discord.MessageFlags.Ephemeral });
 
 			await interaction.reply({ content: `🔊 Lecture de la playlist : ${url}` });
 
@@ -45,12 +45,12 @@ module.exports = {
 				playlist = await play.playlist_info(url, { incomplete: true });
 			} catch (error) {
 				console.error("Erreur lors de la récupération de la playlist", error);
-				return interaction.followUp({ content: "Erreur lors de la récupération de la playlist.", ephemeral: true });
+				return interaction.followUp({ content: "Erreur lors de la récupération de la playlist.", flags: Discord.MessageFlags.Ephemeral });
 			}
 			let videos = await playlist.all_videos();
 
 			if (videos.length === 0)
-				return interaction.followUp({ content: "Cette playlist est vide.", ephemeral: true });
+				return interaction.followUp({ content: "Cette playlist est vide.", flags: Discord.MessageFlags.Ephemeral });
 
 			let subscription = subscriptions.get(interaction.guild.id);
 			if (!subscription) {
@@ -108,10 +108,10 @@ module.exports = {
 				subscriptions.delete(interaction.guild.id);
 				interaction.reply({ content: '🛑 Lecture stoppée et déconnecté du salon vocal.', ephemeral: false });
 			} else {
-				interaction.reply({ content: "Aucune lecture en cours.", ephemeral: true });
+				interaction.reply({ content: "Aucune lecture en cours.", flags: Discord.MessageFlags.Ephemeral });
 			}
 		} else {
-			interaction.reply({ content: 'Action invalide.', ephemeral: true });
+			interaction.reply({ content: 'Action invalide.', flags: Discord.MessageFlags.Ephemeral });
 		}
 	}
 };
