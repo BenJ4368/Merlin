@@ -35,28 +35,15 @@ module.exports = {
 			if (!url)
 				return interaction.reply({ content: 'Vous devez fournir une URL youtube pour jouer une playlist.', flags: Discord.MessageFlags.Ephemeral });
 
-			let validation = await play.validate(url)
-			console.log("Validation: ", validation);
+			await interaction.reply({ content: `🔊 Lecture de la playlist : ${url}` });
 			try {
-				let playlist = await play.playlist_info(url, { incomplete: true });
-				console.log("Playlist Name:", playlist.title);
+				await play.playlist_info(url, { incomplete: true });
 			} catch (error) {
 				console.error("Erreur lors de la récupération de la playlist:", error);
-				return interaction.reply({ content: "URL invalide. Veuillez fournir une URL de playlist YouTube.", flags: Discord.MessageFlags.Ephemeral });
+				return interaction.reply({ content: "Une erreur s'est produite. Verifiez l'URL fournie.", flags: Discord.MessageFlags.Ephemeral });
 			}
 
-			await interaction.reply({ content: `🔊 Lecture de la playlist : ${url}` });
-
-
-			let playlist;
-			try {
-				playlist = await play.playlist_info(url, { incomplete: true });
-			} catch (error) {
-				console.error("Erreur lors de la récupération de la playlist", error);
-				return interaction.followUp({ content: "Erreur lors de la récupération de la playlist.", flags: Discord.MessageFlags.Ephemeral });
-			}
 			let videos = await playlist.all_videos();
-
 			if (videos.length === 0)
 				return interaction.followUp({ content: "Cette playlist est vide.", flags: Discord.MessageFlags.Ephemeral });
 
@@ -83,7 +70,7 @@ module.exports = {
 				if (subscription.currentIndex >= subscription.queue.length) {
 					subscription.connection.destroy();
 					subscriptions.delete(interaction.guild.id);
-					interaction.followUp({ content: "La playlist est terminée.", ephemeral: false });
+					interaction.followUp({ content: "La playlist est terminée.", flags: Discord.MessageFlags.Ephemeral });
 					return;
 				}
 
@@ -98,7 +85,7 @@ module.exports = {
 				}
 				const resource = createAudioResource(stream.stream, { inputType: stream.type });
 				subscription.player.play(resource);
-				interaction.followUp({ content: `▶️ Lecture : **${video.title}**`, ephemeral: false });
+				interaction.followUp({ content: `▶️ Lecture : **${video.title}**`, flags: Discord.MessageFlags.Ephemeral });
 
 				subscription.player.once(AudioPlayerStatus.Idle, () => {
 					subscription.currentIndex++;
@@ -114,7 +101,7 @@ module.exports = {
 				subscription.player.stop();
 				subscription.connection.destroy();
 				subscriptions.delete(interaction.guild.id);
-				interaction.reply({ content: '🛑 Lecture stoppée et déconnecté du salon vocal.', ephemeral: false });
+				interaction.reply({ content: '🛑 Lecture stoppée et déconnecté du salon vocal.', flags: Discord.MessageFlags.Ephemeral });
 			} else {
 				interaction.reply({ content: "Aucune lecture en cours.", flags: Discord.MessageFlags.Ephemeral });
 			}
