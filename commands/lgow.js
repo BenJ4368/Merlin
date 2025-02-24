@@ -136,23 +136,23 @@ module.exports = {
 		.setDescription('Lance une partie de Loup-Garouverwatch. 5 Joueurs requis.')
 		.addUserOption(option =>
 			option.setName('joueur1')
-				.setDescription('Indiquez les joueurs, vous comrpis. Pas de doublons.')
+				.setDescription('Indiquez les joueurs, vous compris. Pas de doublons.')
 				.setRequired(true))
 		.addUserOption(option =>
 			option.setName('joueur2')
-				.setDescription('Indiquez les joueurs, vous comrpis. Pas de doublons.')
+				.setDescription('Indiquez les joueurs, vous compris. Pas de doublons.')
 				.setRequired(true))
 		.addUserOption(option =>
 			option.setName('joueur3')
-				.setDescription('Indiquez les joueurs, vous comrpis. Pas de doublons.')
+				.setDescription('Indiquez les joueurs, vous compris. Pas de doublons.')
 				.setRequired(true))
 		.addUserOption(option =>
 			option.setName('joueur4')
-				.setDescription('Indiquez les joueurs, vous comrpis. Pas de doublons.')
+				.setDescription('Indiquez les joueurs, vous compris. Pas de doublons.')
 				.setRequired(true))
 		.addUserOption(option =>
 			option.setName('joueur5')
-				.setDescription('Indiquez les joueurs, vous comrpis. Pas de doublons.')
+				.setDescription('Indiquez les joueurs, vous compris. Pas de doublons.')
 				.setRequired(true)),
 
 	async execute(interaction) {
