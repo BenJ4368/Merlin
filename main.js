@@ -36,31 +36,6 @@ if (regularCommandFiles.length > 0) {
 	})();
 }
 
-/* Loading/Updating Admin commands */
-/* Practicly the same code as above, with minor changes */
-bot.adminCommands = new Discord.Collection();
-bot.adminCommandArray = [];
-const adminCommandFiles = fs.readdirSync("./admin").filter(file => file.endsWith(".js") && !file.startsWith('_')); // Reads the ./admin file
-if (adminCommandFiles.length > 0) {
-	adminCommandFiles.forEach(file => {
-		const command = require(`./admin/${file}`);
-		bot.adminCommands.set(command.data.name, command);
-		bot.adminCommandArray.push(command.data.toJSON());
-		console.log(`${clr.red}[Admin]	${clr.grn}OK ${clr.blu}${file.slice(0, file.length - 3)}${clr.stop}`);
-	});
-	(async () => {
-		try {
-			const data = await rest.put(
-				Discord.Routes.applicationGuildCommands(config.clientId, config.adminGuildId),	// applicationGuildCommand means the commands are stored for a specific discord server, and only accessible there.
-				{ body: bot.adminCommandArray },
-			);
-			console.log(`${clr.red}[Admin]	${clr.grn}Successfully updated ${data.length} admin commands${clr.stop}`);
-		} catch (error) {
-			console.error(error);
-		}
-	})();
-}
-
 /*	Loads every event handling files */
 fs.readdirSync("./events").filter(files => files.endsWith(".js")).forEach(file => {		// Reads the ./events directory, and retrieve all files ending with .js
 		const event = require(`./events/${file}`);	// require the files, and setup the listeners on each events.
@@ -71,17 +46,12 @@ fs.readdirSync("./events").filter(files => files.endsWith(".js")).forEach(file =
 	}
 	);
 
+
 /* Uncomment to delete ALL application commands*/
 // rest.put(Discord.Routes.applicationCommands(config.clientId),
 // 	{ body: [] },
 // );
 // console.log(`${clr.red}[Admin]	Deleted all application commands.${clr.stop}`);
 
-
-/* Uncomment to delete ALL admin commands*/
-// rest.put(Discord.Routes.applicationGuildCommands(config.clientId, config.adminGuildId),
-// 	{ body: [] },
-// );
-// console.log(`${clr.red}[Admin]	Deleted all admin commands.${clr.stop}`);
 
 bot.login(config.token); // Connects the bot. Triggers the Discord.Event.ClientReady event

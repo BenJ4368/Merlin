@@ -1,26 +1,19 @@
 {
-  "name": "merlin",
-  "version": "1.0.0",
-  "description": "Created by ./BenJ#5533",
-  "main": "main.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "./BenJ#5533",
-  "license": "ISC",
-  "dependencies": {
-    "@discordjs/builders": "^1.6.3",
-    "@discordjs/voice": "^0.18.0",
-    "@joshmiquel/hirez": "^3.0.1",
-    "axios": "^1.7.9",
-    "discord.js": "^14.11.0",
-    "fs": "^0.0.1-security",
-    "jimp": "^1.6.0",
-    "libsodium-wrappers": "^0.7.13",
-    "node-schedule": "^2.1.1",
-    "pg": "^8.13.1",
-    "play-dl": "^1.9.7",
-    "ytdl-core": "^4.11.5",
-    "ytpl": "^2.3.0"
-  }
+	"name": "merlin",
+	"version": "1.0.0",
+	"description": "Created by ./BenJ",
+	"main": "main.js",
+	"author": "./BenJ",
+	"license": "ISC",
+	"dependencies": {
+		"@discordjs/builders": "^1.10.1",
+		"@discordjs/voice": "^0.18.0",
+		"axios": "^1.8.4",
+		"discord.js": "^14.18.0",
+		"googleapis": "^144.0.0",
+		"jimp": "^1.6.0",
+		"libsodium-wrappers": "^0.7.15",
+		"node-schedule": "^2.1.1",
+		"pg": "^8.14.1"
+	}
 }
