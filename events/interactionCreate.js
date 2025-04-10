@@ -21,5 +21,7 @@ module.exports = {
 			console.error(error);
 				await interaction.followUp({ content: `${clr.red}[InteractionCreate]	Error while executing ${clr.yel}${interaction.commandName}${clr.stop}`, flags: Discord.MessageFlags.Ephemeral });
 		}
+
+		
 	},
 };
