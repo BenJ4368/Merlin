@@ -4,7 +4,7 @@ module.exports = {
 	name: Discord.Events.MessageCreate,
 	async execute(message) {
 		if (message.author.bot) return;
-		return;
+		
 		if (message.channel.id !== "923586006094065684") return;
 
 		try {
