@@ -54,7 +54,6 @@ module.exports = {
 					await message.react("🎵");
 					await message.react("🎭");
 					await message.react("😎");
-					await message.react("🎻");
 					await message.react("💪");
 
 				} catch (error) {
