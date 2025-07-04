@@ -1,5 +1,6 @@
 const Discord = require('discord.js');
 const clr = require("../resources/color_codes");
+const varModes = require('../varModes.js'); // Assuming varModes.js is in the same directory
 
 module.exports = {
 	data: new Discord.SlashCommandBuilder()
@@ -21,18 +22,18 @@ module.exports = {
 		const choix = interaction.options.getString('choix');
 
 		if (choix === 'party') {
-			interaction.client.varModes.setPartyMode(true);
-			interaction.client.varModes.setFestMode(false);
+			varModes.setPartyMode(true);
+			varModes.setFestMode(false);
 			interaction.reply({ content: 'Mode **Party** activé!', ephemeral: true });
 		}
 		else if (choix === 'fest') {
-			interaction.client.varModes.setPartyMode(false);
-			interaction.client.varModes.setFestMode(true);
+			varModes.setPartyMode(false);
+			varModes.setFestMode(true);
 			interaction.reply({ content: 'Mode **Fest** activé!', ephemeral: true });
 		}
 		else if (choix === 'normal') {
-			interaction.client.varModes.setPartyMode(false);
-			interaction.client.varModes.setFestMode(false);
+			varModes.setPartyMode(false);
+			varModes.setFestMode(false);
 			interaction.reply({ content: 'Mode **Normal** activé!', ephemeral: true });
 		}
 		else {
