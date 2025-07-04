@@ -14,6 +14,7 @@
 | `/crit` | 🎬 Recherche des informations sur une œuvre ou une personne via l'API TheTVDB. |
 | `/lgow` | 🐺 Lance une partie de Loup-Garou OverWatch. 5 joueurs requis. |
 | `/rp` | 🎲 Commandes utilisées pour les sessions de jeu de rôle. |
+| `mode` | 
 
 ### 📝 Commande `/merlin`
 

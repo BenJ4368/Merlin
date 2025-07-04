@@ -35,26 +35,28 @@ module.exports = {
 			}
 			if (varModes.getFestMode()) {
 				try {
+					await message.react("🍻");
+					await message.react("🥨");
+					await message.react("🇩🇪");
+					await message.react("🖤");
+					await message.react("💛");
+					await message.react("❤️");
+					await message.react("🎶");
+					await message.react("🍗");
+					await message.react("🎠");
+					await message.react("🍺");
+					await message.react("🎺");
+					await message.react("🌭");
+					await message.react("🎪");
 					await message.react("🎉");
-					await message.react("✅");
-					await message.react("🥳");
-					await message.react("💯");
-					await message.react("🎊");
-					await message.react("🥂");
-					await message.react("🎇");
-					await message.react("👑");
-					await message.react("🤩");
-					await message.react("🥇");
-					await message.react("🙌");
-					await message.react("🎂");
-					await message.react("🎯");
-					await message.react("💪");
-					await message.react("💥");
-					await message.react("🏆");
+					await message.react("🎡");
+					await message.react("🍖");
+					await message.react("🎵");
+					await message.react("🎭");
 					await message.react("😎");
-					await message.react("👌");
-					await message.react("💋");
-					await message.react("🥹");
+					await message.react("🎻");
+					await message.react("🥖");​
+
 				} catch (error) {
 					console.error(`[MessageCreate] Erreur en ajoutant une réaction :`, error);
 				}
