@@ -24,13 +24,13 @@ async function playDeityImage(CommandInteraction) {
 	}
 	const godAnswer = selectedDirectories[Math.floor(Math.random() * selectedDirectories.length)];
 
-	// puis, choisir un fichier aléatoire ./resources/smite/gods/${godAnswer}/skins/${randomFile}
-	const files = fs.readdirSync(`./resources/smite/gods/${godAnswer}/skins/`, { withFileTypes: true })
+	// puis, choisir un fichier aléatoire ./resources/smite/gods/${godAnswer}/${randomFile}
+	const files = fs.readdirSync(`./resources/smite/gods/${godAnswer}/`, { withFileTypes: true })
 		.filter(dirent => dirent.isFile())
 		.map(dirent => dirent.name);
 	const randomFile = files[Math.floor(Math.random() * files.length)];
 
-	const image = await Jimp.read(`./resources/smite/gods/${godAnswer}/skins/${randomFile}`);
+	const image = await Jimp.read(`./resources/smite/gods/${godAnswer}/${randomFile}`);
 	const x = Math.floor(Math.random() * (image.getWidth() - 300));
 	const y = Math.floor(Math.random() * (image.getHeight() - 300));
 	const croppedImage = await image.clone().crop(x, y, 300, 300).getBufferAsync(Jimp.MIME_PNG);
@@ -134,7 +134,7 @@ async function playDeityImage(CommandInteraction) {
 			embed
 				.setTitle(`${userPressedButton.member.displayName} is right !`)
 				.setDescription(`The answer was : ${godAnswer}`)
-				.setColor(Discord.Colors.Red)
+				.setColor(Discord.Colors.Green)
 			await CommandInteraction.editReply({
 				embeds: [embed],
 			});
@@ -163,7 +163,7 @@ module.exports = {
 		.setDescription('Merlin will challenge your Smite knowledge.'),
 
 	async execute(CommandInteraction) {
-		console.log(`${color.cyan}[command]	${color.magenta}/challenge ${color.white}was fired by ${color.blue}${CommandInteraction.user.tag}.${color.stop}`);
+		console.log(`${color.cya}[command]	${color.mag}/challenge ${color.whi}was fired by ${color.blu}${CommandInteraction.user.tag}.${color.stop}`);
 		try {
 			playDeityImage(CommandInteraction);
 		} catch (error) {
