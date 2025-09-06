@@ -37,7 +37,9 @@ async function playDeityImage(CommandInteraction) {
 	}
 
 	// Choisir un dieu réponse parmi les 25
-	godAnswerPath = godsChoicePool[Math.floor(Math.random() * godsChoicePool.length)];
+	const godAnswerPath = godsChoicePool[Math.floor(Math.random() * godsChoicePool.length)];
+	const godAnswer = path.basename(godAnswerPath);
+
 
 	// puis, choisir un skin aléatoire
 	const skins = fs.readdirSync(`${godAnswerPath}`, { withFileTypes: true })
@@ -55,7 +57,7 @@ async function playDeityImage(CommandInteraction) {
 		const buttons = [];
 
 		for (let j = 1; j <= 5; j++) {
-			const godName = selectedDirectories[(i - 1) * 5 + j - 1]
+			const godName = godsChoicePool[(i - 1) * 5 + (j - 1)].split('/').pop();
 			const button = new Discord.ButtonBuilder()
 				.setCustomId(`${godName}`)
 				.setLabel(`${godName}`)
