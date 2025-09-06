@@ -9,28 +9,24 @@ function sleep(seconds) {
 
 async function playDeityImage(CommandInteraction) {
 
-	const directories = fs.readdirSync('./resources/smite/gods/', { withFileTypes: true })
+	const roleDirs = fs.readdirSync('./resources/smite/gods/', { withFileTypes: true })
 		.filter(dirent => dirent.isDirectory())
 		.map(dirent => dirent.name);
 
-	// choisir un dossier aléatoire ./resources/smite/gods/${randomDir} parmis tout les dossiers présents
-	const selectedDirectories = [];
-	while (selectedDirectories.length < 25) {
-		const randomIndex = Math.floor(Math.random() * directories.length);
-		const randomDirectory = directories[randomIndex];
-		if (!selectedDirectories.includes(randomDirectory)) {
-			selectedDirectories.push(randomDirectory);
-		}
-	}
-	const godAnswer = selectedDirectories[Math.floor(Math.random() * selectedDirectories.length)];
+	const randomRole = roleDirs[Math.floor(Math.random() * roleDirs.length)];
+	const godsInRole = fs.readdirSync(`./resources/smite/gods/${randomRole}/`, { withFileTypes: true })
+		.filter(dirent => dirent.isDirectory())
+		.map(dirent => dirent.name);
+
+	const godAnswer = godsInRole[Math.floor(Math.random() * godsInRole.length)];
 
 	// puis, choisir un fichier aléatoire ./resources/smite/gods/${godAnswer}/${randomFile}
-	const files = fs.readdirSync(`./resources/smite/gods/${godAnswer}/`, { withFileTypes: true })
+	const files = fs.readdirSync(`./resources/smite/gods/${randomRole}/${godAnswer}/`, { withFileTypes: true })
 		.filter(dirent => dirent.isFile())
 		.map(dirent => dirent.name);
 	const randomFile = files[Math.floor(Math.random() * files.length)];
 
-	const image = await Jimp.read(`./resources/smite/gods/${godAnswer}/${randomFile}`);
+	const image = await Jimp.read(`./resources/smite/gods/${randomRole}/${godAnswer}/${randomFile}`);
 	const x = Math.floor(Math.random() * (image.getWidth() - 300));
 	const y = Math.floor(Math.random() * (image.getHeight() - 300));
 	const croppedImage = await image.clone().crop(x, y, 300, 300).getBufferAsync(Jimp.MIME_PNG);
