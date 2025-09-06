@@ -9,23 +9,18 @@ function sleep(seconds) {
 
 async function playDeityImage(CommandInteraction) {
 
-	const BASE_DIR = './resources/smite/gods';
-	const roles = fs.readdirSync(BASE_DIR, { withFileTypes: true })
+	const roles = fs.readdirSync('./resources/smite/gods', { withFileTypes: true })
 		.filter(dirent => dirent.isDirectory())
 		.map(dirent => dirent.name);
 
-	const selectedDirectories = [];
+	var godsChoicePool = [];
 	for (const role of roles) {
-		const rolePath = path.join(BASE_DIR, role);
+		const rolePath = `./resources/smite/gods/${role}`;
 
 		// Récupère tous les dieux de ce rôle
 		const gods = fs.readdirSync(rolePath, { withFileTypes: true })
 			.filter(dirent => dirent.isDirectory())
 			.map(dirent => dirent.name);
-		if (gods.length < 5) {
-			console.warn(`⚠️ Pas assez de dieux dans ${role} (${gods.length} trouvé)`);
-			continue;
-		}
 		// Choisir 5 dieux aléatoires dans ce rôle
 		const chosen = [];
 		while (chosen.length < 5) {
@@ -37,13 +32,14 @@ async function playDeityImage(CommandInteraction) {
 
 		// Ajouter au pool global
 		for (const god of chosen) {
-			selectedDirectories.push(path.join(role, god));
+			godsChoicePool.push(path.join(role, god));
 			// garde info rôle/god pour retrouver facilement le chemin complet
 		}
 	}
 
 	// Choisir un dieu réponse parmi les 25
-	const godAnswer = selectedDirectories[Math.floor(Math.random() * selectedDirectories.length)];
+	godAnswer = godsChoicePool[Math.floor(Math.random() * godsChoicePool.length)];
+	console.log("godanswer ", godAnswer);
 
 	// puis, choisir un fichier aléatoire ./resources/smite/gods/${godAnswer}/${randomFile}
 	const files = fs.readdirSync(`./resources/smite/gods/${godAnswer}/`, { withFileTypes: true })
