@@ -32,7 +32,7 @@ async function playDeityImage(CommandInteraction) {
 
 		// Ajouter au pool global
 		for (const god of chosen) {
-			godsChoicePool.push(path.join(role, god));
+			godsChoicePool.push(god);
 			// garde info rôle/god pour retrouver facilement le chemin complet
 		}
 	}
