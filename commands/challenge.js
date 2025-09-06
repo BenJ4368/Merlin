@@ -9,24 +9,48 @@ function sleep(seconds) {
 
 async function playDeityImage(CommandInteraction) {
 
-	const roleDirs = fs.readdirSync('./resources/smite/gods/', { withFileTypes: true })
+	const roles = fs.readdirSync(BASE_DIR, { withFileTypes: true })
 		.filter(dirent => dirent.isDirectory())
 		.map(dirent => dirent.name);
 
-	const randomRole = roleDirs[Math.floor(Math.random() * roleDirs.length)];
-	const godsInRole = fs.readdirSync(`./resources/smite/gods/${randomRole}/`, { withFileTypes: true })
-		.filter(dirent => dirent.isDirectory())
-		.map(dirent => dirent.name);
+	const selectedDirectories = [];
+	for (const role of roles) {
+		const rolePath = path.join(BASE_DIR, role);
 
-	const godAnswer = godsInRole[Math.floor(Math.random() * godsInRole.length)];
+		// Récupère tous les dieux de ce rôle
+		const gods = fs.readdirSync(rolePath, { withFileTypes: true })
+			.filter(dirent => dirent.isDirectory())
+			.map(dirent => dirent.name);
+		if (gods.length < 5) {
+			console.warn(`⚠️ Pas assez de dieux dans ${role} (${gods.length} trouvé)`);
+			continue;
+		}
+		// Choisir 5 dieux aléatoires dans ce rôle
+		const chosen = [];
+		while (chosen.length < 5) {
+			const randomGod = gods[Math.floor(Math.random() * gods.length)];
+			if (!chosen.includes(randomGod)) {
+				chosen.push(randomGod);
+			}
+		}
+
+		// Ajouter au pool global
+		for (const god of chosen) {
+			selectedDirectories.push(path.join(role, god));
+			// garde info rôle/god pour retrouver facilement le chemin complet
+		}
+	}
+
+	// Choisir un dieu réponse parmi les 25
+	const godAnswer = selectedDirectories[Math.floor(Math.random() * selectedDirectories.length)];
 
 	// puis, choisir un fichier aléatoire ./resources/smite/gods/${godAnswer}/${randomFile}
-	const files = fs.readdirSync(`./resources/smite/gods/${randomRole}/${godAnswer}/`, { withFileTypes: true })
+	const files = fs.readdirSync(`./resources/smite/gods/${godAnswer}/`, { withFileTypes: true })
 		.filter(dirent => dirent.isFile())
 		.map(dirent => dirent.name);
 	const randomFile = files[Math.floor(Math.random() * files.length)];
 
-	const image = await Jimp.read(`./resources/smite/gods/${randomRole}/${godAnswer}/${randomFile}`);
+	const image = await Jimp.read(`./resources/smite/gods/${godAnswer}/${randomFile}`);
 	const x = Math.floor(Math.random() * (image.getWidth() - 300));
 	const y = Math.floor(Math.random() * (image.getHeight() - 300));
 	const croppedImage = await image.clone().crop(x, y, 300, 300).getBufferAsync(Jimp.MIME_PNG);
