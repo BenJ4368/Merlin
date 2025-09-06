@@ -30,24 +30,22 @@ async function playDeityImage(CommandInteraction) {
 			}
 		}
 
-		// Ajouter au pool global
+		// Ajouter au answer pool
 		for (const god of chosen) {
-			godsChoicePool.push(god);
-			// garde info rôle/god pour retrouver facilement le chemin complet
+			godsChoicePool.push(`${rolePath}/${god}`);
 		}
 	}
 
 	// Choisir un dieu réponse parmi les 25
-	godAnswer = godsChoicePool[Math.floor(Math.random() * godsChoicePool.length)];
-	console.log("godanswer ", godAnswer);
+	godAnswerPath = godsChoicePool[Math.floor(Math.random() * godsChoicePool.length)];
 
-	// puis, choisir un fichier aléatoire ./resources/smite/gods/${godAnswer}/${randomFile}
-	const files = fs.readdirSync(`./resources/smite/gods/${godAnswer}/`, { withFileTypes: true })
+	// puis, choisir un skin aléatoire
+	const skins = fs.readdirSync(`${godAnswerPath}`, { withFileTypes: true })
 		.filter(dirent => dirent.isFile())
 		.map(dirent => dirent.name);
-	const randomFile = files[Math.floor(Math.random() * files.length)];
+	const randomSkin = skins[Math.floor(Math.random() * skins.length)];
 
-	const image = await Jimp.read(`./resources/smite/gods/${godAnswer}/${randomFile}`);
+	const image = await Jimp.read(`${godAnswerPath}/${randomSkin}`);
 	const x = Math.floor(Math.random() * (image.getWidth() - 300));
 	const y = Math.floor(Math.random() * (image.getHeight() - 300));
 	const croppedImage = await image.clone().crop(x, y, 300, 300).getBufferAsync(Jimp.MIME_PNG);
