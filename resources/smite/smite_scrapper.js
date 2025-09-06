@@ -42,9 +42,20 @@ async function main() {
 	const page = await browser.newPage();
 
 	for (const godName of gods) {
-		const godDir = path.join(OUTPUT_DIR, sanitizeFilename(godName));
+
+		const role = await page.evaluate(() => {
+		const firstMeta = document.querySelector('.profile__meta .meta__single span');
+		return firstMeta ? firstMeta.innerText.trim() : "Unknown";
+		});
+
+		const roleDir = path.join(OUTPUT_DIR, sanitizeFilename(role));
+		if (!fs.existsSync(roleDir)) {
+		fs.mkdirSync(roleDir, { recursive: true });
+		}
+
+		const godDir = path.join(roleDir, sanitizeFilename(godName));
 		if (!fs.existsSync(godDir)) {
-			fs.mkdirSync(godDir, { recursive: true });
+		fs.mkdirSync(godDir, { recursive: true });
 		}
 
 		const url = BASE_URL + godName;
