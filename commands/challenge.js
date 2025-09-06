@@ -9,6 +9,7 @@ function sleep(seconds) {
 
 async function playDeityImage(CommandInteraction) {
 
+	const BASE_DIR = './resources/smite/gods';
 	const roles = fs.readdirSync(BASE_DIR, { withFileTypes: true })
 		.filter(dirent => dirent.isDirectory())
 		.map(dirent => dirent.name);
