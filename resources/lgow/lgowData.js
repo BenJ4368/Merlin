@@ -14,15 +14,15 @@ function stealRole(role) {
 	}
 }
 
-class Imposteur {
+class BaseRole {
 	constructor() {
-		this.name = 'Imposteur';
-		this.description = 'Faites perdre la partie sans éveiller les soupçons de votre équipe.';
-		this.color = '#ff0000';
+		this.name = 'BaseRole';
+		this.description = 'Description de base';
+		this.color = '#000000';
 	}
 
 	getName() { return this.name; }
-	getDesc() { return this.description; }
+	getDescription() { return this.description; }
 	getColor() { return this.color; }
 	getEmbed() {
 		const embed = new EmbedBuilder()
@@ -32,59 +32,41 @@ class Imposteur {
 		return embed;
 	}
 	async getImage() {
-		const image = await Jimp.read(`./resources/lgow/images/Imposteur.png`);
+		const image = await Jimp.read(`./resources/lgow/images/${this.name}.png`);
 		return await image.getBufferAsync(Jimp.MIME_PNG);
 	}
 }
 
-class Prouveur {
+class Imposteur extends BaseRole {
 	constructor() {
+		super();
+		this.name = 'Imposteur';
+		this.description = 'Faites perdre la partie sans éveiller les soupçons de votre équipe.';
+		this.color = '#ff0000';
+	}
+}
+
+class Prouveur extends BaseRole {
+	constructor() {
+		super();
 		this.name = 'Prouveur';
 		this.description = '**Objectif:** Soyez l\'action de la partie\n  **ou**\nAyez plus d\'éliminations que chacun de vos coequipier.';
 		this.color = '#0066ff';
 	}
-
-	getName() { return this.name }
-	getDesc() { return this.description }
-	getColor() { return this.color }
-	getEmbed() {
-		const embed = new EmbedBuilder()
-			.setTitle(this.name)
-			.setDescription(this.description)
-			.setColor(this.color);
-		return embed;
-	}
-	async getImage() {
-		const image = await Jimp.read(`./resources/lgow/images/Prouveur.png`);
-		return await image.getBufferAsync(Jimp.MIME_PNG);
-	}
 }
 
-class Aveugle {
+class Aveugle extends BaseRole{
 	constructor() {
+		super();
 		this.name = 'Aveugle';
 		this.description = 'Jouez sans aucune interface durant toute la partie.\nalt+z ou alt+w pour masquer l\'interface';
 		this.color = '#ffffff';
 	}
-
-	getName() { return this.name }
-	getDesc() { return this.description }
-	getColor() { return this.color }
-	getEmbed() {
-		const embed = new EmbedBuilder()
-			.setTitle(this.name)
-			.setDescription(this.description)
-			.setColor(this.color);
-		return embed;
-	}
-	async getImage() {
-		const image = await Jimp.read(`./resources/lgow/images/Aveugle.png`);
-		return await image.getBufferAsync(Jimp.MIME_PNG);
-	}
 }
 
-class Servante {
+class Servante extends BaseRole {
 	constructor() {
+		super();
 		this.name = 'Servante dévouée';
 		this.description = '**Objectif:** Ayez le même nombre de morts que votre maître.\n';
 		this.color = '#ff00ff';
@@ -93,27 +75,18 @@ class Servante {
 
 	setMaster(player) { this.master = player }
 	getMaster() { return this.master }
-	getName() { return this.name }
-	getDesc() { return this.description }
-	getColor() { return this.color }
 	getEmbed() {
-		const embed = new EmbedBuilder()
-			.setTitle(this.name)
-			.setDescription(this.description)
-			.setColor(this.color)
-			.addFields(
-				{ name: 'Votre maître pour cette partie est :', value: `${this.master.username}`, inline: true }
-			)
+		const embed = super.getEmbed();
+		embed.addFields(
+			{ name: 'Votre maître pour cette partie est :', value: `${this.master.username}`, inline: true }
+		);
 		return embed;
-	}
-	async getImage() {
-		const image = await Jimp.read(`./resources/lgow/images/Servante.png`);
-		return await image.getBufferAsync(Jimp.MIME_PNG);
 	}
 }
 
-class Voleur {
+class Voleur extends BaseRole {
 	constructor() {
+		super();
 		this.name = 'Voleur';
 		this.description = 'Volez le role d\'un joueur de votre choix.\nVous ne pourrez pas déclancher de vote contre ce rôle.';
 		this.color = '#000066';
@@ -121,51 +94,27 @@ class Voleur {
 	}
 
 	setTarget(player) { this.target = player }
-	getName() { return this.name }
-	getDesc() { return this.description }
-	getColor() { return this.color }
 	getEmbed() {
-		const embed = new EmbedBuilder()
-			.setTitle(this.name)
-			.setDescription(this.description)
-			.setColor(this.color)
-			.addFields(
+		const embed = super.getEmbed();
+		embed.addFields(
 				{ name: 'Choisissez votre cible :', value: " " }
 			);
 		return embed;
 	}
-	async getImage() {
-		const image = await Jimp.read(`./resources/lgow/images/Voleur.png`);
-		return await image.getBufferAsync(Jimp.MIME_PNG);
-	}
-
 }
 
-class Bouffon {
+class Bouffon extends BaseRole {
 	constructor() {
+		super();
 		this.name = 'Bouffon';
 		this.description = 'Trompez votre équipe pour qu\'elle vous vote Imposteur.';
 		this.color = '#29a329';
 	}
-
-	getName() { return this.name }
-	getDesc() { return this.description }
-	getColor() { return this.color }
-	getEmbed() {
-		const embed = new EmbedBuilder()
-			.setTitle(this.name)
-			.setDescription(this.description)
-			.setColor(this.color)
-		return embed;
-	}
-	async getImage() {
-		const image = await Jimp.read(`./resources/lgow/images/Bouffon.png`);
-		return await image.getBufferAsync(Jimp.MIME_PNG);
-	}
 }
 
-class Erudit {
+class Erudit extends BaseRole {
 	constructor() {
+		super();
 		this.name = 'Erudit';
 		this.description = '**Objectif:** Placez, à haute voix, les 3 mots aléatoire qui vous sont donnés.';
 		this.color = '#00ccff';
@@ -175,7 +124,8 @@ class Erudit {
 	async setRandomWords() {
 		const response = await fetch('https://trouve-mot.fr/api/random/3');
 		if (!response.ok) {
-			this.words = "Erreur, Récuperation, Mots"
+			this.words = "vraiment, Super, Genial"
+			console.error('Erreur lors de la récupération des mots.');
 			return;
 		}
 
@@ -184,50 +134,27 @@ class Erudit {
 		this.words = randomWords;
 	}
 	getWords() { return this.words }
-	getName() { return this.name }
-	getDesc() { return this.description }
-	getColor() { return this.color }
 	getEmbed() {
-		const embed = new EmbedBuilder()
-			.setTitle(this.name)
-			.setDescription(this.description)
-			.setColor(this.color)
-			.addFields([
+		const embed = super.getEmbed();
+			embed.addFields([
 				{ name: "Vos mots sont:", value: this.words, inline: true }
 			]);
 		return embed;
 	}
-	async getImage() {
-		const image = await Jimp.read(`./resources/lgow/images/Erudit.png`);
-		return await image.getBufferAsync(Jimp.MIME_PNG);
-	}
 }
 
-class Peureux {
+class Peureux extends BaseRole {
 	constructor() {
-		this.name = 'Chevalier Peureux';
+		super();
+		this.name = 'Peureux';
 		this.description = '**Objectif:** Ayez moins de morts que chacun de vos coequipier à la fin de la partie.';
 		this.color = '#b38600';
 	}
-
-	getName() { return this.name }
-	getDesc() { return this.description }
-	getColor() { return this.color }
-	getEmbed() {
-		const embed = new EmbedBuilder()
-			.setTitle(this.name)
-			.setDescription(this.description)
-			.setColor(this.color)
-		return embed;
-	}
-	async getImage() {
-		const image = await Jimp.read(`./resources/lgow/images/Peureux.png`);
-		return await image.getBufferAsync(Jimp.MIME_PNG);
-	}
 }
 
-class Agent {
+class Agent extends BaseRole {
 	constructor() {
+		super();
 		this.name = this.setName();
 		this.description = '**Objectif:** Jouez uniquement des héros qui appartiennent au camp attribué.';
 		this.color = '#999999';
@@ -239,14 +166,8 @@ class Agent {
 		return names[index];
 	}
 	getName() { return this.name }
-	getDesc() { return this.description }
-	getColor() { return this.color }
 	getEmbed() {
-		const embed = new EmbedBuilder()
-			.setTitle(this.name)
-			.setDescription(this.description)
-			.setColor(this.color);
-
+		const embed = super.getEmbed();
 		if (this.name == 'Agent d\'Overwatch')
 			embed.addFields(
 				{ name: "Tank:", value: "D.VA\nReinhardt\nWinston\nZarya", inline: true },
@@ -294,76 +215,37 @@ class Agent {
 
 }
 
-class Star {
+class Star extends BaseRole {
 	constructor() {
+		super();
 		this.name = 'Star';
 		this.description = '**Objectif:** Soyez l\'Action de la partie.';
 		this.color = '#ffff00';
 	}
-
-	getName() { return this.name }
-	getDesc() { return this.description }
-	getColor() { return this.color }
-	getEmbed() {
-		const embed = new EmbedBuilder()
-			.setTitle(this.name)
-			.setDescription(this.description)
-			.setColor(this.color)
-		return embed;
-	}
-	async getImage() {
-		const image = await Jimp.read(`./resources/lgow/images/Star.png`);
-		return await image.getBufferAsync(Jimp.MIME_PNG);
-	}
-
 }
 
-class Sniper {
+class Sniper extends BaseRole {
 	constructor() {
+		super();
 		this.name = 'Sniper';
 		this.description = 'Votre vote contre l\'Imposteur vous rapporte 3x plus de points.';
 		this.color = '#b300b3';
 	}
-
-	getName() { return this.name }
-	getDesc() { return this.description }
-	getColor() { return this.color }
-	getEmbed() {
-		const embed = new EmbedBuilder()
-			.setTitle(this.name)
-			.setDescription(this.description)
-			.setColor(this.color)
-		return embed;
-	}
-	async getImage() {
-		const image = await Jimp.read(`./resources/lgow/images/Sniper.png`);
-		return await image.getBufferAsync(Jimp.MIME_PNG);
-	}
 }
 
-class Archer {
+class Archer extends BaseRole {
 	constructor() {
+		super();
 		this.name = 'Archer';
 		this.description = 'Ciblez un joueur et son rôle vous sera révéler.\nVous ne pourrez pas déclancher de vote contre ce rôle.';
 		this.color = '#ff6600';
 	}
-
-	getName() { return this.name }
-	getDesc() { return this.description }
-	getColor() { return this.color }
 	getEmbed() {
-		const embed = new EmbedBuilder()
-			.setTitle(this.name)
-			.setDescription(this.description)
-			.setColor(this.color)
-			.addFields(
+		const embed = super.getEmbed();
+		embed.addFields(
 				{ name: "Cibler un joueur :", value: " " }
 			)
 		return embed;
-	}
-	async getImage() {
-		const image = await Jimp.read(`./resources/lgow/images/Archer.png`);
-		return await image.getBufferAsync(Jimp.MIME_PNG);
 	}
 }
 
