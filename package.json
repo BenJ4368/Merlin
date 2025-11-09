@@ -9,6 +9,7 @@
 		"@discordjs/builders": "^1.10.1",
 		"@discordjs/voice": "^0.18.0",
 		"axios": "^1.8.4",
+		"better-sqlite3": "^12.4.1",
 		"cheerio": "^1.1.2",
 		"discord.js": "^14.18.0",
 		"googleapis": "^144.0.0",
