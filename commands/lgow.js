@@ -2,197 +2,228 @@ const Discord = require('discord.js');
 const clr = require("../resources/color_codes");
 const lgowClasses = require("../resources/lgow/lgowClasses")
 
-async function archerFunction(player, role, gameInstance) {
-	// Sending the role embed and image
-	await player.send({
-		embeds: [role.getEmbed()],
-		files: [{
-			attachment: await role.getImage()
-		}],
-	});
-	// Create buttons for each other Player
-	const targetList = gameInstance.players.filter(p => p !== player);
+async function createButtonMenu(player, options, onSelect) {
 	const actionRow = new Discord.ActionRowBuilder();
-	for (let i = 0; i < targetList.length; i++) {
-		const button = new Discord.ButtonBuilder()
-			.setCustomId(i.toString())
-			.setLabel(targetList[i].displayName)
-			.setStyle(Discord.ButtonStyle.Secondary);
-		actionRow.addComponents(button);
-	}
-	// Add buttons to message
-	const buttonMessage = await player.send({
-		content: "_ _",
-		components: [actionRow]
-	})
-	// Collect answer
+	options.forEach((option, i) => {
+		actionRow.addComponents(
+			new Discord.ButtonBuilder()
+				.setCustomId(i.toString())
+				.setLabel(option.label)
+				.setStyle(Discord.ButtonStyle.Secondary)
+		);
+	});
+	const buttonMessage = await player.send({ content: "_ _", components: [actionRow] });
 	const collector = buttonMessage.createMessageComponentCollector({
 		componentType: Discord.ComponentType.Button,
-		time: 30000 // 30s
+		time: 120000  // 2 minutes
 	});
 	let clicked = false;
 	collector.on('collect', async buttonPressed => {
 		clicked = true;
-		role.setTarget(
-			targetList[buttonPressed.customId],
-			gameInstance.getPlayerRoles(targetList[buttonPressed.customId])[0]
-		);
-		const embed = new Discord.EmbedBuilder()
-			.setTitle(`Vous avez cibler ${role.getTarget().username}`)
-			.setDescription(`Son role est:	${role.getTargetRole().getName()}`)
-			.setColor(role.getTargetRole().getColor());
-		if (!buttonMessage.deleted) {
-			await buttonMessage.edit({
-				content: "_ _",
-				embeds: [embed],
-				components: [],
-			});
-		}
+		await onSelect(buttonPressed.customId, buttonMessage);
 	});
 	collector.on('end', async () => {
-		if (clicked == false && !buttonMessage.deleted) {
+		if (!clicked) {
 			await buttonMessage.edit({
-				content: "\nVous n'avez pas selectionnez de cible a temps. La partie ne peux pas continuer.",
+				content: "\nVous n'avez pas sélectionné à temps. La partie ne peut pas continuer.",
 				components: []
 			});
 		}
 	});
+	return buttonMessage;
 }
 
-async function voleurFunction(player, role, gameInstance) {
+async function archerFunction(player, archer, gameInstance) {
 	// Sending the role embed and image
 	await player.send({
-		embeds: [role.getEmbed()],
+		embeds: [archer.getEmbed()],
 		files: [{
-			attachment: await role.getImage()
+			attachment: await archer.getImage()
 		}],
 	});
 	// Create buttons for each other Player
 	const targetList = gameInstance.players.filter(p => p !== player);
-	const actionRow = new Discord.ActionRowBuilder();
-	for (let i = 0; i < targetList.length; i++) {
-		const button = new Discord.ButtonBuilder()
-			.setCustomId(i.toString())
-			.setLabel(targetList[i].displayName)
-			.setStyle(Discord.ButtonStyle.Secondary);
-		actionRow.addComponents(button);
-	}
-	// Add buttons to message
-	const buttonMessage = await player.send({
-		content: "_ _",
-		components: [actionRow]
-	})
-	// collect answer
-	const collector = buttonMessage.createMessageComponentCollector({
-		componentType: Discord.ComponentType.Button,
-		time: 30000 // 30s
-	});
-	let clicked = false;
-	collector.on('collect', async buttonPressed => {
-		clicked = true;
-		role.setTarget(
-			targetList[buttonPressed.customId],
-			gameInstance.getPlayerRoles(targetList[buttonPressed.customId])[0]
-		);
-		let newRole = lgowClasses.stealRole(role.getTargetRole());
-		const embed = new Discord.EmbedBuilder()
-			.setTitle(`Vous avez cibler ${role.getTarget().username}`)
-			.setDescription(`Vous lui volez donc son role de: ${newRole.getName()}`)
-			.setColor(Discord.Colors.White);
-		if (!buttonMessage.deleted) {
-			await buttonMessage.edit({
-				content: "_ _",
-				embeds: [embed],
-				components: [],
-			});
-		}
-		if (newRole.getName() == 'Archer')
-			archerFunction(player, newRole, gameInstance);
-		if (newRole.getName() == "Erudit")
-			await newRole.initEruditWords();
-		if (newRole.getName() == 'Parieur')
-			parieurFunction(player, newRole);
-		else {
-			if (newRole.getName() == 'Servante') {
-				const masterList = gameInstance.players.filter(p => p !== player);
-				const masterIndex = Math.floor(Math.random() * masterList.length);
-				newRole.setMaster(masterList[masterIndex]);
+	await createButtonMenu(
+		player,
+		targetList.map(p => ({ label: p.displayName })),
+		async (customId, buttonMessage) => {
+			archer.setTarget(targetList[customId], gameInstance.getPlayerRoles(targetList[customId])[0]);
+			const embed = new Discord.EmbedBuilder()
+				.setTitle(`Vous avez ciblé ${archer.getTarget().username}`)
+				.setDescription(`Son rôle est: ${archer.getTargetRole().getName()}`)
+				.setColor(archer.getTargetRole().getColor());
+			if (!buttonMessage.deleted) {
+				await buttonMessage.edit({ content: "_ _", embeds: [embed], components: [] });
 			}
+		}
+	);
+}
 
-			// Sending the role to the player
-			await player.send({
-				embeds: [newRole.getEmbed()],
-				files: [{
-					attachment: await newRole.getImage()
-				}],
-			});
-		}
+async function voleurFunction(player, voleur, gameInstance) {
+	// Sending the role embed and image
+	await player.send({
+		embeds: [voleur.getEmbed()],
+		files: [{
+			attachment: await voleur.getImage()
+		}],
 	});
-	collector.on('end', async () => {
-		if (clicked == false && !buttonMessage.deleted) {
-			await buttonMessage.edit({
-				content: "\nVous n'avez pas selectionnez de cible a temps. La partie ne peux pas continuer.",
-				components: []
-			});
+	// Create buttons for each other Player
+	const targetList = gameInstance.players.filter(p => p !== player);
+	await createButtonMenu(
+		player,
+		targetList.map(p => ({ label: p.displayName })),
+		async (customId, buttonMessage) => {
+			voleur.setTarget(targetList[customId], gameInstance.getPlayerRoles(targetList[customId])[0]);
+			const interactiveRolesMap = {
+				'Archer': () => new lgowClasses.Archer(),
+				'Servante': () => new lgowClasses.Servante(),
+				'Erudit': () => new lgowClasses.Erudit(),
+				'Parieur': () => new lgowClasses.Parieur(),
+				'Mercenaire': () => new lgowClasses.Mercenaire(),
+				'Cupidon': () => new lgowClasses.Cupidon(),
+				'ChasseurDePrime': () => new lgowClasses.ChasseurDePrime(),
+			};
+			const newRole = interactiveRolesMap[voleur.getTargetRole().getName()]?.() ?? voleur.getTargetRole();
+			const embed = new Discord.EmbedBuilder()
+				.setTitle(`Vous avez ciblé ${voleur.getTarget().username}`)
+				.setDescription(`Vous lui volez donc son rôle de: ${newRole.getName()}`)
+				.setColor(Discord.Colors.White);
+			if (!buttonMessage.deleted) {
+				await buttonMessage.edit({ content: "_ _", embeds: [embed], components: [] });
+			}
+			if (newRole.getName() === 'Archer')
+				await archerFunction(player, newRole, gameInstance);
+			else if (newRole.getName() === 'Erudit')
+				await newRole.initEruditWords();
+			else if (newRole.getName() === 'Parieur')
+				await parieurFunction(player, newRole);
+			else if (newRole.getName() === 'Mercenaire')
+				await mercenaireFunction(player, newRole);
+			else if (newRole.getName() === 'Cupidon')
+				await cupidonFunction(player, newRole, gameInstance);
+			else {
+				if (newRole.getName() === 'Servante') {
+					const masterList = gameInstance.players.filter(p => p !== player);
+					newRole.setMaster(masterList[Math.floor(Math.random() * masterList.length)]);
+				}
+				await player.send({
+					embeds: [newRole.getEmbed()],
+					files: [{ attachment: await newRole.getImage() }],
+				});
+			}
 		}
-	});
+	);
 
 }
 
-async function parieurFunction(player, role) {
+async function parieurFunction(player, parieur) {
 	await player.send({
-		embeds: [role.getEmbed()],
+		embeds: [parieur.getEmbed()],
 		files: [{
-			attachment: await role.getImage()
+			attachment: await parieur.getImage()
 		}],
 	});
 	// Create buttons for each bet option
-	const betList = role.getBets();
-	const actionRow = new Discord.ActionRowBuilder();
-	for (let i = 0; i < betList.length; i++) {
-		const button = new Discord.ButtonBuilder()
-			.setCustomId(i.toString())
-			.setLabel(betList[i])
-			.setStyle(Discord.ButtonStyle.Secondary);
-		actionRow.addComponents(button);
-	}
-	// Add buttons to message
-	const buttonMessage = await player.send({
-		content: "_ _",
-		components: [actionRow]
-	})
-	// collect answer
-	const collector = buttonMessage.createMessageComponentCollector({
-		componentType: Discord.ComponentType.Button,
-		time: 30000 // 30s
-	});
-	let clicked = false;
-	collector.on('collect', async buttonPressed => {
-		clicked = true;
-		role.setBet(betList[buttonPressed.customId]);
-		const embed = new Discord.EmbedBuilder()
-			.setTitle(`Vous avez Parier: ${role.getBet()}`)
-			.setDescription(`Tenez votre pari jusqu'a la fin de la partie pour gagner des points!`)
-			.setColor(role.getColor());
-		if (!buttonMessage.deleted) {
-			await buttonMessage.edit({
-				content: "_ _",
-				embeds: [embed],
-				components: [],
-			});
+	const betList = parieur.getBets();
+	await createButtonMenu(
+		player,
+		betList.map(bet => ({ label: bet })),
+		async (customId, buttonMessage) => {
+			parieur.setBet(betList[customId]);
+			const embed = new Discord.EmbedBuilder()
+				.setTitle(`Vous avez Parié: ${parieur.getBet()}`)
+				.setDescription(`Tenez votre pari jusqu'à la fin de la partie pour gagner des points!`)
+				.setColor(parieur.getColor());
+			if (!buttonMessage.deleted) {
+				await buttonMessage.edit({ content: "_ _", embeds: [embed], components: [] });
+			}
 		}
-	});
-	collector.on('end', async () => {
-		if (clicked == false && !buttonMessage.deleted) {
-			await buttonMessage.edit({
-				content: "\nVous n'avez pas parié à temps. La partie ne peux pas continuer.",
-				components: []
-			});
-		}
-	});
+	);
 }
 
-module.exports = { 
+async function mercenaireFunction(player, mercenaire) {
+	await player.send({
+		embeds: [mercenaire.getEmbed()],
+		files: [{
+			attachment: await mercenaire.getImage()
+		}],
+	});
+	// sending the "I completed my task" button
+	createButtonMenu(
+		player,
+		[{ label: "Mission accomplie." }],
+		async (customId, buttonMessage) => {
+			mercenaire.setMissionAccomplished(true);
+			const embed = new Discord.EmbedBuilder()
+				.setTitle(`Vous avez confirmé l'accomplissement de votre mission.`)
+				.setColor(mercenaire.getColor());
+			// upon completing the mission, player is prompted to choose between Bot or Imposteur
+			const roleOptions = [new lgowClasses.Bot(), new lgowClasses.Imposteur()];
+			await createButtonMenu(
+				player,
+				roleOptions.map(role => ({ label: role.getName() })),
+				async (customId, buttonMessage) => {
+					const selectedRole = roleOptions[customId];
+					mercenaire.setChosenRole(selectedRole);
+					const embed = new Discord.EmbedBuilder()
+						.setTitle(`Vous avez choisi le rôle de ${selectedRole.getName()}.`)
+						.setColor(selectedRole.getColor());
+					if (!buttonMessage.deleted) {
+						await buttonMessage.edit({ content: "_ _", embeds: [embed], components: [] });
+					}
+				}
+			);
+		}
+	);
+}
+
+async function cupidonFunction(player, cupidon, gameInstance) {
+	await player.send({
+		embeds: [cupidon.getEmbed()],
+		files: [{ attachment: await cupidon.getImage() }],
+	});
+	// Create buttons for each lover option
+	const loverList = gameInstance.players.filter(p => p !== player);
+	await createButtonMenu(
+		player,
+		loverList.map(lover => ({ label: lover })),
+		async (customId, buttonMessage) => {
+			// player selects first lover
+			cupidon.setLovers(loverList[customId]);
+			// edit message to remove selected lover from options
+			const remainingLovers = loverList.filter((_, index) => index.toString() !== customId);
+			await createButtonMenu(
+				player,
+				remainingLovers.map(lover => ({ label: lover })),
+				async (customId, buttonMessage) => {
+					cupidon.setLovers(remainingLovers[customId]);
+					// edit message to remove selected lover from options
+					const finalLovers = remainingLovers.filter((_, index) => index.toString() !== customId);
+					await buttonMessage.edit({ content: "_ _", embeds: [embed], components: [] });
+					// confirm lovers selection
+					const embed = new Discord.EmbedBuilder()
+						.setTitle(`Vous avez choisi vos amoureux: ${cupidon.getLovers().join(' et ')}`)
+						.setColor(cupidon.getColor());
+					// send notice to lovers
+					for (const lover of cupidon.getLovers()) {
+						await lover.send({
+							embeds: [new Discord.EmbedBuilder()
+								.setTitle("Vous avez été choisi comme amoureux!")
+								.setDescription(`Votre objectif est d'avoir le même nombre de morts que votre partenaire pour gagner des points.`)
+								.addFields({ name: "Votre partenaire est:", value: `${cupidon.getLovers().find(l => l !== lover).username}` })
+								.setColor(Discord.Colors.Pink)],
+						});
+					}
+					if (!buttonMessage.deleted) {
+						await buttonMessage.edit({ content: "_ _", embeds: [embed], components: [] });
+					}
+				}
+			);
+		}
+	);
+}
+
+module.exports = {
 	data: new Discord.SlashCommandBuilder()
 		.setName('lgow')
 		.setDescription('Lance une partie de Loup-Garouverwatch. 5 Joueurs requis.')
@@ -218,29 +249,31 @@ module.exports = {
 				.setRequired(true)),
 
 	async execute(interaction) {
-			console.log(`${clr.cya}[cmd]	${clr.blu}/lgow ${clr.whi}was fired by ${clr.blu}${interaction.user.username}${clr.stop}`);
-			await interaction.reply({ content: 'Attribution des roles...' });
+		console.log(`${clr.cya}[cmd]	${clr.blu}/lgow ${clr.whi}was fired by ${clr.blu}${interaction.user.username}${clr.stop}`);
+		await interaction.reply({ content: 'Attribution des roles...' });
 
 		try {
 			// New gameInstance
 			let gameInstance = new lgowClasses.GameInstance(
-					   [interaction.options.getUser('joueur1'),
-						interaction.options.getUser('joueur2'),
-						interaction.options.getUser('joueur3'),
-						interaction.options.getUser('joueur4'),
-						interaction.options.getUser('joueur5')]);
+				[interaction.options.getUser('joueur1'),
+				interaction.options.getUser('joueur2'),
+				interaction.options.getUser('joueur3'),
+				interaction.options.getUser('joueur4'),
+				interaction.options.getUser('joueur5')]);
 
 			// Shuffle players, for randomness
 			gameInstance.players = gameInstance.players.sort(() => Math.random() - 0.5);
-			// Shuffle gameInstance.rolesPool, and select 4
+			// Select 4 roles randomly from the rolesPool
 			let chosenRoles = [];
 			for (let i = 0; i < 4; i++) {
-				const randomIndex = Math.floor(Math.random() * gameInstance.rolesPool.length);
-				const randomRole = new gameInstance.rolesPool[randomIndex]();
+				const randomRole = new (gameInstance.rolesPool
+					.splice(
+						Math.floor(Math.random() * gameInstance.rolesPool.length)
+						, 1)[0])();
 				if (randomRole.getName() == "Erudit")
 					await randomRole.initEruditWords();
 				chosenRoles.push(randomRole);
-				gameInstance.rolesPool.splice(randomIndex, 1);
+
 			}
 			// add the Imposteur role at a random index.
 			let randomIndex = Math.floor(Math.random() * chosenRoles.length);
@@ -253,29 +286,31 @@ module.exports = {
 			}
 
 			// Iterate over every player
-			for (const [player, role] of gameInstance.roles.entries()) {
-				if (role.getName() == 'Archer')
-					archerFunction(player, role, gameInstance);
-				else if (role.getName() == 'Voleur')
-					voleurFunction(player, role, gameInstance);
-				else if (role.getName() == 'Parieur')
-					parieurFunction(player, role);
-				else { // other roles that does not need interaction
-					// Assign a random master to the Servante (Excluding the Servante herslef)
-					if (role.getName() == 'Servante') {
-						const masterList = gameInstance.players.filter(p => p !== gameInstance.player);
-						const masterIndex = Math.floor(Math.random() * masterList.length);
-						role.setMaster(masterList[masterIndex]);
+			for (const [player, roles] of gameInstance.roles.entries()) {
+				for (const role of (Array.isArray(roles) ? roles : [roles])) {
+					if (role.getName() === 'Archer')
+						await archerFunction(player, role, gameInstance);
+					else if (role.getName() === 'Voleur')
+						await voleurFunction(player, role, gameInstance);
+					else if (role.getName() === 'Parieur')
+						await parieurFunction(player, role);
+					else if (role.getName() === 'Mercenaire')
+						await mercenaireFunction(player, role);
+					else if (role.getName() === 'Cupidon')
+						await cupidonFunction(player, role, gameInstance);
+					else {
+						if (role.getName() === 'Servante') {
+							const masterList = gameInstance.players.filter(p => p !== player);
+							const masterIndex = Math.floor(Math.random() * masterList.length);
+							role.setMaster(masterList[masterIndex]);
+						}
+						await player.send({
+							embeds: [role.getEmbed()],
+							files: [{ attachment: await role.getImage() }],
+						});
 					}
-					// Sending the role to the player
-					await player.send({
-						embeds: [role.getEmbed()],
-						files: [{
-							attachment: await role.getImage()
-						}],
-					});
 				}
-			};
+			}
 
 			await interaction.editReply({ content: 'Tout les rôles ont été attribués.\nLa Partie peu commencer.' });
 		} catch (error) {
