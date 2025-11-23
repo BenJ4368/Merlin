@@ -53,6 +53,7 @@ class BaseRole {
 		this.name = 'BaseRole';
 		this.description = 'Description de base';
 		this.color = '#000000';
+		this.image_path = `./resources/lgow/images/${this.name}.png`;
 		this.points_win = +5;
 		this.points_lose = -5;
 		this.points_objective_success = 0;
@@ -69,6 +70,7 @@ class BaseRole {
 	getName() { return this.name; }
 	getDescription() { return this.description; }
 	getColor() { return this.color; }
+	getImagePath() { return this.image_path; }
 
 	getEmbed() {
 		const embed = new EmbedBuilder()
@@ -156,18 +158,12 @@ class BaseRole {
 					inline: true
 				},
 			)
-			.setImage(`./resources/lgow/images/${this.name}.png`)
+			.setImage(this.getImagePath())
 			.setColor(this.color)
 			.setFooter({
 				text: "Merlin feras le calcul des points en toute fin de jeu.",
 			});
 		return embed;
-	}
-	async getImage() {
-		const image = await Jimp.read(`./resources/lgow/images/${this.name}.png`);
-		if (!image)
-			throw new Error(`Image du role ${this.name} introuvable.`);
-		return await image.getBufferAsync(Jimp.MIME_PNG);
 	}
 }
 
@@ -189,7 +185,7 @@ class Bot extends BaseRole {
 	constructor() {
 		super();
 		this.name = 'Bot';
-		this.description = 'Gagnez simplement la partie pour gagnez des points.';
+		this.description = 'Gagnez simplement la partie.';
 		this.color = '#777777';
 		this.points_win = +15;
 	}
@@ -199,7 +195,7 @@ class Prouveur extends BaseRole {
 	constructor() {
 		super();
 		this.name = 'Prouveur';
-		this.description = '**Objectif:** Soyez l\'action de la partie\n  **ou**\nAyez plus d\'éliminations que chacun de vos coequipier.';
+		this.description = 'Ayez plus d\'éliminations que chacun de vos coéquipier.';
 		this.color = '#0400ff';
 		this.points_objective_success = +15;
 		this.points_objective_fail = -5;
@@ -221,7 +217,7 @@ class Servante extends BaseRole {
 	constructor() {
 		super();
 		this.name = 'Servante';
-		this.description = '**Objectif:** Ayez le même nombre de morts que votre maître.\n';
+		this.description = 'Ayez le même nombre de morts que votre maître.\n';
 		this.color = '#68107e';
 		this.master = null;
 		this.points_objective_success = +10;
@@ -232,9 +228,14 @@ class Servante extends BaseRole {
 	getMaster() { return this.master }
 	getEmbed() {
 		const embed = super.getEmbed();
-		embed.addFields(
-			{ name: 'Votre maître pour cette partie est :', value: `${this.master.username}`, inline: true }
-		);
+		const fields = embed.data.fields;
+
+		fields.splice(1, 0, {
+			name: `Votre maître est :`,
+			value: `**${this.master.username}**_ _`,
+			inline: false
+		});
+		embed.setFields(fields);
 		return embed;
 	}
 }
@@ -243,7 +244,7 @@ class Voleur extends BaseRole {
 	constructor() {
 		super();
 		this.name = 'Voleur';
-		this.description = 'Volez le role d\'un joueur de votre choix.\nVous ne pourrez pas déclancher de vote contre ce rôle.';
+		this.description = 'Volez le rôle d\'un joueur de votre choix.\nVous ne pourrez pas déclancher de vote contre ce rôle.';
 		this.color = '#03520a';
 		this.target = null;
 		this.targetRole = null;
@@ -254,9 +255,12 @@ class Voleur extends BaseRole {
 	getTargetRole() { return this.targetRole; }
 	getEmbed() {
 		const embed = super.getEmbed();
-		embed.addFields(
-				{ name: 'Choisissez votre cible :', value: " " }
-			);
+		const fields = embed.data.fields;
+		fields.splice(1, 0, {
+			name: `Choisissez un joueur parmis les choix sous ce message._ _`,
+			inline: false
+		});
+		embed.setFields(fields);
 		return embed;
 	}
 }
@@ -278,7 +282,7 @@ class Erudit extends BaseRole {
 	constructor() {
 		super();
 		this.name = 'Erudit';
-		this.description = '**Objectif:** Placez, à haute voix, les 3 mots aléatoire qui vous sont donnés.';
+		this.description = 'Placez, à haute voix, les 3 mots aléatoire qui vous sont donnés.';
 		this.color = '#00ccff';
 		this.words = '';
 		this.points_objective_success = +10;
@@ -298,9 +302,14 @@ class Erudit extends BaseRole {
 	getWords() { return this.words }
 	getEmbed() {
 		const embed = super.getEmbed();
-			embed.addFields([
-				{ name: "Vos mots sont:", value: this.words, inline: true }
-			]);
+		const fields = embed.data.fields;
+
+		fields.splice(1, 0, {
+			name: `Placez les mots suivans:`,
+			value: `**${this.words}**_ _`,
+			inline: false
+		});
+		embed.setFields(fields);
 		return embed;
 	}
 }
@@ -309,7 +318,7 @@ class Peureux extends BaseRole {
 	constructor() {
 		super();
 		this.name = 'Peureux';
-		this.description = '**Objectif:** Ayez moins de morts que chacun de vos coequipiers à la fin de la partie.';
+		this.description = 'Ayez moins de morts que chacun de vos coequipiers à la fin de la partie.';
 		this.color = '#462200';
 		this.points_win = +5;
 		this.points_lose = -5;
@@ -325,7 +334,7 @@ class Agent extends BaseRole {
 	constructor() {
 		super();
 		this.name = this.setName();
-		this.description = '**Objectif:** Jouez uniquement des héros qui appartiennent au camp attribué.';
+		this.description = 'Ne jouez que des héros qui appartiennent au camp attribué.';
 		this.color = '#808080';
 		this.points_objective_fail = -5;
 	}
@@ -338,66 +347,58 @@ class Agent extends BaseRole {
 	getName() { return this.name }
 	getEmbed() {
 		const embed = super.getEmbed();
+		const fields = embed.data.fields;
+
+
 		if (this.name == 'Agent d\'Overwatch') {
 			this.points_objective_success = +10;
-			embed.addFields(
-				{ name: "Tank:", value: "D.VA\nReinhardt\nWinston\nZarya\nOrisa", inline: true },
-				{ name: "Dps:", value: "Bastion\nCassidy\nEcho\nGenji\nMei\nPharah\nSojourn\nSoldat76\nTorbjorn\nTracer", inline: true },
-				{ name: "Supp:", value: "Ana\nAnge\nBrigitte\nLucio\nBaptiste\nJuno\nWuyang", inline: true }
-			);}
+			fields.splice(1, 0, { name: "Tank:", value: "D.VA\nReinhardt\nWinston\nZarya\nOrisa", inline: true });
+			fields.splice(2, 0, { name: "Dps:", value: "Bastion\nCassidy\nEcho\nGenji\nMei\nPharah\nSojourn\nSoldat76\nTorbjorn\nTracer", inline: true });
+			fields.splice(3, 0, { name: "Supp:", value: "Ana\nAnge\nBrigitte\nLucio\nBaptiste\nJuno\nWuyang", inline: true });
+			embed.setFields(fields);
+		}
 		else if (this.name == "Agent de la Griffe") {
 			this.points_objective_success = +15;
-			embed.addFields(
-				{ name: "Tank:", value: "Doomfist\nMauga\nSigma", inline: true },
-				{ name: "Dps:", value: "Fatale\nFaucheur\nSombra", inline: true },
-				{ name: "Supp:", value: "Moira\nAnge", inline: true }
-			);}
+			fields.splice(1, 0, { name: "Tank:", value: "Doomfist\nMauga\nSigma", inline: true });
+			fields.splice(2, 0, { name: "Dps:", value: "Fatale\nFaucheur\nSombra", inline: true });
+			fields.splice(3, 0, { name: "Supp:", value: "Moira\nAnge", inline: true });
+			embed.setFields(fields);
+		}
 		else if (this.name == "Agent du Secteur Zero") {
 			this.points_objective_success = +15;
-			embed.addFields(
-				{ name: "Tank:", value: "Orisa\nRamattra", inline: true },
-				{ name: "Dps:", value: "Bastion\nEcho", inline: true },
-				{ name: "Supp:", value: "Zenyatta\nAna", inline: true }
-			);}
+			fields.splice(1, 0, { name: "Tank:", value: "Orisa\nRamattra", inline: true });
+			fields.splice(2, 0, { name: "Dps:", value: "Bastion\nEcho", inline: true });
+			fields.splice(3, 0, { name: "Supp:", value: "Zenyatta\nAna", inline: true });
+			embed.setFields(fields);
+		}
 		else if (this.name == "Agent Neutre") {
 			this.points_objective_success = +10;
-			embed.addFields(
-				{ name: "Tank:", value: "Bulldozer\nChopper\nReine des Junkers\nHazard", inline: true },
-				{ name: "Dps:", value: "Ashe\nChacal\nHanzo\nSymmetra\nVenture\nFreya", inline: true },
-				{ name: "Supp:", value: "Illari\nKiriko\nVital", inline: true }
-			);}
+			fields.splice(1, 0, { name: "Tank:", value: "Bulldozer\nChopper\nReine des Junkers\nHazard", inline: true });
+			fields.splice(2, 0, { name: "Dps:", value: "Ashe\nChacal\nHanzo\nSymmetra\nVenture\nFreya", inline: true });
+			fields.splice(3, 0, { name: "Supp:", value: "Illari\nKiriko\nVital", inline: true });
+			embed.setFields(fields);
+		}
 		return embed;
 	}
-	async getImage() {
-		if (this.name == 'Agent d\'Overwatch') {
-			const image = await Jimp.read(`./resources/lgow/images/AgentOverwatch.png`);
-			if (!image) throw new Error(`Image du role ${this.name} introuvable.`);
-			return await image.getBufferAsync(Jimp.MIME_PNG);
-		}
-		else if (this.name == "Agent de la Griffe") {
-			const image = await Jimp.read(`./resources/lgow/images/AgentGriffe.png`);
-			if (!image) throw new Error(`Image du role ${this.name} introuvable.`);
-			return await image.getBufferAsync(Jimp.MIME_PNG);
-		}
-		else if (this.name == "Agent du Secteur Zero") {
-			const image = await Jimp.read(`./resources/lgow/images/AgentSecteurZero.png`);
-			if (!image) throw new Error(`Image du role ${this.name} introuvable.`);
-			return await image.getBufferAsync(Jimp.MIME_PNG);
-		}
-		else if (this.name == "Agent Neutre") {
-			const image = await Jimp.read(`./resources/lgow/images/AgentNeutre.png`);
-			if (!image) throw new Error(`Image du role ${this.name} introuvable.`);
-			return await image.getBufferAsync(Jimp.MIME_PNG);
+	getImagePath() {
+		switch (this.name) {
+			case 'Agent d\'Overwatch':
+				return `./resources/lgow/images/AgentOverwatch.png`;
+			case 'Agent de la Griffe':
+				return `./resources/lgow/images/AgentGriffe.png`;
+			case 'Agent du Secteur Zero':
+				return `./resources/lgow/images/AgentSecteurZero.png`;
+			default:
+				return `./resources/lgow/images/AgentNeutre.png`;
 		}
 	}
-
 }
 
 class Star extends BaseRole {
 	constructor() {
 		super();
 		this.name = 'Star';
-		this.description = '**Objectif:** Soyez l\'Action de la partie.';
+		this.description = 'Soyez l\'Action de la partie.';
 		this.color = '#ffff00';
 		this.points_win = +10;
 		this.points_objective_success = +25;
@@ -409,7 +410,7 @@ class Sniper extends BaseRole {
 	constructor() {
 		super();
 		this.name = 'Sniper';
-		this.description = 'Votre vote contre l\'Imposteur vous rapporte 2,5x plus de points.';
+		this.description = 'Voter contre l\'Imposteur vous rapporte beaucoup plus de points.';
 		this.color = '#5f0000';
 		this.points_vote_impostor_correct = +25;
 		this.points_vote_impostor_incorrect = -5;
@@ -434,9 +435,12 @@ class Archer extends BaseRole {
 	getTargetRole() { return this.targetRole; }
 	getEmbed() {
 		const embed = super.getEmbed();
-		embed.addFields(
-				{ name: "Cibler un joueur :", value: " " }
-			)
+		const fields = embed.data.fields;
+		fields.splice(1, 0, {
+			name: `Choisissez un joueur parmis les choix sous ce message._ _`,
+			inline: false
+		});
+		embed.setFields(fields);
 		return embed;
 	}
 }
@@ -445,7 +449,7 @@ class Parieur extends BaseRole {
 	constructor() {
 		super();
 		this.name = 'Parieur';
-		this.description = 'Pariez sur le montant de vos kills.\nGagnez des points si votre pari est juste.';
+		this.description = 'Pariez sur vos éliminations.\nGagnez des points si votre pari est juste.';
 		this.color = '#dfa60b';
 		this.bet = null;
 		this.points_objective_success = +20;
@@ -454,6 +458,16 @@ class Parieur extends BaseRole {
 	setBet(bet) { this.bet = bet }
 	getBet() { return this.bet }
 	getBets() { return ['0-9 kills', '10-19 kills', '20-29 kills', '30+ kills']; }
+	getEmbed() {
+		const embed = super.getEmbed();
+		const fields = embed.data.fields;
+		fields.splice(1, 0, {
+			name: `Choisissez un paris parmis les choix sous ce message._ _`,
+			inline: false
+		});
+		embed.setFields(fields);
+		return embed;
+	}
 }
 
 class Muet extends BaseRole {
@@ -471,7 +485,7 @@ class Mercenaire extends BaseRole {
 	constructor() {
 		super();
 		this.name = 'Mercenaire';
-		this.description = 'Portez le coup final à chaque adversaire au moins une fois.\nUne fois l\'objectif atteint, changez de rôle pour Bot ou Imposteur.';
+		this.description = 'Portez le coup final à chaque adversaire au moins une fois.\nUne fois l\'objectif atteint, choisissez votre nouveau rôleentre Bot ou Imposteur.';
 		this.color = '#ff3300';
 		this.missionAccomplished = false;
 		this.chosenRole = null;
@@ -488,6 +502,16 @@ class Mercenaire extends BaseRole {
 	getMissionAccomplished() { return this.missionAccomplished; }
 	setChosenRole(role) { this.chosenRole = role; }
 	getChosenRole() { return this.chosenRole; }
+		getEmbed() {
+		const embed = super.getEmbed();
+		const fields = embed.data.fields;
+		fields.splice(1, 0, {
+			name: `Signalez l'accomplissement de votre mission en cliquant sur le bouton sous ce message._ _`,
+			inline: false
+		});
+		embed.setFields(fields);
+		return embed;
+	}
 
 }
 
@@ -495,7 +519,7 @@ class Cupidon extends BaseRole {
 	constructor() {
 		super();
 		this.name = 'Cupidon';
-		this.description = 'Choisissez deux personnes qui deviendront amoureuses.\nElles doivent avoir le même nombre de morts pour gagner des points. Sinon, vous gagnez la différence.';
+		this.description = 'Ciblez deux joueurs qui deviendront amoureux.\nLes amoureux gagnent des points en ayant le même nombre de morts.\nVous gagnez la différence de morts des amoureux, fois 5.';
 		this.color = '#ff52c5';
 		this.lovers = new Map();
 		this.points_objective_success = 5; // x le nombre de morts de differences des amoureux
@@ -509,13 +533,23 @@ class Cupidon extends BaseRole {
 			this.lovers.set(lover, this.lovers.get(lover) + points);
 		}
 	}
+	getEmbed() {
+		const embed = super.getEmbed();
+		const fields = embed.data.fields;
+		fields.splice(1, 0, {
+			name: `Selectionnez deux amoureux parmis les choix sous ce message._ _`,
+			inline: false
+		});
+		embed.setFields(fields);
+		return embed;
+	}
 }
 
 class ChasseurDePrime extends BaseRole {
 	constructor() {
 		super();
 		this.name = 'ChasseurDePrime';
-		this.description = 'Une cible vous est designée.\nFaites en sorte que votre cible ait le plus grand nombre de morts dans l\'équipe adverse pour gagner des points.';
+		this.description = 'Une cible vous est designée.\nFaites en sorte que votre cible ait le plus grand nombre de morts de l\'équipe adverse pour gagner des points.';
 		this.color = '#b84a0a';
 		this.target = null;
 		this.points_win = 0;
@@ -529,9 +563,13 @@ class ChasseurDePrime extends BaseRole {
 	getTarget() { return this.target; }
 	getEmbed() {
 		const embed = super.getEmbed();
-		embed.addFields(
-				{ name: "Votre cible est :", value: `${this.target}` }
-			)
+		const fields = embed.data.fields;
+
+		fields.splice(1, 0, {
+			name: `Votre cible est :`,
+			value: `**${this.target}**_ _`,
+		});
+		embed.setFields(fields);
 		return embed;
 	}
 }

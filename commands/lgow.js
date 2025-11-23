@@ -34,12 +34,9 @@ async function createButtonMenu(player, options, onSelect) {
 }
 
 async function archerFunction(player, archer, gameInstance) {
-	// Sending the role embed and image
+	// Sending the role embed
 	await player.send({
 		embeds: [archer.getEmbed()],
-		files: [{
-			attachment: await archer.getImage()
-		}],
 	});
 	// Create buttons for each other Player
 	const targetList = gameInstance.players.filter(p => p !== player);
@@ -60,12 +57,9 @@ async function archerFunction(player, archer, gameInstance) {
 }
 
 async function voleurFunction(player, voleur, gameInstance) {
-	// Sending the role embed and image
+	// Sending the role embed
 	await player.send({
 		embeds: [voleur.getEmbed()],
-		files: [{
-			attachment: await voleur.getImage()
-		}],
 	});
 	// Create buttons for each other Player
 	const targetList = gameInstance.players.filter(p => p !== player);
@@ -108,7 +102,6 @@ async function voleurFunction(player, voleur, gameInstance) {
 				}
 				await player.send({
 					embeds: [newRole.getEmbed()],
-					files: [{ attachment: await newRole.getImage() }],
 				});
 			}
 		}
@@ -119,9 +112,6 @@ async function voleurFunction(player, voleur, gameInstance) {
 async function parieurFunction(player, parieur) {
 	await player.send({
 		embeds: [parieur.getEmbed()],
-		files: [{
-			attachment: await parieur.getImage()
-		}],
 	});
 	// Create buttons for each bet option
 	const betList = parieur.getBets();
@@ -144,9 +134,6 @@ async function parieurFunction(player, parieur) {
 async function mercenaireFunction(player, mercenaire) {
 	await player.send({
 		embeds: [mercenaire.getEmbed()],
-		files: [{
-			attachment: await mercenaire.getImage()
-		}],
 	});
 	// sending the "I completed my task" button
 	createButtonMenu(
@@ -166,11 +153,12 @@ async function mercenaireFunction(player, mercenaire) {
 					const selectedRole = roleOptions[customId];
 					mercenaire.setChosenRole(selectedRole);
 					const embed = new Discord.EmbedBuilder()
-						.setTitle(`Vous avez choisi le rôle de ${selectedRole.getName()}.`)
+						.setTitle(`Vous avez choisi de devenir ${selectedRole.getName()}.`)
 						.setColor(selectedRole.getColor());
 					if (!buttonMessage.deleted) {
 						await buttonMessage.edit({ content: "_ _", embeds: [embed], components: [] });
 					}
+					
 				}
 			);
 		}
@@ -180,7 +168,6 @@ async function mercenaireFunction(player, mercenaire) {
 async function cupidonFunction(player, cupidon, gameInstance) {
 	await player.send({
 		embeds: [cupidon.getEmbed()],
-		files: [{ attachment: await cupidon.getImage() }],
 	});
 	// Create buttons for each lover option
 	const loverList = gameInstance.players.filter(p => p !== player);
@@ -207,10 +194,10 @@ async function cupidonFunction(player, cupidon, gameInstance) {
 					// send notice to lovers
 					for (const lover of cupidon.getLovers()) {
 						await lover.send({
-							embeds: [new Discord.EmbedBuilder()
-								.setTitle("Vous avez été choisi comme amoureux!")
-								.setDescription(`Votre objectif est d'avoir le même nombre de morts que votre partenaire pour gagner des points.`)
-								.addFields({ name: "Votre partenaire est:", value: `${cupidon.getLovers().find(l => l !== lover).username}` })
+								embeds: [new EmbedBuilder()
+								.setTitle("💘 Cupidon vous touché ! 💘")
+								.setDescription(`Ayez le meme nombre de morts que ${cupidon.getLovers().find(l => l !== lover).username}\n
+									a la fin de la partie pour gagnez 🔹+5 points.\n_ _Si vous echouez, Cupidon gagne 5 fois la différence.`)
 								.setColor(Discord.Colors.Pink)],
 						});
 					}
@@ -306,7 +293,6 @@ module.exports = {
 						}
 						await player.send({
 							embeds: [role.getEmbed()],
-							files: [{ attachment: await role.getImage() }],
 						});
 					}
 				}
